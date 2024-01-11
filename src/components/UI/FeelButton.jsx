@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, styled } from '@mui/material'
 
+export const FeelButton = (props) => <StyledButton {...props} />
+
 const StyledButton = styled(Button)(
    ({ theme, outline, width, size, padding }) => ({
       border: outline ? '1px solid #dd8a08' : 'none',
@@ -29,7 +31,3 @@ const StyledButton = styled(Button)(
       },
    })
 )
-
-const FeelButton = (props) => <StyledButton {...props} />
-
-export default FeelButton

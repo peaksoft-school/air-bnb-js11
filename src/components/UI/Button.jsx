@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button as MUIButton, styled } from '@mui/material'
 
+export const Button = (props) => <StyledButton {...props} />
+
 const StyledButton = styled(MUIButton)(
    ({ theme, outline, width, size, padding }) => ({
       border: outline ? '1px solid #dd8a08' : 'none',
@@ -34,7 +36,3 @@ const StyledButton = styled(MUIButton)(
       },
    })
 )
-
-const Button = (props) => <StyledButton {...props} />
-
-export default Button

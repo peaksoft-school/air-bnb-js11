@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, styled } from '@mui/material'
 
-const CancelButton = (props) => {
+export const CancelButton = (props) => {
    return (
       <CancelStyled variant="outlined" {...props}>
          cancel
@@ -25,5 +25,3 @@ const CancelStyled = styled(Button)`
       }
    }
 `
-
-export default CancelButton

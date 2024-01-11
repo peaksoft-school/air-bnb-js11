@@ -2,14 +2,10 @@ import React from 'react'
 import { Button, styled } from '@mui/material'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/google-photo.svg'
 
-const GoogleButton = (props) => {
+export const GoogleButton = (props) => {
    return (
       <GoogleStyledButton {...props}>
          <GoogleIcon />
-         {/* {props && googleIcon}
-         <Title size="18px" weight="bolds">
-            {props}
-         </Title> */}
       </GoogleStyledButton>
    )
 }
@@ -36,5 +32,3 @@ const GoogleStyledButton = styled(Button)`
       }
    }
 `
-
-export default GoogleButton
