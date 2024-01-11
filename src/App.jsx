@@ -1,12 +1,7 @@
-import ReusableInput from './components/UI/ReusableInput'
 import './App.css'
 
 const App = () => {
-   return (
-      <div>
-         <ReusableInput />
-      </div>
-   )
+   return <div>Air-bnb</div>
 }
 
 export default App
