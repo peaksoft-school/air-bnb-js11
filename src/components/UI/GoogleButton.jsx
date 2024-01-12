@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, styled } from '@mui/material'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/google-photo.svg'
 

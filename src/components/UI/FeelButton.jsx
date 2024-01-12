@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, styled } from '@mui/material'
 
 export const FeelButton = (props) => <StyledButton {...props} />
