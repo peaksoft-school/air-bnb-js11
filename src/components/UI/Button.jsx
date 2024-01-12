@@ -1,6 +1,6 @@
 import { Button as MUIButton, styled } from '@mui/material'
 
-export const Button = (props) => <StyledButton {...props} />
+const Button = (props) => <StyledButton {...props} />
 
 const StyledButton = styled(MUIButton)(({ theme }) => ({
    border: `1px solid ${theme.palette.secondary.main}`,
@@ -30,3 +30,5 @@ const StyledButton = styled(MUIButton)(({ theme }) => ({
       cursor: 'not-allowed',
    },
 }))
+
+export default Button
