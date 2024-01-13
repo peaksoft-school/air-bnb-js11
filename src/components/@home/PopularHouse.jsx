@@ -1,36 +1,21 @@
-import { Link, Stack, Typography } from '@mui/material'
+import { Grid, Stack } from '@mui/material'
 import React from 'react'
 import PopularHouseCard from './PopularHouseCard'
+import PoppularHouseHeadline from './PoppularHouseHeadline'
+
+const DUMMU_DATA = [{ id: 2 }, { id: 2 }, { id: 3 }]
 
 const PopularHouse = () => {
    return (
-      <Stack>
-         <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-         >
-            <Stack gap={1}>
-               <Typography variant="h5" fontWeight={500} color="#363636">
-                  Popular House
-               </Typography>
-               <Typography color="#363636">
-                  Helping you make the best decisions in buying, selling, &
-                  renting your last minute locations.
-               </Typography>
-            </Stack>
-            <Typography
-               component={Link}
-               href="#"
-               variant="overline"
-               color="#363636"
-            >
-               View all
-            </Typography>
-         </Stack>
-         <Stack>
-            <PopularHouseCard />
-         </Stack>
+      <Stack rowGap={3.75} py={10.625}>
+         <PoppularHouseHeadline />
+         <Grid container spacing={1.25}>
+            {DUMMU_DATA.map(({ id }) => (
+               <Grid key={id} item md={4} sm={12}>
+                  <PopularHouseCard />
+               </Grid>
+            ))}
+         </Grid>
       </Stack>
    )
 }
