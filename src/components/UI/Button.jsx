@@ -1,53 +1,59 @@
 import { Button as MuiButton, styled } from '@mui/material'
-import googleIcon from '../../assets/icons/google-photo.svg'
+import GoogleIcon from '../../assets/icons/googleIcon.svg'
 
-export function Button({
-   type,
+export default function Button({
+   submit,
    onClick,
    disabled,
    children,
-   hovercolor,
-   theme,
-   variant = 'button',
+   variant,
    ...rest
 }) {
    return (
-      <DemoButtonStyled
+      <ButtonStyled
          disabled={disabled}
-         type={type}
+         type={submit}
          onClick={onClick}
          variant={variant}
-         hovercolor={hovercolor}
-         props={rest}
+         rest={rest}
       >
-         {variant === 'GoogleButton' && <img src={googleIcon} alt="" />}
-         Button
+         {variant === 'GoogleButton' && (
+            <img src={GoogleIcon} alt="google-icon" />
+         )}
          {children}
-      </DemoButtonStyled>
+      </ButtonStyled>
    )
 }
 
-const DemoButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
+const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
+   const baseStyles = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '1rem',
+      fontSize: '1rem',
+      fontWeight: '500',
+   }
+
+   const commonStyles = {
+      borderRadius: '0.125rem',
+      '&:hover': {
+         backgroundColor: theme.palette.primary.main,
+      },
+   }
+
    if (variant === 'button') {
       return {
          '&.MuiButtonBase-root': {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px',
-            width: '186px',
-            height: '40px',
+            ...baseStyles,
+            width: '11.625rem',
+            height: '2.5rem',
             backgroundColor: theme.palette.secondary.main,
             color: theme.palette.primary.white,
-            borderRadius: '2px',
-            marginTop: '16px',
-            marginLeft: '16px',
-            padding: '10px 16px',
-            fontSize: '14px',
-            fontWeight: '500',
+            padding: '0.625rem 1rem',
             border: 'none',
-
             '&:hover': {
+               ...commonStyles,
                background: '#BB7200',
                color: theme.palette.primary.main,
             },
@@ -60,25 +66,17 @@ const DemoButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
          },
       }
    }
-   if (variant === 'longBtn') {
+
+   if (variant === 'outlined') {
       return {
          '&.MuiButtonBase-root': {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px',
-            width: '350px',
-            height: `${props.height}`,
+            width: '21.875rem',
             color: theme.palette.tertiary.middleGray,
-            borderRadius: '2px',
-            marginTop: '16px',
-            marginLeft: '16px',
-            padding: ' 8px 16px',
-            fontSize: '14px',
-            fontWeight: '500',
-            border: `1px solid ${theme.palette.tertiary.middleGray}`,
+            padding: '0.5rem 1rem',
+            border: `0.09375rem solid ${theme.palette.tertiary.middleGray}`,
             '&:hover': {
-               border: `1px solid ${theme.palette.primary.dark}`,
+               ...commonStyles,
+               border: `0.0625rem solid ${theme.palette.primary.dark}`,
                backgroundColor: theme.palette.primary.main,
             },
             '&:active': {
@@ -87,51 +85,37 @@ const DemoButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
          },
       }
    }
-   if (variant === 'googleButton') {
+
+   if (variant === 'GoogleButton') {
       return {
          '&.MuiButtonBase-root': {
-            display: ' inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '16px',
-            width: '445px',
+            display: 'inline-flex',
+            width: '27.8125rem',
             height: `${props.height}`,
             color: theme.palette.primary.dark,
-            borderRadius: '8px',
-            marginTop: '16px',
-            marginLeft: '16px',
-            padding: ' 10px 158px',
-            fontSize: '18px',
-            fontWeight: '500',
-            border: `1px solid ${theme.palette.tertiary.lightGray}`,
+            padding: '1.25rem 9.875rem',
+            border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
             '&:hover': {
-               border: `1px solid ${theme.palette.tertiary.main}`,
+               border: `0.0625rem solid ${theme.palette.tertiary.main}`,
                backgroundColor: theme.palette.primary.main,
             },
             '&:active': {
                backgroundColor: theme.palette.tertiary.middleGray,
-               border: `1px solid ${theme.palette.primary.dark}`,
+               border: `0.0625rem solid ${theme.palette.primary.dark}`,
             },
          },
       }
    }
+
    if (variant === 'cancel') {
       return {
          '&.MuiButtonBase-root': {
-            display: ' flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px',
-            width: '150px',
+            display: 'flex',
+            width: '9.375rem',
             height: `${props.height}`,
             color: theme.palette.tertiary.middleGray,
-            borderRadius: '2px',
-            marginTop: '16px',
-            marginLeft: '16px',
-            padding: ' 8px 16px',
-            fontSize: '14px',
-            fontWeight: '400',
-            border: `1px solid ${theme.palette.tertiary.lightGray}`,
+            padding: '0.5rem 1rem',
+            border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
             '&:hover': {
                backgroundColor: theme.palette.primary.main,
                color: theme.palette.primary.dark,
@@ -139,5 +123,6 @@ const DemoButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
          },
       }
    }
+
    return {}
 })
