@@ -1,5 +1,4 @@
 import { Grid, Stack } from '@mui/material'
-import React from 'react'
 import PopularHouseCard from './PopularHouseCard'
 import PoppularHouseHeadline from './PoppularHouseHeadline'
 

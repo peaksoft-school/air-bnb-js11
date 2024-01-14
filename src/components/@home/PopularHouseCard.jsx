@@ -6,7 +6,6 @@ import {
    Typography,
    styled,
 } from '@mui/material'
-import React from 'react'
 import { FullStarIcon, LocationIcon } from '../../assets'
 import ImgHouse from '../../assets/images/Rectangle 15 (3).jpg'
 

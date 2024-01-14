@@ -1,5 +1,4 @@
 import { Link, Stack, Typography, styled } from '@mui/material'
-import React from 'react'
 
 const PoppularHouseHeadline = () => {
    return (
