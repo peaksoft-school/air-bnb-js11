@@ -1,12 +1,7 @@
 import './App.css'
-import Header from './layout/Header'
 
 const App = () => {
-   return (
-      <div>
-         <Header />
-      </div>
-   )
+   return <div>Air-bnb</div>
 }
 
 export default App
