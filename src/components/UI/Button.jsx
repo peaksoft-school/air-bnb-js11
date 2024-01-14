@@ -26,7 +26,7 @@ const Button = ({
 
 export default Button
 
-const StyledButton = styled(MuiButton)(({ variant, props, theme }) => {
+const StyledButton = styled(MuiButton)(({ variant, theme }) => {
    const baseStyles = {
       display: 'flex',
       alignItems: 'center',
@@ -70,7 +70,6 @@ const StyledButton = styled(MuiButton)(({ variant, props, theme }) => {
          '&.MuiButtonBase-root': {
             display: 'inline-flex',
             width: '27.8125rem',
-            height: `${props.height}`,
             color: theme.palette.primary.dark,
             padding: '1.25rem 9.875rem',
             border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
