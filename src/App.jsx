@@ -1,12 +1,7 @@
 import './App.css'
-import Footer from './layout/footer'
 
 const App = () => {
-   return (
-      <div>
-         <Footer />
-      </div>
-   )
+   return <div>AirBnb</div>
 }
 
 export default App

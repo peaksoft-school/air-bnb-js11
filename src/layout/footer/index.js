@@ -1,5 +1,4 @@
 import { Box, Container, Stack, Typography, styled } from '@mui/material'
-import React from 'react'
 import {
    InstagramIcon,
    LogoIcon,
