@@ -1,31 +1,32 @@
 import { Button as MuiButton, styled } from '@mui/material'
 import { GoogleIcon } from '../../assets'
 
-export default function Button({
+const Button = ({
    type = 'submit',
    onClick,
    disabled,
    children,
    variant,
    ...rest
-}) {
-   return (
-      <ButtonStyled
-         disabled={disabled}
-         type={type}
-         onClick={onClick}
-         variant={variant}
-         rest={rest}
-      >
-         {variant === 'GoogleButton' && (
-            <img src={GoogleIcon} alt="google-icon" />
-         )}
-         {children}
-      </ButtonStyled>
-   )
-}
+}) => (
+   <StyledButton
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+      variant={variant}
+      {...rest}
+   >
+      {variant === 'google-button' && (
+         <img src={GoogleIcon} alt="google-icon" />
+      )}
 
-const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
+      {children}
+   </StyledButton>
+)
+
+export default Button
+
+const StyledButton = styled(MuiButton)(({ variant, props, theme }) => {
    const baseStyles = {
       display: 'flex',
       alignItems: 'center',
@@ -37,6 +38,7 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
 
    const commonStyles = {
       borderRadius: '0.125rem',
+
       '&:hover': {
          backgroundColor: theme.palette.primary.main,
       },
@@ -49,11 +51,13 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
             border: `0.09375rem solid ${theme.palette.tertiary.middleGray}`,
+
             '&:hover': {
                ...commonStyles,
                border: `0.0625rem solid ${theme.palette.primary.dark}`,
                backgroundColor: theme.palette.primary.main,
             },
+
             '&:active': {
                backgroundColor: theme.palette.secondary.main,
             },
@@ -61,7 +65,7 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
       }
    }
 
-   if (variant === 'Google-Button') {
+   if (variant === 'google-button') {
       return {
          '&.MuiButtonBase-root': {
             display: 'inline-flex',
@@ -70,10 +74,12 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
             color: theme.palette.primary.dark,
             padding: '1.25rem 9.875rem',
             border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
+
             '&:hover': {
                border: `0.0625rem solid ${theme.palette.tertiary.main}`,
                backgroundColor: theme.palette.primary.main,
             },
+
             '&:active': {
                backgroundColor: theme.palette.tertiary.middleGray,
                border: `0.0625rem solid ${theme.palette.primary.dark}`,
@@ -90,6 +96,7 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
             border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
+
             '&:hover': {
                backgroundColor: theme.palette.primary.main,
                color: theme.palette.primary.dark,
@@ -107,14 +114,17 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
          color: theme.palette.primary.white,
          padding: '0.625rem 1rem',
          border: 'none',
+
          '&:hover': {
             ...commonStyles,
             background: '#BB7200',
             color: theme.palette.primary.main,
          },
+
          '&:active': {
             background: theme.palette.secondary.lightBrown,
          },
+
          '&:disabled': {
             background: theme.palette.tertiary.lightGray,
          },
