@@ -1,8 +1,13 @@
+import { Container } from '@mui/material'
 import './App.css'
-import Button from './components/UI/Button'
+import PopularHouse from './components/@home/PopularHouse'
 
 const App = () => {
-   return <Button>Click</Button>
+   return (
+      <Container>
+         <PopularHouse />
+      </Container>
+   )
 }
 
 export default App

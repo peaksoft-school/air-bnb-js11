@@ -7,13 +7,12 @@ import {
    styled,
 } from '@mui/material'
 import { FullStarIcon, LocationIcon } from '../../assets'
-import ImgHouse from '../../assets/images/Rectangle 15 (3).jpg'
 
-const PopularHouseCard = () => {
+const PopularHouseCard = ({ img, title, address, price }) => {
    return (
       <Card elevation={0}>
          <CardMedia
-            image={ImgHouse}
+            image={img}
             sx={{
                width: '100%',
                backgroundSize: '100% 100%',
@@ -33,11 +32,11 @@ const PopularHouseCard = () => {
             </Box>
          </CardMedia>
          <CardContent>
-            <Typography>Asman guest house</Typography>
+            <Typography>{title}</Typography>
             <Typography>
-               <LocationIcon /> 723510 Osh Muzurbek Alimbekov 9/7
+               <LocationIcon /> {address}
             </Typography>
-            <Typography>$26 /day</Typography>
+            <Typography>${price} / day</Typography>
          </CardContent>
       </Card>
    )
