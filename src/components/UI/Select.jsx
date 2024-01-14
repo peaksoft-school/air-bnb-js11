@@ -6,16 +6,19 @@ import {
    Select as MuiSelect,
    styled,
 } from '@mui/material'
+import { DownArrowIcon } from '../../assets'
 
 const Select = forwardRef(
-   ({ label, onChange, defaultValue, isValueAsId, options, ...rest }, ref) => {
-      const [value, setValue] = useState(defaultValue || '')
+   ({ label, onChange, defaultId, isValueAsId, options, ...rest }, ref) => {
+      const findedOption = options.find((option) => option.id === +defaultId)
+      const defaultOption = isValueAsId ? findedOption.value : findedOption.id
+
+      const [option, setOption] = useState(defaultOption)
 
       const handleSelectChange = (e) => {
-         setValue(e.target.value)
-         if (onChange) {
-            onChange(e)
-         }
+         setOption(e.target.value)
+
+         if (onChange) onChange(e)
       }
 
       return (
@@ -23,10 +26,12 @@ const Select = forwardRef(
             <StyledInputLabel>
                <span>{label}</span>
             </StyledInputLabel>
-            <StyledMuiSelect
+
+            <StyledSelect
                onChange={handleSelectChange}
-               value={value}
+               value={option}
                ref={ref}
+               IconComponent={DownArrowIcon}
                {...rest}
             >
                {options?.map((option) => (
@@ -34,10 +39,10 @@ const Select = forwardRef(
                      key={option.id}
                      value={isValueAsId ? option.value : option.id}
                   >
-                     {option.name}
+                     {option.value}
                   </MenuItem>
                ))}
-            </StyledMuiSelect>
+            </StyledSelect>
          </StyledFormControl>
       )
    }
@@ -49,9 +54,11 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
    width: '18rem',
    height: '3.5625rem',
    justifyContent: 'space-between',
+
    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: '1px solid gray',
    },
+
    '&:hover': {
       backgroundColor: theme.palette.tertiary.lightestGray,
    },
@@ -65,18 +72,20 @@ const StyledInputLabel = styled(InputLabel)(() => ({
    transform: 'none',
    justifyContent: 'space-between',
    marginLeft: '0.75rem',
+
    '&.MuiInputLabel-shrink': {
       color: 'grey',
    },
 }))
 
-const StyledMuiSelect = styled(MuiSelect)(({ theme }) => ({
+const StyledSelect = styled(MuiSelect)(({ theme }) => ({
    textAlign: 'end',
    color: theme.palette.primary.dark,
    fontFamily: 'Inter',
    fontSize: '1rem',
-   fontWeight: 400,
-   // '& .MuiPopover-paper-MuiMenu-paper': {
-   //    boxShadow: 'none',
-   // },
+   fontWeight: '400',
+
+   '& .MuiSelect-icon > path': {
+      fill: theme.palette.tertiary.middleGray,
+   },
 }))
