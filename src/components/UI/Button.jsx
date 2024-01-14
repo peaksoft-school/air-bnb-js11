@@ -1,8 +1,8 @@
 import { Button as MuiButton, styled } from '@mui/material'
-import GoogleIcon from '../../assets/icons/googleIcon.svg'
+import { GoogleIcon } from '../../assets'
 
 export default function Button({
-   submit,
+   type = 'submit',
    onClick,
    disabled,
    children,
@@ -12,7 +12,7 @@ export default function Button({
    return (
       <ButtonStyled
          disabled={disabled}
-         type={submit}
+         type={type}
          onClick={onClick}
          variant={variant}
          rest={rest}
@@ -42,31 +42,6 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
       },
    }
 
-   if (variant === 'button') {
-      return {
-         '&.MuiButtonBase-root': {
-            ...baseStyles,
-            width: '11.625rem',
-            height: '2.5rem',
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.primary.white,
-            padding: '0.625rem 1rem',
-            border: 'none',
-            '&:hover': {
-               ...commonStyles,
-               background: '#BB7200',
-               color: theme.palette.primary.main,
-            },
-            '&:active': {
-               background: theme.palette.secondary.lightBrown,
-            },
-            '&:disabled': {
-               background: theme.palette.tertiary.lightGray,
-            },
-         },
-      }
-   }
-
    if (variant === 'outlined') {
       return {
          '&.MuiButtonBase-root': {
@@ -86,7 +61,7 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
       }
    }
 
-   if (variant === 'GoogleButton') {
+   if (variant === 'Google-Button') {
       return {
          '&.MuiButtonBase-root': {
             display: 'inline-flex',
@@ -123,5 +98,26 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
       }
    }
 
-   return {}
+   return {
+      '&.MuiButtonBase-root': {
+         ...baseStyles,
+         width: '11.625rem',
+         height: '2.5rem',
+         backgroundColor: theme.palette.secondary.main,
+         color: theme.palette.primary.white,
+         padding: '0.625rem 1rem',
+         border: 'none',
+         '&:hover': {
+            ...commonStyles,
+            background: '#BB7200',
+            color: theme.palette.primary.main,
+         },
+         '&:active': {
+            background: theme.palette.secondary.lightBrown,
+         },
+         '&:disabled': {
+            background: theme.palette.tertiary.lightGray,
+         },
+      },
+   }
 })
