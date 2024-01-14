@@ -28,6 +28,7 @@ export default Button
 
 const StyledButton = styled(MuiButton)(({ variant, theme }) => {
    const baseStyles = {
+      width: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -47,7 +48,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
    if (variant === 'outlined') {
       return {
          '&.MuiButtonBase-root': {
-            width: '21.875rem',
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
             border: `0.09375rem solid ${theme.palette.tertiary.middleGray}`,
@@ -69,7 +69,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
       return {
          '&.MuiButtonBase-root': {
             display: 'inline-flex',
-            width: '27.8125rem',
             color: theme.palette.primary.dark,
             padding: '1.25rem 9.875rem',
             border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
@@ -91,7 +90,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
       return {
          '&.MuiButtonBase-root': {
             display: 'flex',
-            width: '9.375rem',
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
             border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
@@ -107,7 +105,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
    return {
       '&.MuiButtonBase-root': {
          ...baseStyles,
-         width: '11.625rem',
          height: '2.5rem',
          backgroundColor: theme.palette.secondary.main,
          color: theme.palette.primary.white,
