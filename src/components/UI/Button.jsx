@@ -112,7 +112,6 @@ const ButtonStyled = styled(MuiButton)(({ variant, props, theme }) => {
          '&.MuiButtonBase-root': {
             display: 'flex',
             width: '9.375rem',
-            height: `${props.height}`,
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
             border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
