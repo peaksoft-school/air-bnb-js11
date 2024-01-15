@@ -2,29 +2,39 @@ import { Link, Stack, Typography, styled } from '@mui/material'
 
 const PoppularHouseHeadline = () => {
    return (
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-         <Stack gap={1}>
-            <StyleTypography variant="h5" fontWeight={500} color="#363636">
-               Popular House
-            </StyleTypography>
-            <Typography color="#363636">
+      <StylStackContainer>
+         <StyleStackTitle>
+            <StyleTypography>Popular House</StyleTypography>
+            <StyleTypographyTitle>
                Helping you make the best decisions in buying, selling, & renting
                your last minute locations.
-            </Typography>
-         </Stack>
-         <Typography
-            component={Link}
-            href="#"
-            variant="overline"
-            color="#363636"
-         >
+            </StyleTypographyTitle>
+         </StyleStackTitle>
+         <StyleLinkTypography component={Link} href="#">
             View all
-         </Typography>
-      </Stack>
+         </StyleLinkTypography>
+      </StylStackContainer>
    )
 }
 
 export default PoppularHouseHeadline
+
+const StylStackContainer = styled(Stack)(() => ({
+   flexDirection: 'row',
+   justifyContent: 'space-between',
+   alignItems: 'center',
+   padding: '0.5rem',
+}))
+
+const StyleStackTitle = styled(Typography)(() => ({
+   rowGap: '1rem',
+   display: 'flex',
+   flexDirection: 'column',
+}))
+
+const StyleTypographyTitle = styled(Typography)(() => ({
+   color: '#363636',
+}))
 
 const StyleTypography = styled(Typography)(() => ({
    fontFamily: 'Inter',
@@ -34,4 +44,11 @@ const StyleTypography = styled(Typography)(() => ({
    fontWeight: 500,
    lineHeight: 'normal',
    textTransform: 'uppercase',
+}))
+
+const StyleLinkTypography = styled(Typography)(() => ({
+   color: '#363636',
+   borderBottom: '1px solid black',
+   textDecoration: 'none',
+   cursor: 'pointer',
 }))

@@ -8,39 +8,27 @@ import {
 } from '@mui/material'
 import { FullStarIcon, LocationIcon } from '../../assets'
 
-const PopularHouseCard = ({ img, title, address, price }) => {
+const PopularHouseCard = ({ img, title, address, price, rating }) => {
    return (
-      <Card elevation={0}>
-         <CardMedia
-            image={img}
-            sx={{
-               width: '100%',
-               backgroundSize: '100% 100%',
-               aspectRatio: '900/1200',
-            }}
-         >
-            <Box
-               display="flex"
-               alignItems="center"
-               justifyContent="flex-end"
-               px={1.65}
-               py={3}
-            >
+      <StyleCard>
+         <StyleCardMedia image={img}>
+            <StyleBox>
                <StyleTypography>
-                  <FullStarIcon /> 3.4
+                  <FullStarIcon />
+                  {rating}
                </StyleTypography>
-            </Box>
-         </CardMedia>
+            </StyleBox>
+         </StyleCardMedia>
          <CardContent>
             <StyleTypographyTitle>{title}</StyleTypographyTitle>
             <StyleTypographyAddress>
                <LocationIcon /> {address}
             </StyleTypographyAddress>
             <StyleTypographyPrice>
-               ${price} /<span style={{ color: '#7e7e7e' }}> day</span>
+               ${price} /<StyleSpan> day</StyleSpan>
             </StyleTypographyPrice>
          </CardContent>
-      </Card>
+      </StyleCard>
    )
 }
 
@@ -59,6 +47,16 @@ const StyleTypography = styled(Typography)(() => ({
    color: 'white',
 }))
 
+const StyleBox = styled(Box)(() => ({
+   display: 'flex',
+   alignItems: 'center',
+   justifyContent: 'flex-end',
+   padding: '1.5rem 0.7rem',
+}))
+
+const StyleSpan = styled('span')(() => ({
+   color: '#7e7e7e',
+}))
 const StyleTypographyAddress = styled(Typography)(() => ({
    color: '#7e7e7e',
 }))
@@ -67,4 +65,14 @@ const StyleTypographyPrice = styled(Typography)(() => ({
 }))
 const StyleTypographyTitle = styled(Typography)(() => ({
    color: '#363636',
+}))
+const StyleCard = styled(Card)(() => ({
+   cursor: 'pointer',
+   boxShadow: 'none',
+}))
+const StyleCardMedia = styled(CardMedia)(() => ({
+   cursor: 'pointer',
+   width: '100%',
+   backgroundSize: '100% 100%',
+   aspectRatio: '900/1200',
 }))
