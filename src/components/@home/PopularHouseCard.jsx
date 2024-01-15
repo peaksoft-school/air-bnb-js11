@@ -32,11 +32,13 @@ const PopularHouseCard = ({ img, title, address, price }) => {
             </Box>
          </CardMedia>
          <CardContent>
-            <Typography>{title}</Typography>
-            <Typography>
+            <StyleTypographyTitle>{title}</StyleTypographyTitle>
+            <StyleTypographyAddress>
                <LocationIcon /> {address}
-            </Typography>
-            <Typography>${price} / day</Typography>
+            </StyleTypographyAddress>
+            <StyleTypographyPrice>
+               ${price} /<span style={{ color: '#7e7e7e' }}> day</span>
+            </StyleTypographyPrice>
          </CardContent>
       </Card>
    )
@@ -55,4 +57,14 @@ const StyleTypography = styled(Typography)(() => ({
    gap: '5px',
    padding: '0 8px',
    color: 'white',
+}))
+
+const StyleTypographyAddress = styled(Typography)(() => ({
+   color: '#7e7e7e',
+}))
+const StyleTypographyPrice = styled(Typography)(() => ({
+   color: '#363636',
+}))
+const StyleTypographyTitle = styled(Typography)(() => ({
+   color: '#363636',
 }))
