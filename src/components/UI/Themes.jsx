@@ -7,12 +7,14 @@ const theme = createTheme({
          dark: '#363636',
          white: '#F7F7F7',
       },
+
       secondary: {
          main: '#DD8A08',
          green: '#4F7755',
          blackGreen: '#1C2E20',
          lightBrown: '#FFBE58',
       },
+
       tertiary: {
          main: '#646464',
          lightGreen: '#97C69E',

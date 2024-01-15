@@ -2,14 +2,13 @@ import { styled } from '@mui/material'
 import { toast } from 'react-toastify'
 import { CloseIcon } from '../../assets'
 
-export const showToast = ({ title, message, type, duration = 3000 }) => {
+export const showToast = ({ title, message, type, duration = 300000 }) => {
    toast[type](
       <>
          <StyledHeading>{title}</StyledHeading>
          <StyledMessage>{message}</StyledMessage>
       </>,
       {
-         position: toast.POSITION.TOP_RIGHT,
          autoClose: duration,
          closeOnClick: true,
          closeButton: <StyledCloseIcon />,
@@ -31,11 +30,9 @@ export const showToast = ({ title, message, type, duration = 3000 }) => {
 
 const StyledHeading = styled('h1')(({ theme }) => ({
    color: theme.palette.primary.dark,
-   fontFamily: 'Inter',
    fontSize: '1rem',
    fontWeight: 500,
 }))
-
 const StyledCloseIcon = styled(CloseIcon)(() => ({
    width: '1.5rem',
    height: '1.5rem',
@@ -43,12 +40,12 @@ const StyledCloseIcon = styled(CloseIcon)(() => ({
    right: '0.75rem',
    top: '0.75rem',
 
-   '& > path': {
-      fill: '#828282',
+   '&:hover > path': {
+      fill: 'black',
    },
 
-   '& > path:hover': {
-      fill: 'black',
+   '& > path': {
+      fill: '#828282',
    },
 }))
 
@@ -57,7 +54,6 @@ const StyledMessage = styled('p')(({ theme }) => ({
    width: '100%',
    wordWrap: 'break-word',
    color: theme.palette.tertiary.main,
-   fontFamily: 'Inter',
    fontSize: '0.875rem',
    fontWeight: 400,
 }))
