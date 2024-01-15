@@ -52,8 +52,10 @@ export default Select
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
    width: '18rem',
-   height: '3.5625rem',
+   height: '100%',
+   display: 'flex',
    justifyContent: 'space-between',
+   borderRadius: '6px',
 
    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: '1px solid gray',
@@ -64,7 +66,7 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
    },
 }))
 
-const StyledInputLabel = styled(InputLabel)(() => ({
+const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
    width: '85%',
    height: '100%',
    alignItems: 'center',
@@ -74,18 +76,18 @@ const StyledInputLabel = styled(InputLabel)(() => ({
    marginLeft: '0.75rem',
 
    '&.MuiInputLabel-shrink': {
-      color: 'grey',
+      color: theme.palette.tertiary.middleGray,
    },
 }))
 
 const StyledSelect = styled(MuiSelect)(({ theme }) => ({
    textAlign: 'end',
    color: theme.palette.primary.dark,
-   fontFamily: 'Inter',
    fontSize: '1rem',
    fontWeight: '400',
 
    '& .MuiSelect-icon > path': {
-      fill: theme.palette.tertiary.middleGray,
+      fill: theme.palette.primary.dark,
+      stroke: theme.palette.primary.dark,
    },
 }))
