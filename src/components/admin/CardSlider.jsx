@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/no-unstable-nested-components */
-import React from 'react'
 import { CardMedia, Stack, styled } from '@mui/material'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -80,6 +76,7 @@ const StyleSamplePrevNext = styled(FiberManualRecordIcon)(() => ({
 const StyleArrawIconLeft = styled(Stack)(() => ({
    margin: '0.4rem',
 }))
+
 const StyleArrawIconRight = styled(Stack)(() => ({
    margin: '0.4rem',
 }))

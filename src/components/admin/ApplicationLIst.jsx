@@ -1,4 +1,3 @@
-import React from 'react'
 import { Grid, styled } from '@mui/material'
 import CardApplication from './CardApplication'
 import { DYMMY_DATA } from '../../utils/constants/admin-aplication'

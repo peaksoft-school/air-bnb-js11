@@ -1,5 +1,4 @@
 import { Card, CardContent, CardMedia, Typography, styled } from '@mui/material'
-import React from 'react'
 import { FullStarIcon, KebabMenuIcon, LocationIcon } from '../../assets'
 import CardSlider from './CardSlider'
 
@@ -65,6 +64,7 @@ const StyleTypographyPrice = styled('div')(() => ({
    justifyContent: 'space-between',
    margin: '0.5rem',
 }))
+
 const StyleSpan = styled('span')(() => ({
    color: '#7e7e7e',
 }))
@@ -102,6 +102,7 @@ const StyleTitle = styled(Typography)(() => ({
    textOverflow: 'ellipsis',
    fontFamily: 'Inter',
 }))
+
 const StyleLocation = styled(Typography)(() => ({
    fontSize: '14px',
    color: '#828282',
@@ -109,6 +110,7 @@ const StyleLocation = styled(Typography)(() => ({
    display: 'flex',
    gap: '0.5rem',
 }))
+
 const StyleAddress = styled(Typography)(() => ({
    fontSize: '14px',
    color: '#828282',
@@ -125,6 +127,7 @@ const StyleRating = styled(Typography)(() => ({
    gap: '0.3rem',
    fontFamily: 'Inter',
 }))
+
 const StyleGuests = styled(Typography)(() => ({
    fontFamily: 'Inter',
    fontSize: '14px',
