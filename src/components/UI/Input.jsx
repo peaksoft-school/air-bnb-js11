@@ -1,5 +1,5 @@
+import { forwardRef } from 'react'
 import { TextField, styled } from '@mui/material'
-import React, { forwardRef } from 'react'
 
 const Input = forwardRef(
    ({ type, label, placeholder, onChange, onClick, value, ...rest }, ref) => {
@@ -27,15 +27,18 @@ const StyledInput = styled(TextField)(() => ({
       borderRadius: '2px',
       height: '2.625px',
    },
+
    '& .MuiOutlinedInput-root': {
       '& fieldset': {
          borderColor: '#828282',
          borderRadius: '2px',
       },
+
       '&:hover fieldset': {
          border: '2px solid gray',
       },
    },
+
    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: '#828282',
    },

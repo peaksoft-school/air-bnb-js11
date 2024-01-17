@@ -1,7 +1,7 @@
 import './App.css'
 
 const App = () => {
-   return <div>Air-bnb</div>
+   return <div>AirBnB</div>
 }
 
 export default App
