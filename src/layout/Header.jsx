@@ -1,7 +1,7 @@
 import { Typography, styled, Button } from '@mui/material'
 import { LogoIcon, NotCheckOut } from '../assets'
 import headerBackground from '../assets/images/header.png.png'
-import ReusableInput from '../components/UI/input/ReusableInput'
+import ReusableInput from '../components/UI/Input'
 
 const Header = () => (
    <StyledContainer>
