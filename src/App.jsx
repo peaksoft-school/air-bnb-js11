@@ -1,8 +1,12 @@
 import './App.css'
-import Button from './components/UI/Button'
+import Hotel from './components/apartments/Hotel'
 
 const App = () => {
-   return <Button>Click</Button>
+   return (
+      <div>
+         <Hotel />
+      </div>
+   )
 }
 
 export default App
