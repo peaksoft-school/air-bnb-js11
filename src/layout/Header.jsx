@@ -1,5 +1,5 @@
-import { Typography, styled, Button } from '@mui/material'
-import { LogoIcon, NotCheckOut } from '../assets'
+import { Typography, styled, Button, Checkbox } from '@mui/material'
+import { LogoIcon } from '../assets'
 import headerBackground from '../assets/images/header.png.png'
 import ReusableInput from '../components/UI/Input'
 
@@ -12,43 +12,37 @@ const Header = () => (
             <StyledButton variant="button">Join us</StyledButton>
          </StyledRegister>
       </StyledHeader>
-
       <StyledContentWrapper>
          <h1>Find a place you&apos;ll love to stay at</h1>
          <ReusableInput />
          <StyledSearch>
-            <NotCheckOut />
+            <Checkbox />
             <Typography>Искать поблизости</Typography>
          </StyledSearch>
       </StyledContentWrapper>
    </StyledContainer>
 )
-
 export default Header
-
 const StyledHeader = styled('header')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    padding: '2.63rem 6.25rem',
 }))
-
 const StyledContainer = styled('div')(() => ({
    background: `url(${headerBackground}) center/cover no-repeat`,
    height: '100vh',
 }))
-
 const StyledRegister = styled('div')(() => ({
    display: 'flex',
    gap: '3.75rem',
    textAlign: 'center',
 }))
-
 const StyledText = styled(Typography)(({ theme }) => ({
    color: theme.palette.primary.main,
    textAlign: 'center',
    marginTop: '0.5rem',
+   cursor: 'pointer',
 }))
-
 const StyledButton = styled(Button)({
    color: '#F7F7F7',
    fontFamily: 'Inter',
@@ -61,19 +55,17 @@ const StyledButton = styled(Button)({
       background: '#BB7200',
    },
 })
-
 const StyledLogoIcon = styled(LogoIcon)({
    width: '5.5rem',
    height: '4.06rem',
    marginLeft: '2.625rem',
 })
-
 const StyledSearch = styled('div')({
+   alignItems: 'center',
    display: 'flex',
    marginLeft: '34rem',
-   marginTop: '-2.5rem',
+   marginTop: '-2.20rem',
 })
-
 const StyledContentWrapper = styled('div')({
    display: 'flex',
    flexDirection: 'column',
