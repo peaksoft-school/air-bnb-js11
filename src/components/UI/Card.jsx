@@ -1,5 +1,11 @@
-import { Card, CardContent, CardMedia, Typography, styled } from '@mui/material'
-import { FullStarIcon, KebabMenuIcon, LocationIcon } from '../../assets'
+import {
+   Card as MuiCard,
+   CardContent,
+   CardMedia,
+   Typography,
+   styled,
+} from '@mui/material'
+import { FullStarIcon, LocationIcon } from '../../assets'
 import CardSlider from './CardSlider'
 
 export const CARD_TYPE = {
@@ -7,7 +13,7 @@ export const CARD_TYPE = {
    viewed: 'viewed',
 }
 
-const CardApplication = ({ type, images = [], rating, price }) => {
+const Card = ({ type, images = [], rating, price, actionElement }) => {
    return (
       <StyleCard className={type}>
          {images.length > 1 ? (
@@ -36,14 +42,14 @@ const CardApplication = ({ type, images = [], rating, price }) => {
             </StyleLocation>
             <StyleKebabMenu>
                <StyleGuests>2 guests </StyleGuests>
-               <KebabMenuIcon />
+               {actionElement}
             </StyleKebabMenu>
          </CardContent>
       </StyleCard>
    )
 }
 
-export default CardApplication
+export default Card
 
 const StyleTypography = styled(Typography)(() => ({
    width: '62px',
@@ -67,9 +73,10 @@ const StyleTypographyPrice = styled('div')(() => ({
 
 const StyleSpan = styled('span')(() => ({
    color: '#7e7e7e',
+   fontFamily: 'Inter',
 }))
 
-const StyleCard = styled(Card)(() => ({
+const StyleCard = styled(MuiCard)(() => ({
    cursor: 'pointer',
    boxShadow: 'none',
    fontFamily: 'Inter',

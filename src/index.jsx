@@ -12,7 +12,6 @@ root.render(
    <StrictMode>
       <Themes>
          <Notification />
-
          <App />
       </Themes>
    </StrictMode>

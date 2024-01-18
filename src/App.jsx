@@ -1,7 +1,12 @@
 import './App.css'
+import Application from './containers/admin/Application'
 
 const App = () => {
-   return <div>AirBnB</div>
+   return (
+      <div>
+         <Application />
+      </div>
+   )
 }
 
 export default App

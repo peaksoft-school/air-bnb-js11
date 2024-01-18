@@ -17,6 +17,7 @@
 
    "rules": {
       "react/no-unstable-nested-components": "off",
+      "import/no-extraneous-dependencies": "off",
       "react/prop-types": "off",
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/jsx-props-no-spreading": "off",

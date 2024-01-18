@@ -1,6 +1,6 @@
 import { Grid, styled } from '@mui/material'
-import CardApplication from './CardApplication'
 import { DYMMY_DATA } from '../../utils/constants/admin-aplication'
+import ApplicationCardItem from './ApplicationCardItem'
 
 const ApplicationLIst = () => {
    return (
@@ -16,7 +16,7 @@ const ApplicationLIst = () => {
                item
                display="grid"
             >
-               <CardApplication {...el} />
+               <ApplicationCardItem el={el} />
             </Grid>
          ))}
       </StyleGrid>
