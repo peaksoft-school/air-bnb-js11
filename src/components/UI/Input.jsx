@@ -1,20 +1,18 @@
+import { forwardRef } from 'react'
 import { TextField, styled } from '@mui/material'
-import React, { forwardRef } from 'react'
 
 const Input = forwardRef(
-   ({ type, label, placeholder, onChange, onClick, value, ...rest }, ref) => {
-      return (
-         <StyledInput
-            type={type}
-            label={label}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder || 'Введите что-нибудь'}
-            ref={ref}
-            {...rest}
-         />
-      )
-   }
+   ({ type, label, placeholder, onChange, onClick, value, ...rest }, ref) => (
+      <StyledInput
+         type={type}
+         label={label}
+         value={value}
+         onChange={onChange}
+         placeholder={placeholder}
+         ref={ref}
+         {...rest}
+      />
+   )
 )
 
 const StyledInput = styled(TextField)(() => ({
@@ -27,15 +25,18 @@ const StyledInput = styled(TextField)(() => ({
       borderRadius: '2px',
       height: '2.625px',
    },
+
    '& .MuiOutlinedInput-root': {
       '& fieldset': {
          borderColor: '#828282',
          borderRadius: '2px',
       },
+
       '&:hover fieldset': {
          border: '2px solid gray',
       },
    },
+
    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: '#828282',
    },
