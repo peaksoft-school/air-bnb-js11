@@ -18,16 +18,19 @@ const Input = forwardRef(
 )
 
 const StyledInput = styled(TextField)(() => ({
-   width: '40%',
+   width: '725px',
    backgroundColor: '#fff',
    marginBottom: '0px',
+   borderRadius: '2px',
 
    '& .MuiOutlinedInput-input': {
       borderRadius: '2px',
+      height: '2.625px',
    },
    '& .MuiOutlinedInput-root': {
       '& fieldset': {
          borderColor: '#828282',
+         borderRadius: '2px',
       },
       '&:hover fieldset': {
          border: '2px solid gray',
