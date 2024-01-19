@@ -1,99 +1,106 @@
-import { ImageList, styled } from '@mui/material'
-import Chui from '../../../assets/images/chui.png'
-import Batken from '../../../assets/images/batken.png'
-import JalalAbad from '../../../assets/images/jalalAbad.png'
-import Naryn from '../../../assets/images/naryn.png'
-import IssykKul from '../../../assets/images/issyk-kul.png'
-import Talas from '../../../assets/images/talas.png'
-import Bishkek from '../../../assets/images/bishkek.png'
-import Osh from '../../../assets/images/osh.png'
+import { Box, ImageList, Typography, styled } from '@mui/material'
+import {
+   BatkenImage,
+   BishkekImage,
+   ChuiImage,
+   IssykKulImage,
+   JalalAbadImage,
+   NarynImage,
+   OshImage,
+   TalasImage,
+} from '../../../assets/image'
 
-const Regions = () => {
-   return (
-      <StyledCont>
-         <StyledConteiner>
-            <h3 className="heading">Regions in kyrgystan </h3>
-            <p className="text">
-               You can visit the site any day and be sure that you will find
-               everything for a great vacation.
-            </p>
-            <StyledImageList>
-               <div className="image-conteiner">
-                  <div className="conteiner">
-                     <img className="long-image" src={Chui} alt="Chui" />
-                     <p className="text-in-image">CHUI</p>
-                  </div>
-                  <div className="image-box">
-                     <div className="image-conteiner">
-                        <div className="conteiner">
-                           <img
-                              className="square-image"
-                              src={Batken}
-                              alt="Batken"
-                           />
-                           <p className="text-in-image">BATKEN</p>
-                        </div>
-                        <div className="conteiner">
-                           <img
-                              className="square-image"
-                              src={JalalAbad}
-                              alt="JalalAbad"
-                           />
-                           <p className="text-in-image">JALALABAD</p>
-                        </div>
-                     </div>
-                     <div className="conteiner">
-                        <img className="wide-image" src={Naryn} alt="Naryn" />
-                        <p className="text-in-image">NARYN</p>
-                     </div>
-                  </div>
-               </div>
-            </StyledImageList>
+const Regions = () => (
+   <StyledContent>
+      <StyledContainer>
+         <h3 className="heading">Regions in kyrgystan </h3>
+         <Typography className="description">
+            You can visit the site any day and be sure that you will find
+            everything for a great vacation.
+         </Typography>
 
-            <StyledImageList>
-               <div className="image-conteiner">
-                  <div className="image-box">
-                     <div className="image-conteiner">
-                        <div className="conteiner">
-                           <img
-                              className="square-image"
-                              src={IssykKul}
-                              alt="IssikKul"
-                           />
-                           <p className="text-in-image">ISSYK-KUL</p>
-                        </div>
-                        <div className="conteiner">
-                           <img
-                              className="square-image"
-                              src={Talas}
-                              alt="talas"
-                           />
-                           <p className="text-in-image">TALAS</p>
-                        </div>
-                     </div>
-                     <div className="conteiner">
+         <StyledImageList>
+            <Box className="image-conteiner">
+               <Box className="conteiner">
+                  <img className="long-image" src={ChuiImage} alt="Chui" />
+                  <Typography className="text-in-image">CHUI</Typography>
+               </Box>
+               <Box className="image-box">
+                  <Box className="image-conteiner">
+                     <Box className="conteiner">
                         <img
-                           className="wide-image"
-                           src={Bishkek}
-                           alt="Bishkek"
+                           className="square-image"
+                           src={BatkenImage}
+                           alt="Batken"
                         />
-                        <p className="text-in-image">BISHKEK</p>
-                     </div>
-                  </div>
-                  <div className="conteiner">
-                     <img className="long-image" src={Osh} alt="Osh" />
-                     <p className="text-in-image">OSH</p>
-                  </div>
-               </div>
-            </StyledImageList>
-         </StyledConteiner>
-      </StyledCont>
-   )
-}
+                        <Typography className="text-in-image">
+                           BATKEN
+                        </Typography>
+                     </Box>
+                     <Box className="conteiner">
+                        <img
+                           className="square-image"
+                           src={JalalAbadImage}
+                           alt="JalalAbad"
+                        />
+                        <Typography className="text-in-image">
+                           JALALABAD
+                        </Typography>
+                     </Box>
+                  </Box>
+                  <Box className="conteiner">
+                     <img className="wide-image" src={NarynImage} alt="Naryn" />
+                     <Typography className="text-in-image">NARYN</Typography>
+                  </Box>
+               </Box>
+            </Box>
+         </StyledImageList>
+
+         <StyledImageList>
+            <Box className="image-conteiner">
+               <Box className="image-box">
+                  <Box className="image-conteiner">
+                     <Box className="conteiner">
+                        <img
+                           className="square-image"
+                           src={IssykKulImage}
+                           alt="IssikKul"
+                        />
+                        <Typography className="text-in-image">
+                           ISSYK-KUL
+                        </Typography>
+                     </Box>
+                     <Box className="conteiner">
+                        <img
+                           className="square-image"
+                           src={TalasImage}
+                           alt="talas"
+                        />
+                        <Typography className="text-in-image">TALAS</Typography>
+                     </Box>
+                  </Box>
+                  <Box className="conteiner">
+                     <img
+                        className="wide-image"
+                        src={BishkekImage}
+                        alt="Bishkek"
+                     />
+                     <Typography className="text-in-image">BISHKEK</Typography>
+                  </Box>
+               </Box>
+               <Box className="conteiner">
+                  <img className="long-image" src={OshImage} alt="Osh" />
+                  <Typography className="text-in-image">OSH</Typography>
+               </Box>
+            </Box>
+         </StyledImageList>
+      </StyledContainer>
+   </StyledContent>
+)
 
 export default Regions
 
-const StyledCont = styled('div')(() => ({
+const StyledContent = styled('div')(() => ({
    width: '100%',
    display: 'flex',
    justifyContent: 'center',
@@ -148,7 +155,7 @@ const StyledImageList = styled(ImageList)(({ theme }) => ({
       marginBottom: '0.88rem',
    },
 
-   '& .text': {
+   '& .description': {
       color: theme.palette.primary.main,
       fontSize: '1rem',
       fontWeight: '400',
@@ -160,7 +167,7 @@ const StyledImageList = styled(ImageList)(({ theme }) => ({
    },
 }))
 
-const StyledConteiner = styled('div')(() => ({
+const StyledContainer = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    marginTop: '10.63rem',
