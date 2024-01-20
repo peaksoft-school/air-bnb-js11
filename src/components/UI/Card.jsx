@@ -4,8 +4,19 @@ import {
    CardMedia,
    Typography,
    styled,
+   IconButton,
+   Menu,
+   MenuItem,
+   Button,
 } from '@mui/material'
-import { FullStarIcon, LocationIcon } from '../../assets'
+import { useState } from 'react'
+import {
+   ActiveLikeIcon,
+   FullStarIcon,
+   KebabMenuIcon,
+   LocationIcon,
+   PassiveLikeIcon,
+} from '../../assets'
 import CardSlider from './CardSlider'
 
 export const CARD_TYPE = {
@@ -20,8 +31,20 @@ const Card = ({
    price,
    description,
    address,
-   actionElement,
+   variant = 'application',
+   isLike,
 }) => {
+   const [anchorEl, setAnchorEl] = useState(null)
+   const open = Boolean(anchorEl)
+
+   const handleClick = (event) => {
+      setAnchorEl(event.currentTarget)
+   }
+
+   const handleClose = () => {
+      setAnchorEl(null)
+   }
+
    return (
       <StyleCard className={type}>
          {images.length > 1 ? (
@@ -46,7 +69,56 @@ const Card = ({
             </StyleLocation>
             <StyleKebabMenu>
                <StyleGuests>2 guests </StyleGuests>
-               {actionElement}
+               {variant === 'booking' ? (
+                  <div>
+                     <StyledButton variant="contained" color="secondary">
+                        book
+                     </StyledButton>
+                     <StyledButton
+                        {...(!isLike
+                           ? {
+                                children: <PassiveLikeIcon />,
+                             }
+                           : {
+                                children: <ActiveLikeIcon />,
+                                variant: 'outlined',
+                             })}
+                     />
+                  </div>
+               ) : (
+                  <>
+                     <IconButton onClick={handleClick}>
+                        <KebabMenuIcon />
+                     </IconButton>
+                     <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                           'aria-labelledby': 'basic-button',
+                        }}
+                        anchorOrigin={{
+                           vertical: 'top',
+                           horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                           vertical: 'center',
+                           horizontal: 'right',
+                        }}
+                        sx={{ minWidth: '180px' }}
+                        PaperProps={{
+                           style: {
+                              minWidth: 180,
+                           },
+                        }}
+                     >
+                        <MenuItem onClick={handleClose}>Accept</MenuItem>
+                        <MenuItem onClick={handleClose}>Reject</MenuItem>
+                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                     </Menu>
+                  </>
+               )}
             </StyleKebabMenu>
          </CardContent>
       </StyleCard>
@@ -98,7 +170,6 @@ const StyleCardMedia = styled(CardMedia)(() => ({
 const StyleKebabMenu = styled(Typography)(() => ({
    display: 'flex',
    gap: '4.8rem',
-   justifyContent: 'space-between',
    margin: '0.5rem',
    color: '#939393',
    fontFsamily: 'Inter',
@@ -142,4 +213,11 @@ const StyleRating = styled(Typography)(() => ({
 const StyleGuests = styled(Typography)(() => ({
    fontFamily: 'Inter',
    fontSize: '14px',
+   flexGrow: 1,
+}))
+
+const StyledButton = styled(Button)(({ variant, theme }) => ({
+   ...(variant === 'outlined' && { borderColor: theme.palette.secondary.main }),
+   color: theme.palette.primary.main,
+   ...(variant === 'contained' && { minWidth: '103px', fontSize: 12 }),
 }))
