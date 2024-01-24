@@ -1,7 +1,12 @@
 import './App.css'
+import Cards from './components/UI/Cards'
 
 const App = () => {
-   return <div>AirBnB</div>
+   return (
+      <div>
+         <Cards />
+      </div>
+   )
 }
 
 export default App
