@@ -1,13 +1,7 @@
 import './App.css'
-import Regions from './components/landing/regions/Regions'
 
 const App = () => {
-   return (
-      <div>
-         AirBnB
-         <Regions />
-      </div>
-   )
+   return <div>AirBnB</div>
 }
 
 export default App
