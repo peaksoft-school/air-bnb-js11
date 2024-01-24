@@ -11,15 +11,15 @@ import {
 } from '../../../assets/image'
 
 const Regions = () => (
-   <StyledContent>
-      <StyledContainer>
+   <StyledContainer>
+      <div className="box">
          <h3 className="heading">Regions in kyrgystan </h3>
          <Typography className="description">
             You can visit the site any day and be sure that you will find
             everything for a great vacation.
          </Typography>
 
-         <StyledImageList>
+         <StyledImagesList>
             <Box className="image-conteiner">
                <Box className="conteiner">
                   <img className="long-image" src={ChuiImage} alt="Chui" />
@@ -54,9 +54,9 @@ const Regions = () => (
                   </Box>
                </Box>
             </Box>
-         </StyledImageList>
+         </StyledImagesList>
 
-         <StyledImageList>
+         <StyledImagesList>
             <Box className="image-conteiner">
                <Box className="image-box">
                   <Box className="image-conteiner">
@@ -93,20 +93,28 @@ const Regions = () => (
                   <Typography className="text-in-image">OSH</Typography>
                </Box>
             </Box>
-         </StyledImageList>
-      </StyledContainer>
-   </StyledContent>
+         </StyledImagesList>
+      </div>
+   </StyledContainer>
 )
 
 export default Regions
 
-const StyledContent = styled('div')(() => ({
+const StyledContainer = styled('div')(() => ({
    width: '100%',
    display: 'flex',
    justifyContent: 'center',
+
+   '& .box': {
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: '10.63rem',
+      gap: '1.25rem',
+      width: '1240px',
+   },
 }))
 
-const StyledImageList = styled(ImageList)(({ theme }) => ({
+const StyledImagesList = styled(ImageList)(({ theme }) => ({
    '& .long-image': {
       width: '31.5625rem',
       height: '38.8125rem',
@@ -165,12 +173,4 @@ const StyledImageList = styled(ImageList)(({ theme }) => ({
    '&.MuiImageList-root': {
       overflow: 'hidden',
    },
-}))
-
-const StyledContainer = styled('div')(() => ({
-   display: 'flex',
-   flexDirection: 'column',
-   marginTop: '10.63rem',
-   gap: '1.25rem',
-   width: '1240px',
 }))
