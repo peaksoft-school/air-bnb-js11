@@ -1,16 +1,16 @@
-import * as React from 'react'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
+import { useState } from 'react'
 import MenuItem from '@mui/material/MenuItem'
 import { ThreePoint } from '../../assets'
 
 const ITEM_HEIGHT = 48
 
-const DropDown = ({ options }) => {
-   const [anchorEl, setAnchorEl] = React.useState(null)
+const Meatballs = ({ options }) => {
+   const [anchorEl, setAnchorEl] = useState(null)
    const open = Boolean(anchorEl)
 
-   const handleClick = (event) => setAnchorEl(event.currentTarget)
+   const handleClick = (e) => setAnchorEl(e.currentTarget)
 
    const handleClose = () => setAnchorEl(null)
 
@@ -42,13 +42,9 @@ const DropDown = ({ options }) => {
                },
             }}
          >
-            {options?.map((option) => (
-               <MenuItem
-                  key={option}
-                  selected={option === 'Pyxis'}
-                  onClick={handleClose}
-               >
-                  {option}
+            {options?.map(({ title, key }) => (
+               <MenuItem key={key} onClick={handleClose}>
+                  {title}
                </MenuItem>
             ))}
          </Menu>
@@ -56,4 +52,4 @@ const DropDown = ({ options }) => {
    )
 }
 
-export default DropDown
+export default Meatballs
