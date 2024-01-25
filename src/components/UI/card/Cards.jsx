@@ -1,40 +1,60 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
-import mansionImg from '../../assets/images/hotel-mansion-img-2.jpg'
-import Button from './Button'
-import { FullStarIcon, HeartIcon, LocationIcon } from '../../assets'
+import Button from '../Button'
+import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets'
+import CardImgSlider from './CardImgSlider'
 
-const Cards = () => {
-   const [isLike, setIsLike] = useState(false)
+const Cards = ({
+   price,
+   rating,
+   images,
+   title,
+   localtion,
+   guests,
+   isLike,
+   blocked,
+   newCard,
+}) => {
+   const [, setIsLike] = useState(false)
 
    const changeIsLike = () => {
       setIsLike((prev) => !prev)
    }
 
+   const role = 'ADMIN'
+
    return (
-      <CardContainer>
-         <CardImg src={mansionImg} alt="" />
+      <CardContainer blocked={blocked} newCard={newCard}>
+         <CardImgSlider img={images} />
          <CardInnerContainer>
             <PriceRatingInfo>
                <Price>
-                  $26 / <span>day</span>
+                  ${price} / <span>day</span>
                </Price>
                <Rating>
                   <FullStarIcon />
-                  3.4
+                  {rating}
                </Rating>
             </PriceRatingInfo>
-            <HouseInfo>
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-               Blanditiis, odio?
-            </HouseInfo>
+            <HouseInfo>{title}</HouseInfo>
             <HouseLocation>
-               <LocationIcon /> 12 Morris Ave, Toronto, ON, CA
+               <LocationIcon /> {localtion}
             </HouseLocation>
             <LastContainer>
-               <Guests>2 guests</Guests>
-               <Button>BOOK</Button>
-               <StyledHeartIcon onClick={changeIsLike} like={isLike} />
+               <Guests>{guests} guests</Guests>
+               {/* eslint-disable-next-line no-nested-ternary */}
+               {role === 'USER' ? (
+                  blocked ? (
+                     <Button disabled>Blocked</Button>
+                  ) : (
+                     <div>
+                        <Button>BOOK</Button>
+                        <StyledHeartIcon onClick={changeIsLike} like={isLike} />
+                     </div>
+                  )
+               ) : (
+                  <div>awd</div>
+               )}
             </LastContainer>
          </CardInnerContainer>
       </CardContainer>
@@ -43,25 +63,22 @@ const Cards = () => {
 
 export default Cards
 
-const CardContainer = styled('div')(() => ({
+const CardContainer = styled('div')(({ blocked, newCard }) => ({
    maxWidth: '300px',
+   width: '100%',
    minWidth: '200px',
-   backgroundColor: '#f7f7f7',
+   backgroundColor: `${blocked ? '#D4D4D466' : '#f7f7f7'}`,
+   opacity: blocked ? 0.6 : 1,
    borderRadius: '4px',
    transition: '200ms',
-   cursor: 'pointer',
+   cursor: 'default',
+   border: `${newCard ? '3px solid red' : ''}`,
+   padding: '2px',
 
    '&:hover': {
-      backgroundColor: '#fff',
-      boxShadow: '0px -1px 10px 0px #ecedf2',
+      backgroundColor: `${!blocked ? '#fff' : ''}`,
+      boxShadow: `${!blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
    },
-}))
-
-const CardImg = styled('img')(() => ({
-   width: '100%',
-   height: '200px',
-   objectFit: 'cover',
-   borderRadius: '4px 4px 0 0',
 }))
 
 const CardInnerContainer = styled('div')(() => ({
@@ -129,15 +146,19 @@ const Guests = styled('p')(() => ({
    fontWeight: 300,
    color: '#939393',
    fontFamily: 'Inter',
-   fontSize: '14px',
    textWrap: 'nowrap',
 }))
 
 const StyledHeartIcon = styled(HeartIcon)(({ like }) => ({
-   width: '50px',
-   height: '50px',
+   width: '150px',
+   height: '40px',
    cursor: 'pointer',
    transition: '200ms',
+   padding: '5px',
+   textAlign: 'center',
+
+   border: `${like ? '2px solid #dd8a08' : ''}`,
+   borderRadius: '2px',
 
    '& path': {
       '&:last-child': {

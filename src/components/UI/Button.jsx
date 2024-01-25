@@ -33,6 +33,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
       gap: '1rem',
       fontSize: '1rem',
       fontWeight: '500',
+      fontFamily: 'Inter',
    }
 
    const commonStyles = {
