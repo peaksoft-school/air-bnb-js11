@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import Button from '../Button'
-import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets'
+import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardImgSlider from './CardImgSlider'
+import Meatballs from '../Meatballs'
 
 const Cards = ({
    price,
@@ -14,6 +15,7 @@ const Cards = ({
    isLike,
    blocked,
    newCard,
+   option,
 }) => {
    const [, setIsLike] = useState(false)
 
@@ -24,8 +26,16 @@ const Cards = ({
    const role = 'ADMIN'
 
    return (
-      <CardContainer blocked={blocked} newCard={newCard}>
+      <CardContainer blocked={blocked} newCard={newCard} role={role}>
+         {blocked ? (
+            <StyledBlockText>
+               Your application has been blocked, please contact the
+               administrator
+            </StyledBlockText>
+         ) : null}
+
          <CardImgSlider img={images} />
+
          <CardInnerContainer>
             <PriceRatingInfo>
                <Price>
@@ -33,27 +43,29 @@ const Cards = ({
                </Price>
                <Rating>
                   <FullStarIcon />
-                  {rating}
+                  {rating.toFixed(1)}
                </Rating>
             </PriceRatingInfo>
+
             <HouseInfo>{title}</HouseInfo>
+
             <HouseLocation>
                <LocationIcon /> {localtion}
             </HouseLocation>
+
             <LastContainer>
                <Guests>{guests} guests</Guests>
-               {/* eslint-disable-next-line no-nested-ternary */}
                {role === 'USER' ? (
                   blocked ? (
                      <Button disabled>Blocked</Button>
                   ) : (
-                     <div>
+                     <>
                         <Button>BOOK</Button>
                         <StyledHeartIcon onClick={changeIsLike} like={isLike} />
-                     </div>
+                     </>
                   )
                ) : (
-                  <div>awd</div>
+                  <Meatballs options={option} />
                )}
             </LastContainer>
          </CardInnerContainer>
@@ -63,7 +75,8 @@ const Cards = ({
 
 export default Cards
 
-const CardContainer = styled('div')(({ blocked, newCard }) => ({
+const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
+   position: 'relative',
    maxWidth: '300px',
    width: '100%',
    minWidth: '200px',
@@ -71,14 +84,27 @@ const CardContainer = styled('div')(({ blocked, newCard }) => ({
    opacity: blocked ? 0.6 : 1,
    borderRadius: '4px',
    transition: '200ms',
-   cursor: 'default',
-   border: `${newCard ? '3px solid red' : ''}`,
+   cursor: `${blocked ? 'default' : 'pointer'}`,
+   border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
    padding: '2px',
 
    '&:hover': {
       backgroundColor: `${!blocked ? '#fff' : ''}`,
       boxShadow: `${!blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
    },
+}))
+
+const StyledBlockText = styled('p')(() => ({
+   backgroundColor: '#646464',
+   position: 'absolute',
+   zIndex: 10,
+   opacity: 1,
+   top: '100px',
+   left: '25.5px',
+   width: '250px',
+   padding: '10px',
+   borderRadius: '5px',
+   color: '#fff',
 }))
 
 const CardInnerContainer = styled('div')(() => ({
@@ -139,6 +165,7 @@ const LastContainer = styled('div')(() => ({
    display: 'flex',
    gap: '22px',
    alignItems: 'center',
+   justifyContent: 'space-between',
 }))
 
 const Guests = styled('p')(() => ({

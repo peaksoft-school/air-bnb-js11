@@ -1,5 +1,5 @@
 import { Button as MuiButton, styled } from '@mui/material'
-import { GoogleIcon } from '../../assets'
+import { GoogleIcon } from '../../assets/icons'
 
 const Button = ({
    type = 'submit',

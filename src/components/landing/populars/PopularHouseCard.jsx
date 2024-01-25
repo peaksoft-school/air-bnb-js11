@@ -6,7 +6,7 @@ import {
    Typography,
    styled,
 } from '@mui/material'
-import { FullStarIcon, LocationIcon } from '../../assets'
+import { FullStarIcon, LocationIcon } from '../../../assets'
 
 const PopularHouseCard = ({ img, title, address, price, rating }) => {
    return (
