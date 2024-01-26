@@ -1,13 +1,7 @@
 import './App.css'
-import DatePicker from './components/UI/date-picker'
 
 const App = () => {
-   return (
-      <div>
-         AirBnB
-         <DatePicker />
-      </div>
-   )
+   return <div>AirBnB</div>
 }
 
 export default App
