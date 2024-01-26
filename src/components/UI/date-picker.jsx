@@ -3,11 +3,8 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker as Calendar } from '@mui/x-date-pickers/DatePicker'
-import dayjs from 'dayjs'
 import { styled, useTheme } from '@mui/material'
 import { CalendarIcon } from '../../assets/icons'
-
-dayjs.locale('ru')
 
 const DatePicker = ({
    label,
@@ -39,14 +36,19 @@ const DatePicker = ({
                            color: theme.palette.primary.main,
                         },
 
-                        '.css-kg9q0s-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button':
-                           {
-                              position: 'absolute',
-                              left: '0.70rem',
-                           },
+                        '.MuiPickersArrowSwitcher-root': {
+                           width: '100%',
+                           display: 'flex',
+                           justifyContent: 'space-between',
+                        },
+
+                        '.MuiPickersCalendarHeader-root ': {
+                           paddingLeft: '12px',
+                        },
 
                         '.MuiPickersCalendarHeader-labelContainer': {
-                           marginLeft: '5.9rem',
+                           position: 'absolute',
+                           left: '7.5rem',
                            fontSize: ' 0.875rem',
                            fontWeight: ' 500',
                            lineHeight: ' 1.5rem',
