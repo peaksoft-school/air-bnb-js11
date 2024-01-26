@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { styled } from '@mui/material'
-import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { ArrowIcon } from '../../../assets/icons'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { styled } from '@mui/material'
 import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
