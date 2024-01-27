@@ -2,11 +2,13 @@ import { Grid, Stack } from '@mui/material'
 import styled from '@emotion/styled'
 import PopularHouseCard from './PopularHouseCard'
 import PoppularHouseHeadline from './PoppularHouseHeadline'
-import ImgAsmanHotelGuestHouse from '../../assets/images/hotel-mansion.jpg'
-import ImgAsmanguesthoues from '../../assets/images/hotel-mansion-img-2.jpg'
-import ImgAsmanGuestHotel from '../../assets/images/hotel-mansion-img-3.jpg'
+import {
+   ImgAsmanGuestHotel,
+   ImgAsmanGuestHoues,
+   ImgAsmanHotelGuestHouse,
+} from '../../../assets/images'
 
-const DUMMU_DATA = [
+const houses = [
    {
       id: 2,
       img: ImgAsmanGuestHotel,
@@ -17,7 +19,7 @@ const DUMMU_DATA = [
    },
    {
       id: 2,
-      img: ImgAsmanguesthoues,
+      img: ImgAsmanGuestHoues,
       title: 'Asman guest house',
       address: '723510 Osh Muzurbek Alimbekov 9/7',
       price: '26',
@@ -37,13 +39,13 @@ const PopularHouse = () => {
    return (
       <StyleContainerStack>
          <PoppularHouseHeadline />
-         <Grid container spacing={1.25}>
-            {DUMMU_DATA.map(({ id, ...other }) => (
+         <HouseCardContainer container spacing={1.25}>
+            {houses.map(({ id, ...other }) => (
                <StyleContainerGrid key={id} item>
                   <PopularHouseCard {...other} />
                </StyleContainerGrid>
             ))}
-         </Grid>
+         </HouseCardContainer>
       </StyleContainerStack>
    )
 }
@@ -56,7 +58,14 @@ const StyleContainerStack = styled(Stack)(() => ({
    padding: '10.625rem 0',
 }))
 
+const HouseCardContainer = styled(Grid)(() => ({
+   display: 'flex',
+   justifyContent: 'center',
+   gap: '20px',
+}))
+
 const StyleContainerGrid = styled(Grid)(() => ({
-   width: '23rem',
-   margin: '0.60rem',
+   maxWidth: '400px',
+   width: '100%',
+   minWidth: '300px',
 }))
