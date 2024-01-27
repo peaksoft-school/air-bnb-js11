@@ -1,7 +1,7 @@
 import { Box, styled } from '@mui/material'
-import hotelFirst from '../../assets/images/hotel.png.png'
-import { GreenLocationIcon } from '../../assets'
-import LandingSlider from '../UI/LandingSlider'
+import hotelFirst from '../../../assets/images'
+import { GreenLocationIcon } from '../../../assets/icons'
+import LandingSlider from '../../UI/LandingSlider'
 
 const PopularApartments = () => {
    return (
