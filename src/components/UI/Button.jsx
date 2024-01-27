@@ -1,5 +1,5 @@
 import { Button as MuiButton, styled } from '@mui/material'
-import { GoogleIcon } from '../../assets/icons/googleIcon.svg'
+import { Google } from '../../assets/icons'
 
 const Button = ({
    type = 'submit',
@@ -16,9 +16,7 @@ const Button = ({
       variant={variant}
       {...rest}
    >
-      {variant === 'google-button' && (
-         <img src={GoogleIcon} alt="google-icon" />
-      )}
+      {variant === 'google' && <Google />}
 
       {children}
    </StyledButton>
@@ -35,13 +33,14 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
       gap: '1rem',
       fontSize: '1rem',
       fontWeight: '500',
+      fontFamily: 'Inter',
    }
 
    const commonStyles = {
       borderRadius: '0.125rem',
 
       '&:hover': {
-         backgroundColor: theme.palette.primary.main,
+         background: '#BB7200',
       },
    }
 
@@ -113,7 +112,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
 
          '&:hover': {
             ...commonStyles,
-            background: '#BB7200',
             color: theme.palette.primary.main,
          },
 
@@ -122,7 +120,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
          },
 
          '&:disabled': {
-            background: theme.palette.tertiary.lightGray,
+            background: theme.palette.secondary.main,
          },
       },
    }

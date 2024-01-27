@@ -1,10 +1,6 @@
-import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
+import { Box, IconButton, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
-import MenuItem from '@mui/material/MenuItem'
-import { ThreePoint } from '../../assets'
-
-const ITEM_HEIGHT = 48
+import { ThreePoint } from '../../assets/icons'
 
 const Meatballs = ({ options }) => {
    const [anchorEl, setAnchorEl] = useState(null)
@@ -15,7 +11,7 @@ const Meatballs = ({ options }) => {
    const handleClose = () => setAnchorEl(null)
 
    return (
-      <div>
+      <Box>
          <IconButton
             aria-label="more"
             id="long-button"
@@ -35,10 +31,12 @@ const Meatballs = ({ options }) => {
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            PaperProps={{
-               style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
-                  width: '20ch',
+            slotProps={{
+               paper: {
+                  style: {
+                     maxHeight: 48 * 4.5,
+                     width: '20ch',
+                  },
                },
             }}
          >
@@ -48,7 +46,7 @@ const Meatballs = ({ options }) => {
                </MenuItem>
             ))}
          </Menu>
-      </div>
+      </Box>
    )
 }
 
