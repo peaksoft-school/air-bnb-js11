@@ -6,7 +6,7 @@ import {
    Select as MuiSelect,
    styled,
 } from '@mui/material'
-import { DownArrowIcon } from '../../assets'
+import { DownArrowIcon } from '../../assets/icons'
 
 const Select = forwardRef(
    ({ label, onChange, defaultId, isValueAsId, options, ...rest }, ref) => {
