@@ -1,7 +1,7 @@
 import { Typography, styled, Button, Checkbox } from '@mui/material'
-import { LogoIcon } from '../assets'
+import { LogoIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.png.png'
-import ReusableInput from '../components/UI/input/ReusableInput'
+import Input from '../components/UI/Input'
 
 const Header = () => (
    <StyledContainer>
@@ -14,7 +14,7 @@ const Header = () => (
       </StyledHeader>
       <StyledContentWrapper>
          <h1>Find a place you&apos;ll love to stay at</h1>
-         <ReusableInput />
+         <Input />
          <StyledSearch>
             <Checkbox />
             <Typography>Искать поблизости</Typography>

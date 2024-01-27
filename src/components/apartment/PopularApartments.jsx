@@ -97,6 +97,7 @@ const StyledHotel = styled('div')(({ theme }) => ({
    display: 'flex',
    flexDirection: 'column',
    padding: '2.63rem 2.56rem',
+
    '& .first-hotel': {
       paddingTop: '3.75rem',
       width: '32.8125rem',
@@ -129,6 +130,8 @@ const StyledMainText = styled('div')(() => ({
    textAlign: 'start',
    flexDirection: 'row',
    marginTop: '8.56rem',
+   marginLeft: '5rem',
+
    '& .title-text': {
       width: '18rem',
       fontSize: '1.125rem',
@@ -171,11 +174,10 @@ const StyledSliderContent = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'flex-end',
-   marginLeft: '10.5rem',
-
+   marginLeft: '5.5rem',
    '& .view': {
       color: ' #FFBE58',
-      fontsize: '1rem',
+      fontsize: '1.05rem',
       marginRight: '5rem',
       fontFamily: 'Inter',
       fontWeight: '500',
@@ -205,7 +207,8 @@ const StyledSlider = styled(Slider)({
    '& .slick-dot': {
       color: '#fff',
    },
-   '& .slick-hover': {
-      color: '#8e8080',
+
+   '& .slick-active > .slick-dot': {
+      color: '#797777',
    },
 })
