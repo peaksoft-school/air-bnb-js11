@@ -1,5 +1,5 @@
 import { Button as MuiButton, styled } from '@mui/material'
-import { GoogleIcon } from '../../assets/icons'
+import { Google } from '../../assets/icons'
 
 const Button = ({
    type = 'submit',
@@ -16,7 +16,7 @@ const Button = ({
       variant={variant}
       {...rest}
    >
-      {variant === 'google-button' && <GoogleIcon />}
+      {variant === 'google' && <Google />}
 
       {children}
    </StyledButton>

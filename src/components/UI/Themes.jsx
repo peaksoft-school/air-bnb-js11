@@ -28,8 +28,9 @@ const theme = createTheme({
          pink: '#FFCBE0',
       },
    },
+
    typography: {
-      fontFamily: ['Jenriv Titling', 'Inter'].join(','),
+      fontFamily: ['Inter'],
    },
 })
 

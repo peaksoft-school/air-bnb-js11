@@ -1,11 +1,10 @@
-import { useState } from 'react'
 import { styled } from '@mui/material'
 import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
-import CardImgSlider from './CardImgSlider'
+import CardSlider from './CardSlider'
 import Meatballs from '../Meatballs'
 
-const Cards = ({
+const Card = ({
    price,
    rating,
    images,
@@ -17,10 +16,8 @@ const Cards = ({
    newCard,
    option,
 }) => {
-   const [, setIsLike] = useState(false)
-
    const changeIsLike = () => {
-      setIsLike((prev) => !prev)
+      // Здесь функция для update'та сердечки
    }
 
    const role = 'ADMIN'
@@ -34,7 +31,7 @@ const Cards = ({
             </StyledBlockText>
          ) : null}
 
-         <CardImgSlider img={images} />
+         <CardSlider img={images} />
 
          <CardInnerContainer>
             <PriceRatingInfo>
@@ -73,7 +70,7 @@ const Cards = ({
    )
 }
 
-export default Cards
+export default Card
 
 const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
    position: 'relative',

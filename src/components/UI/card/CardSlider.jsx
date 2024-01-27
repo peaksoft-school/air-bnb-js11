@@ -1,43 +1,41 @@
 /* eslint-disable import/no-unresolved */
-import { styled } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
-import { ArrowIcon } from '../../../assets/icons'
-
+import { DownArrowIcon } from '../../../assets/icons'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-const CardImgSlider = ({ img }) => {
-   return (
-      <StyledSwiper
-         pagination
-         modules={[Navigation, Pagination]}
-         navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-         }}
-      >
-         {img.map((images) => (
-            <SwiperSlide key={images}>
-               <CardImg src={images} alt="" />
-            </SwiperSlide>
-         ))}
+const CardSlider = ({ img }) => (
+   <StyledSwiper
+      pagination
+      modules={[Navigation, Pagination]}
+      navigation={{
+         nextEl: '.swiper-button-next',
+         prevEl: '.swiper-button-prev',
+      }}
+   >
+      {img.map((images) => (
+         <SwiperSlide key={images}>
+            <CardImg className="card-img" src={images} alt="house-img" />
+         </SwiperSlide>
+      ))}
 
-         <ArrowButtonConainer>
-            <PrevButton className="swiper-button-prev">
-               <ArrowIcon />
-            </PrevButton>
-            <NextButton className="swiper-button-next">
-               <ArrowIcon />
-            </NextButton>
-         </ArrowButtonConainer>
-      </StyledSwiper>
-   )
-}
+      <ArrowButtonConainer>
+         <PrevButton className="swiper-button-prev">
+            <DownArrowIcon />
+         </PrevButton>
 
-export default CardImgSlider
+         <NextButton className="swiper-button-next">
+            <DownArrowIcon />
+         </NextButton>
+      </ArrowButtonConainer>
+   </StyledSwiper>
+)
+
+export default CardSlider
 
 const CardImg = styled('img')(() => ({
    width: '100%',
@@ -52,13 +50,14 @@ const StyledSwiper = styled(Swiper)(() => ({
          background: '#fff',
          opacity: 1,
       },
+
       '& .swiper-pagination-bullet-active': {
          background: '#dd8a08',
       },
    },
 }))
 
-const ArrowButtonConainer = styled('div')(() => ({
+const ArrowButtonConainer = styled(Box)(() => ({
    '& .swiper-button-disabled': {
       opacity: 1,
       backgroundColor: '#828282',
@@ -66,7 +65,7 @@ const ArrowButtonConainer = styled('div')(() => ({
    },
 }))
 
-const PrevButton = styled('div')(() => ({
+const PrevButton = styled(Box)(() => ({
    backgroundColor: '#dd8a08',
    color: '#fff',
    width: '40px',
@@ -86,7 +85,7 @@ const PrevButton = styled('div')(() => ({
       content: 'none',
    },
 }))
-const NextButton = styled('div')(() => ({
+const NextButton = styled(Box)(() => ({
    backgroundColor: '#dd8a08',
    color: '#fff',
    width: '40px',
