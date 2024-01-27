@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import { toast } from 'react-toastify'
-import { CloseIcon } from '../../assets'
+import { CloseIcon } from '../../assets/icons'
 
 export const showToast = ({ title, message, type, duration = 300000 }) => {
    toast[type](

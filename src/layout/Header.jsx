@@ -1,5 +1,5 @@
 import { Typography, styled, Button, Checkbox } from '@mui/material'
-import { LogoIcon } from '../assets'
+import { LogoIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.png.png'
 import ReusableInput from '../components/UI/Input'
 
