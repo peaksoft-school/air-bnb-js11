@@ -1,13 +1,8 @@
 /* eslint-disable import/extensions */
 import './App.css'
-import PopularApartments from './components/apartment/PopularApartments'
 
 const App = () => {
-   return (
-      <div>
-         <PopularApartments />
-      </div>
-   )
+   return <div>Arb-bnb</div>
 }
 
 export default App

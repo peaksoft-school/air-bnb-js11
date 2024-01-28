@@ -26,19 +26,18 @@ const settings = {
    slidesToScroll: 1,
    nextArrow: <NextArrow />,
    prevArrow: <PrevArrow />,
-   customPaging: (i) => (
-      <div className="slick-dot">{(i + 1).toString().padStart(2, '0')}</div>
-   ),
 }
 
-const PopularApartments = () => (
-   <StyledContainer>
+const PopularApartments = ({ background }) => (
+   <StyledContainer background={background}>
       <Box className="container">
-         <StyledHotel>
-            <Typography className="title">Popular Apartments</Typography>
+         <StyledHotel background={background}>
+            <Typography className="title">
+               {background ? 'Popular Apartments' : 'The Lastes'}
+            </Typography>
             <img className="first-hotel" src={FirstHotel} alt="hotel" />
          </StyledHotel>
-         <StyledMainText>
+         <StyledMainText background={background}>
             <Typography variant="h2" className="title-text">
                Aska Lara Resort & Spa Hotel
             </Typography>
@@ -81,8 +80,8 @@ const PopularApartments = () => (
 
 export default PopularApartments
 
-const StyledContainer = styled('div')(() => ({
-   background: '#4F7755',
+const StyledContainer = styled('div')(({ background }) => ({
+   background: background ? '#4F7755' : 'white',
    height: '100vh',
    display: 'flex',
    justifyContent: 'center',
@@ -93,7 +92,7 @@ const StyledContainer = styled('div')(() => ({
    },
 }))
 
-const StyledHotel = styled('div')(({ theme }) => ({
+const StyledHotel = styled('div')(({ background }) => ({
    display: 'flex',
    flexDirection: 'column',
    padding: '2.63rem 2.56rem',
@@ -105,7 +104,7 @@ const StyledHotel = styled('div')(({ theme }) => ({
    },
    '& .title': {
       paddingTop: '4.62rem',
-      color: theme.palette.primary.main,
+      color: background ? 'white' : 'black',
       fontFamily: 'Jenriv Titling',
       fontSize: '1.25rem',
       fontWeight: '500',
@@ -121,9 +120,10 @@ const StyledPictures = styled('div')(() => ({
    paddingLeft: '3.13rem',
 }))
 
-const StyledMainText = styled('div')(() => ({
+const StyledMainText = styled('div')(({ background }) => ({
    alignItems: 'center',
-   color: '#FFF',
+   color: background ? 'white' : 'black',
+
    fontFamily: 'Inter',
    fontSize: '1.125rem',
    fontWeight: '500',
@@ -189,6 +189,7 @@ const StyledSliderContent = styled('div')(() => ({
 const StyledSlider = styled(Slider)({
    maxWidth: '400px',
    '& .slick-prev, .slick-next': {
+      color: 'red',
       position: 'absolute',
       top: '23.5rem',
       zIndex: '100',
@@ -206,9 +207,5 @@ const StyledSlider = styled(Slider)({
    },
    '& .slick-dot': {
       color: '#fff',
-   },
-
-   '& .slick-active > .slick-dot': {
-      color: '#797777',
    },
 })
