@@ -28,6 +28,10 @@ const theme = createTheme({
          pink: '#FFCBE0',
       },
    },
+
+   typography: {
+      fontFamily: ['Inter'],
+   },
 })
 
 const Themes = ({ children }) => (
