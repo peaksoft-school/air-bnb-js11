@@ -193,7 +193,7 @@ const StyledSlider = styled(Slider)({
       position: 'absolute',
       top: '23.5rem',
       zIndex: '100',
-      width: '3.69644rem',
+      width: '4.69644rem',
       height: '1.4375rem',
    },
    '& .slick-prev': {
@@ -201,6 +201,12 @@ const StyledSlider = styled(Slider)({
    },
    '& .slick-next': {
       left: '20rem',
+      path: {
+         stroke: '#97C69E',
+      },
+      line: {
+         stroke: '#97C69E',
+      },
    },
    '& .slick-dots': {
       bottom: '-4rem',

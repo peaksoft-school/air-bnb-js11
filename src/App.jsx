@@ -1,8 +1,7 @@
-/* eslint-disable import/extensions */
 import './App.css'
 
 const App = () => {
-   return <div>Arb-bnb</div>
+   return <div>Air-Bnb</div>
 }
 
 export default App
