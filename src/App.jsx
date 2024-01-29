@@ -1,12 +1,7 @@
 import './App.css'
-import Rating from './components/UI/Rating'
 
 const App = () => {
-   return (
-      <div>
-         <Rating />
-      </div>
-   )
+   return <div>Air-Bnb</div>
 }
 
 export default App
