@@ -25,3 +25,11 @@ export const data = [
       newCard: true,
    },
 ]
+
+export const RATINGS = [
+   { label: 5, progress: 30 },
+   { label: 4, progress: 12 },
+   { label: 3, progress: 44 },
+   { label: 2, progress: 2 },
+   { label: 1, progress: 53 },
+]
