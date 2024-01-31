@@ -78,7 +78,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
             },
 
             '&:active': {
-               backgroundColor: theme.palette.tertiary.middleGray,
+               backgroundColor: ' rgba(196, 196, 196, 0.20)',
                border: `0.0625rem solid ${theme.palette.primary.dark}`,
             },
          },
