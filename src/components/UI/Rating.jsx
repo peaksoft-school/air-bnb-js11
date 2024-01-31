@@ -2,27 +2,29 @@ import { Box, Typography, styled } from '@mui/material'
 import { FullStarIcon } from '../../assets/icons'
 import { RATINGS } from '../../utils/constants'
 
-const Rating = () => {
-   return (
-      <RatingChart>
-         <RatingCont>
-            <Typography>4.2</Typography>
-            <FullStarIcon />
-         </RatingCont>
-         <RatingChartBarContainer>
-            {RATINGS.map(({ label, progress }) => (
-               <RatingChartBar>
-                  <RatingLabel>{label}</RatingLabel>
-                  <RatingProgressCont>
-                     <RatingProgress progress={progress} />
-                  </RatingProgressCont>
-                  <RatingLabel>{progress}%</RatingLabel>
-               </RatingChartBar>
-            ))}
-         </RatingChartBarContainer>
-      </RatingChart>
-   )
-}
+const Rating = () => (
+   <RatingChart>
+      <RatingCont>
+         <Typography>4.2</Typography>
+
+         <FullStarIcon />
+      </RatingCont>
+
+      <RatingChartBarContainer>
+         {RATINGS.map(({ label, progress }) => (
+            <RatingChartBar>
+               <RatingLabel>{label}</RatingLabel>
+
+               <RatingProgressCont>
+                  <RatingProgress progress={progress} />
+               </RatingProgressCont>
+
+               <RatingLabel>{progress}%</RatingLabel>
+            </RatingChartBar>
+         ))}
+      </RatingChartBarContainer>
+   </RatingChart>
+)
 
 export default Rating
 
