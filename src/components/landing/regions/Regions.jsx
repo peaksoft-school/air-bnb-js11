@@ -8,7 +8,7 @@ import {
    NarynImage,
    OshImage,
    TalasImage,
-} from '../../../assets/image'
+} from '../../../assets/images'
 
 const Regions = () => (
    <StyledContainer>
