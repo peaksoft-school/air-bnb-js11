@@ -1,21 +1,10 @@
 import { Box, Typography, styled } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
 import Modal from '../UI/Modal'
-
-const schema = Yup.object().shape({
-   email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required')
-      .matches(/@gmail\.com$/, 'Email must end with @gmail.com'),
-
-   password: Yup.string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters'),
-})
+import { schema } from '../../utils/helpers/validate'
 
 const SignIn = ({ isOpenModal, onClose }) => {
    const {

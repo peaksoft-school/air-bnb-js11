@@ -1,25 +1,45 @@
-import { Box, Typography, styled } from '@mui/material'
+import { useState } from 'react'
+import { Box, Link, Typography, styled } from '@mui/material'
 import Modal from '../UI/Modal'
 import Button from '../UI/Button'
 import { GoogleIcon } from '../../assets/icons'
+import SignIn from './SignIn'
 
 const JoinUs = ({ isOpenModal, onClose }) => {
+   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false)
+
+   const openSignInModal = () => setIsSignInModalOpen(true)
+
+   const closeSignInModal = () => {
+      setIsSignInModalOpen(false)
+      onClose()
+   }
+
    return (
-      <StyledModal open={isOpenModal} onClose={onClose}>
-         <Box className="container">
-            <h3 className="heading">JOIN US</h3>
-            <Typography className="description">
-               Sign in with Google to start booking available listings!
-            </Typography>
-            <Button variant="google-button">
-               <GoogleIcon />
-               <h3 className="google-text">Google</h3>
-            </Button>
-            <a href="###" className="link">
-               log in as admin
-            </a>
-         </Box>
-      </StyledModal>
+      <>
+         <StyledModal open={isOpenModal} onClose={onClose}>
+            <Box className="container">
+               <h3 className="heading">JOIN US</h3>
+               <Typography className="description">
+                  Sign in with Google to start booking available listings!
+               </Typography>
+               <Button variant="google-button">
+                  <GoogleIcon />
+                  <h3 className="google-text">Google</h3>
+               </Button>
+               <Link href="###" onClick={openSignInModal} className="link">
+                  Log in as admin
+               </Link>
+            </Box>
+         </StyledModal>
+
+         {isSignInModalOpen && (
+            <SignIn
+               isOpenModal={isSignInModalOpen}
+               onClose={closeSignInModal}
+            />
+         )}
+      </>
    )
 }
 
@@ -82,6 +102,7 @@ const StyledModal = styled(Modal)(({ theme }) => ({
       fontStyle: 'normal',
       fontWeight: '400',
       lineHeight: 'normal',
-      textDecorationLine: 'underline',
+      textDecoration: 'underline',
+      cursor: 'pointer',
    },
 }))
