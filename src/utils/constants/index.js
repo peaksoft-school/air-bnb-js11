@@ -18,9 +18,7 @@ const ROOMS = [
    { img: HellweyRoom, name: 'hellwey room' },
 ]
 
-export { ROOMS }
-
-export const data = [
+const data = [
    {
       images: [mansion, mansion, mansion],
       price: 40,
@@ -45,12 +43,4 @@ export const data = [
    },
 ]
 
-const RATINGS = [
-   { label: 5, progress: 30 },
-   { label: 4, progress: 12 },
-   { label: 3, progress: 44 },
-   { label: 2, progress: 2 },
-   { label: 1, progress: 53 },
-]
-
-export { RATINGS }
+export { ROOMS, data }
