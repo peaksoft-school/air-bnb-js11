@@ -18,9 +18,7 @@ const ROOMS = [
    { img: HellweyRoom, name: 'hellwey room' },
 ]
 
-export { ROOMS }
-
-export const data = [
+const data = [
    {
       images: [mansion, mansion, mansion],
       price: 40,
@@ -46,3 +44,5 @@ export const data = [
 ]
 
 export const BASE_URL = ''
+
+export { ROOMS, data }
