@@ -32,9 +32,12 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
    (response) => {
-      return response
+      Promise.resolve(response)
    },
    (error) => {
+      if (error.response.status === 401) {
+         store.dispatch()
+      }
       return Promise.reject(error)
    }
 )
