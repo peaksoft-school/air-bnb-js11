@@ -44,3 +44,5 @@ export const data = [
       newCard: true,
    },
 ]
+
+export const BASE_URL = ''
