@@ -43,4 +43,6 @@ const data = [
    },
 ]
 
+export const BASE_URL = ''
+
 export { ROOMS, data }
