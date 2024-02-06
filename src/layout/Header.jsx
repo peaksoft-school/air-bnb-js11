@@ -1,27 +1,42 @@
 import { Typography, styled, Button, Checkbox } from '@mui/material'
+import { useState } from 'react'
 import { LogoIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.png.png'
 import Input from '../components/UI/Input'
+import JoinUs from '../components/signIn/JoinUs'
 
-const Header = () => (
-   <StyledContainer>
-      <StyledHeader>
-         <StyledLogoIcon />
-         <StyledRegister>
-            <StyledText>leave an ad</StyledText>
-            <StyledButton variant="button">Join us</StyledButton>
-         </StyledRegister>
-      </StyledHeader>
-      <StyledContentWrapper>
-         <h1>Find a place you&apos;ll love to stay at</h1>
-         <Input />
-         <StyledSearch>
-            <Checkbox />
-            <Typography>Искать поблизости</Typography>
-         </StyledSearch>
-      </StyledContentWrapper>
-   </StyledContainer>
-)
+const Header = () => {
+   const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
+
+   const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
+
+   return (
+      <StyledContainer>
+         <StyledHeader>
+            <StyledLogoIcon />
+            <StyledRegister>
+               <StyledText>leave an ad</StyledText>
+
+               <StyledButton variant="button" onClick={handleChangeJoinUsModal}>
+                  Join us
+               </StyledButton>
+               <JoinUs
+                  isOpenModal={isOpenJoinUsModal}
+                  onClose={handleChangeJoinUsModal}
+               />
+            </StyledRegister>
+         </StyledHeader>
+         <StyledContentWrapper>
+            <h1>Find a place you&apos;ll love to stay at</h1>
+            <Input />
+            <StyledSearch>
+               <Checkbox />
+               <Typography>Искать поблизости</Typography>
+            </StyledSearch>
+         </StyledContentWrapper>
+      </StyledContainer>
+   )
+}
 export default Header
 const StyledHeader = styled('header')(() => ({
    display: 'flex',

@@ -1,7 +1,6 @@
 import './App.css'
+import AppRoutes from './routes/AppRoutes'
 
-const App = () => {
-   return <div>Air-BnB</div>
-}
+const App = () => <AppRoutes />
 
 export default App

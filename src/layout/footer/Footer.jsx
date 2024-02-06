@@ -4,7 +4,7 @@ import {
    LogoIcon,
    TelegramIcon,
    WhatsAppIcon,
-} from '../../assets'
+} from '../../assets/icons'
 
 const Footer = () => {
    return (

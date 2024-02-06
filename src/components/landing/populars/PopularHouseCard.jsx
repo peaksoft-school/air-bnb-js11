@@ -57,19 +57,24 @@ const StyleBox = styled(Box)(() => ({
 const StyleSpan = styled('span')(() => ({
    color: '#7e7e7e',
 }))
+
 const StyleTypographyAddress = styled(Typography)(() => ({
    color: '#7e7e7e',
 }))
+
 const StyleTypographyPrice = styled(Typography)(() => ({
    color: '#363636',
 }))
+
 const StyleTypographyTitle = styled(Typography)(() => ({
    color: '#363636',
 }))
+
 const StyleCard = styled(Card)(() => ({
    cursor: 'pointer',
    boxShadow: 'none',
 }))
+
 const StyleCardMedia = styled(CardMedia)(() => ({
    cursor: 'pointer',
    width: '100%',
