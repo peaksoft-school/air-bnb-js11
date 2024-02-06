@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { ROLES } from '../../utils/constants/routes'
 
 const initialState = {
    accessToken: null,
-   isAuth: false,
-   role: null,
+   isAuth: true,
+   role: ROLES.USER,
    email: null,
 }
 

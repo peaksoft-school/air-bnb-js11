@@ -10,7 +10,7 @@ import {
 
 const houses = [
    {
-      id: 2,
+      id: 1,
       img: ImgAsmanGuestHotel,
       title: 'Asman guest house',
       address: '723510 Osh Muzurbek Alimbekov 9/7',

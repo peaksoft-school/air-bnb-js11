@@ -26,7 +26,7 @@ const StylStackContainer = styled(Stack)(() => ({
    padding: '0.5rem',
 }))
 
-const StyleStackTitle = styled(Typography)(() => ({
+const StyleStackTitle = styled(Stack)(() => ({
    rowGap: '1rem',
    display: 'flex',
    flexDirection: 'column',

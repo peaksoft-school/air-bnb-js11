@@ -104,6 +104,7 @@ const StyledContainer = styled('div')(() => ({
    width: '100%',
    display: 'flex',
    justifyContent: 'center',
+   marginBottom: '10.63rem',
 
    '& .box': {
       display: 'flex',

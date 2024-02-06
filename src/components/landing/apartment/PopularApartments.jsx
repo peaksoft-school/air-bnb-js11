@@ -2,13 +2,13 @@ import { Box, styled, Typography } from '@mui/material'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { FirstHotel } from '../../assets/images'
+import { FirstHotel } from '../../../assets/images'
 import {
    SlickNextIcon,
    SlickPrevIcon,
    GreenLocationIcon,
-} from '../../assets/icons'
-import { ROOMS } from '../../utils/constants'
+} from '../../../assets/icons'
+import { ROOMS } from '../../../utils/constants'
 
 const NextArrow = ({ onClick, className }) => (
    <SlickNextIcon onClick={onClick} className={className} />
