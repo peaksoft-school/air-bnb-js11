@@ -1,12 +1,14 @@
-import { Typography, styled, Button, Checkbox } from '@mui/material'
+import { Typography, styled, Button } from '@mui/material'
 import { useState } from 'react'
 import { LogoIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.png.png'
 import Input from '../components/UI/Input'
 import JoinUs from '../components/signIn/JoinUs'
+import Checkbox from '../components/UI/Checkbox'
 
 const Header = () => {
    const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
+   const [nearbyChecked, setNearbyChecked] = useState(false)
 
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
 
@@ -30,8 +32,11 @@ const Header = () => {
             <h1>Find a place you&apos;ll love to stay at</h1>
             <Input />
             <StyledSearch>
-               <Checkbox />
-               <Typography>Искать поблизости</Typography>
+               <Checkbox
+                  label="Искать поблизости"
+                  changeChecked={setNearbyChecked}
+                  checked={nearbyChecked}
+               />
             </StyledSearch>
          </StyledContentWrapper>
       </StyledContainer>
