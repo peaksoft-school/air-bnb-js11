@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, IconButton, styled } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { LogoIcon } from '../../assets/icons'
