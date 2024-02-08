@@ -1,21 +1,24 @@
 import { Box, IconButton, styled } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { LogoIcon } from '../../assets/icons'
-import Meatballs from './Meatballs'
+import Meatballs from '../../components/UI/Meatballs'
+import { showToast } from '../../utils/helpers/toast'
 
 const option = [{ title: 'Log out', key: '1' }]
 
 const AdminHeader = () => {
    const navigate = useNavigate()
 
-   const navigateHandler = () => {
-      navigate('/')
-   }
+   const navigateHandler = () => navigate('/')
    const onLogout = (key) => {
       if (key === '1') {
          // здесь будет функция выхода
       }
-      return console.error('Something went wrong')
+      return showToast({
+         title: 'Error',
+         message: 'Something went wrong',
+         type: 'error',
+      })
    }
 
    return (

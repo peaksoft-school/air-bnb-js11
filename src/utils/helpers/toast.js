@@ -2,7 +2,7 @@ import { styled } from '@mui/material'
 import { toast } from 'react-toastify'
 import { CloseIcon } from '../../assets/icons'
 
-export const showToast = ({ title, message, type, duration = 300000 }) => {
+export const showToast = ({ title, message, type, duration = 3 }) => {
    toast[type](
       <>
          <StyledHeading>{title}</StyledHeading>
