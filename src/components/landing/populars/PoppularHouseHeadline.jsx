@@ -23,6 +23,7 @@ const StylStackContainer = styled(Stack)(() => ({
    flexDirection: 'row',
    justifyContent: 'space-between',
    alignItems: 'center',
+   width: '78.68rem',
    padding: '0.5rem',
 }))
 

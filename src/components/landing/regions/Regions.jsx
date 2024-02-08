@@ -1,19 +1,25 @@
 import { Box, ImageList, Typography, styled } from '@mui/material'
-import {
-   BatkenImage,
-   BishkekImage,
-   ChuiImage,
-   IssykKulImage,
-   JalalAbadImage,
-   NarynImage,
-   OshImage,
-   TalasImage,
-} from '../../../assets/images'
+import Chui from './allRegion/Chui'
+import Batken from './allRegion/Batken'
+import JalalAbad from './allRegion/JalalAbad'
+import Naryn from './allRegion/Naryn'
+import IssykKul from './allRegion/IssykKul'
+import Talas from './allRegion/Talas'
+import Bishkek from './allRegion/Bishkek'
+import Osh from './allRegion/Osh'
 
 const Regions = () => (
    <StyledContainer>
       <div className="box">
-         <h3 className="heading">Regions in kyrgystan </h3>
+         <h2
+            style={{
+               fontFamily: 'Arial, Helvetica, sans-serif',
+               textTransform: 'uppercase',
+            }}
+            className="heading"
+         >
+            Regions in kyrgystan{' '}
+         </h2>
          <Typography className="description">
             You can visit the site any day and be sure that you will find
             everything for a great vacation.
@@ -21,77 +27,26 @@ const Regions = () => (
 
          <StyledImagesList>
             <Box className="image-conteiner">
-               <Box className="conteiner">
-                  <img className="long-image" src={ChuiImage} alt="Chui" />
-                  <Typography className="text-in-image">CHUI</Typography>
-               </Box>
+               <Chui />
                <Box className="image-box">
                   <Box className="image-conteiner">
-                     <Box className="conteiner">
-                        <img
-                           className="square-image"
-                           src={BatkenImage}
-                           alt="Batken"
-                        />
-                        <Typography className="text-in-image">
-                           BATKEN
-                        </Typography>
-                     </Box>
-                     <Box className="conteiner">
-                        <img
-                           className="square-image"
-                           src={JalalAbadImage}
-                           alt="JalalAbad"
-                        />
-                        <Typography className="text-in-image">
-                           JALALABAD
-                        </Typography>
-                     </Box>
+                     <Batken />
+                     <JalalAbad />
                   </Box>
-                  <Box className="conteiner">
-                     <img className="wide-image" src={NarynImage} alt="Naryn" />
-                     <Typography className="text-in-image">NARYN</Typography>
-                  </Box>
+                  <Naryn />
                </Box>
             </Box>
          </StyledImagesList>
-
          <StyledImagesList>
             <Box className="image-conteiner">
                <Box className="image-box">
                   <Box className="image-conteiner">
-                     <Box className="conteiner">
-                        <img
-                           className="square-image"
-                           src={IssykKulImage}
-                           alt="IssikKul"
-                        />
-                        <Typography className="text-in-image">
-                           ISSYK-KUL
-                        </Typography>
-                     </Box>
-                     <Box className="conteiner">
-                        <img
-                           className="square-image"
-                           src={TalasImage}
-                           alt="talas"
-                        />
-                        <Typography className="text-in-image">TALAS</Typography>
-                     </Box>
+                     <IssykKul />
+                     <Talas />
                   </Box>
-                  <Box className="conteiner">
-                     <img
-                        className="wide-image"
-                        src={BishkekImage}
-                        alt="Bishkek"
-                     />
-                     <Typography className="text-in-image">BISHKEK</Typography>
-                  </Box>
+                  <Bishkek />
                </Box>
-               <Box className="conteiner">
-                  <img className="long-image" src={OshImage} alt="Osh" />
-                  <Typography className="text-in-image">OSH</Typography>
-               </Box>
+               <Osh />
             </Box>
          </StyledImagesList>
       </div>
@@ -104,38 +59,19 @@ const StyledContainer = styled('div')(() => ({
    width: '100%',
    display: 'flex',
    justifyContent: 'center',
-   marginBottom: '10.63rem',
+   marginBottom: '10.62rem',
+   cursor: 'pointer',
 
    '& .box': {
       display: 'flex',
       flexDirection: 'column',
-      marginTop: '10.63rem',
+      marginTop: '10.62rem',
       gap: '1.25rem',
       width: '1240px',
    },
 }))
 
 const StyledImagesList = styled(ImageList)(({ theme }) => ({
-   '& .long-image': {
-      width: '31.5625rem',
-      height: '38.8125rem',
-   },
-
-   '& .conteiner': {
-      position: 'relative',
-      marginTop: '-0.5em',
-   },
-
-   '& .square-image': {
-      width: ' 21.6875rem',
-      height: ' 18.875rem',
-   },
-
-   '& .wide-image': {
-      width: '44.6875rem',
-      height: ' 18.6875rem',
-   },
-
    '& .image-conteiner': {
       display: 'flex',
       gap: '1.25rem',
@@ -152,9 +88,9 @@ const StyledImagesList = styled(ImageList)(({ theme }) => ({
       left: '1.25rem',
       bottom: '1.25rem',
       color: theme.palette.primary.main,
-      fontsize: '1rem',
-      fontweight: '500',
-      texttransform: 'uppercase',
+      fontSize: '1rem',
+      fontWeight: '500',
+      textTransform: 'uppercase',
    },
 
    '& .heading': {

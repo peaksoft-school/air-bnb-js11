@@ -5,6 +5,7 @@ import { adminRoutes } from './AdminRoutes'
 import AdminLayout from '../layout/admin/AdminLayout'
 import UserLayout from '../layout/user/UserLayout'
 import { userRoutes } from './UserRoutes'
+import LandingPage from '../containers/LandingPage'
 
 const AppRoutes = () => {
    const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const AppRoutes = () => {
             />
          ),
          children: userRoutes,
+      },
+      {
+         path: '/',
+         element: <LandingPage />,
       },
       {
          path: '*',

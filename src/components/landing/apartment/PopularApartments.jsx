@@ -22,7 +22,7 @@ const settings = {
    dots: true,
    infinite: false,
    speed: 500,
-   slidesToShow: 1.6,
+   slidesToShow: 1.8,
    slidesToScroll: 1,
    nextArrow: <NextArrow />,
    prevArrow: <PrevArrow />,
@@ -52,7 +52,7 @@ const PopularApartments = ({ background }) => (
                   723510 Osh Muzurbek Alimbekov 9/7
                </Typography>
             </StyledLocation>
-            <Typography variant="p" className="ReadMore">
+            <Typography variant="p" className="view">
                Read more
             </Typography>
          </StyledMainText>
@@ -82,13 +82,29 @@ export default PopularApartments
 
 const StyledContainer = styled('div')(({ background }) => ({
    background: background ? '#4F7755' : 'white',
-   height: '100vh',
+   minHeight: '46.3rem',
    display: 'flex',
    justifyContent: 'center',
+   alignItems: 'center',
+
    '& .container': {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      height: '100%',
+      marginLeft: '3rem',
+   },
+
+   '& .view': {
+      color: ' #FFBE58',
+      fontsize: '1rem',
+      marginRight: '6.25rem',
+      fontFamily: 'Inter',
+      fontWeight: '500',
+      cursor: 'pointer',
+      textDecoration: ' underline',
+      marginTop: '-4.62rem',
+      lineHeight: '130%',
    },
 }))
 
@@ -96,14 +112,15 @@ const StyledHotel = styled('div')(({ background }) => ({
    display: 'flex',
    flexDirection: 'column',
    padding: '2.63rem 2.56rem',
+   marginLeft: '2.93rem',
 
    '& .first-hotel': {
       paddingTop: '3.75rem',
       width: '32.8125rem',
       height: '28.5rem',
    },
+
    '& .title': {
-      paddingTop: '4.62rem',
       color: background ? 'white' : 'black',
       fontFamily: 'Jenriv Titling',
       fontSize: '1.25rem',
@@ -115,52 +132,44 @@ const StyledHotel = styled('div')(({ background }) => ({
 const StyledPictures = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
-   gap: '1rem',
    paddingTop: '4.95rem',
-   paddingLeft: '3.13rem',
 }))
 
-const StyledMainText = styled('div')(({ background }) => ({
+const StyledMainText = styled('div')(({ background, theme }) => ({
    alignItems: 'center',
-   color: background ? 'white' : 'black',
-
+   color: background ? theme.palette.primary.main : theme.palette.primary.dark,
    fontFamily: 'Inter',
    fontSize: '1.125rem',
    fontWeight: '500',
    textAlign: 'start',
    flexDirection: 'row',
    marginTop: '8.56rem',
-   marginLeft: '5rem',
 
    '& .title-text': {
-      width: '18rem',
       fontSize: '1.125rem',
       fontWeight: '500',
-      margin: '1.5rem 0',
+      margin: '1.75rem 0',
       lineHeight: 'normal',
+      fontfamily: 'Inter',
    },
+
    '& .longText': {
       display: 'flex',
       fontFamily: 'Inter',
-      fontSize: '1.125rem',
       fontweight: '400',
-      width: '19.3125rem;',
+      color: background
+         ? theme.palette.primary.white
+         : theme.palette.primary.dark,
+      fontSize: ' 1rem',
+      lineHeight: '130%',
+      width: '19.5rem',
    },
+
    '& .address': {
-      display: 'flex',
+      color: theme.palette.tertiary.lightGreen,
       fontFamily: 'Inter',
-      color: ' #97C69E',
-      fontsize: '0.75rem',
-      fontstyle: ' normal',
-      fontweight: ' 300',
-   },
-   '& .ReadMore': {
-      color: ' #FFBE58',
-      fontsize: '1rem',
-      fontFamily: 'Inter',
-      fontWeight: '500',
-      cursor: 'pointer',
-      textDecoration: ' underline',
+      fontSize: '0.875rem',
+      fontWeight: '400',
    },
 }))
 
@@ -174,20 +183,14 @@ const StyledSliderContent = styled('div')(() => ({
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'flex-end',
-   marginLeft: '5.5rem',
-   '& .view': {
-      color: ' #FFBE58',
-      fontsize: '1.05rem',
-      marginRight: '5rem',
-      fontFamily: 'Inter',
-      fontWeight: '500',
-      cursor: 'pointer',
-      textDecoration: ' underline',
-   },
+   marginLeft: '2.93rem',
 }))
 
 const StyledSlider = styled(Slider)({
-   maxWidth: '400px',
+   maxWidth: '450px',
+   display: 'flex',
+   gap: '1rem',
+
    '& .slick-prev, .slick-next': {
       color: 'red',
       position: 'absolute',
@@ -196,11 +199,13 @@ const StyledSlider = styled(Slider)({
       width: '4.69644rem',
       height: '1.4375rem',
    },
+
    '& .slick-prev': {
-      left: '0rem',
+      left: '1.5rem',
    },
+
    '& .slick-next': {
-      left: '20rem',
+      left: '22rem',
       path: {
          stroke: '#97C69E',
       },
@@ -208,9 +213,11 @@ const StyledSlider = styled(Slider)({
          stroke: '#97C69E',
       },
    },
+
    '& .slick-dots': {
       bottom: '-4rem',
    },
+
    '& .slick-dot': {
       color: '#fff',
    },

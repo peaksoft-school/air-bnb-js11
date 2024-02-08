@@ -4,7 +4,7 @@ export const routes = {
    },
 
    USER: {
-      index: '/',
+      index: '/user',
    },
 }
 
