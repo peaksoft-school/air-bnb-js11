@@ -1,19 +1,17 @@
 import { FormControlLabel, Radio, RadioGroup, styled } from '@mui/material'
 
-const RadioButton = ({ options, value, onChange }) => {
-   return (
-      <RadioGroup value={value} onChange={onChange}>
-         {options.map((option) => (
-            <FormControlLabel
-               key={option.value}
-               value={option.value}
-               control={<StyledRadio />}
-               label={option.label}
-            />
-         ))}
-      </RadioGroup>
-   )
-}
+const RadioButton = ({ options, value, onChange }) => (
+   <RadioGroup value={value} onChange={onChange}>
+      {options.map(({ value, label }) => (
+         <FormControlLabel
+            key={value}
+            value={value}
+            control={<StyledRadio />}
+            label={label}
+         />
+      ))}
+   </RadioGroup>
+)
 
 export default RadioButton
 

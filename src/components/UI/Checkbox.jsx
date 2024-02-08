@@ -6,9 +6,7 @@ import {
 } from '@mui/material'
 
 const Checkbox = ({ label = '', checked = false, changeChecked }) => {
-   const changeHandler = (e) => {
-      changeChecked(e.target.checked)
-   }
+   const changeHandler = (e) => changeChecked(e.target.checked)
 
    return (
       <FormControlLabel
