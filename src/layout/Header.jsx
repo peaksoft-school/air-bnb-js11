@@ -1,12 +1,14 @@
-import { Typography, styled, Button, Checkbox } from '@mui/material'
+import { Typography, styled, Button } from '@mui/material'
 import { useState } from 'react'
 import { LogoIcon } from '../assets/icons'
-import headerBackground from '../assets/images/header.png.png'
+import headerBackground from '../assets/images/header.jpg'
 import Input from '../components/UI/Input'
 import JoinUs from '../components/signIn/JoinUs'
+import Checkbox from '../components/UI/Checkbox'
 
 const Header = () => {
    const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
+   const [nearbyChecked, setNearbyChecked] = useState(false)
 
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
 
@@ -27,37 +29,63 @@ const Header = () => {
             </StyledRegister>
          </StyledHeader>
          <StyledContentWrapper>
-            <h1>Find a place you&apos;ll love to stay at</h1>
+            <h1 className="header">Find a place you&apos;ll love to stay at</h1>
             <Input />
+
             <StyledSearch>
-               <Checkbox />
-               <Typography>Искать поблизости</Typography>
+               <Checkbox
+                  label="Искать поблизости"
+                  changeChecked={setNearbyChecked}
+                  checked={nearbyChecked}
+               />
             </StyledSearch>
          </StyledContentWrapper>
       </StyledContainer>
    )
 }
 export default Header
+
 const StyledHeader = styled('header')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
+   width: '90rem',
    padding: '2.63rem 6.25rem',
+   marginLeft: '3rem',
 }))
+
 const StyledContainer = styled('div')(() => ({
+   position: 'relative',
+   width: '100%',
+   height: '46.1rem',
+   overflow: 'hidden',
+   display: 'flex',
+   flexDirection: 'column',
+   alignItems: 'center',
    background: `url(${headerBackground}) center/cover no-repeat`,
-   height: '100vh',
 }))
+const StyledVideo = styled('video')(() => ({
+   position: 'absolute',
+   top: 0,
+   left: 0,
+   width: '100%',
+   height: '100%',
+   objectFit: 'cover',
+   zIndex: -1,
+}))
+
 const StyledRegister = styled('div')(() => ({
    display: 'flex',
    gap: '3.75rem',
    textAlign: 'center',
 }))
+
 const StyledText = styled(Typography)(({ theme }) => ({
    color: theme.palette.primary.main,
    textAlign: 'center',
    marginTop: '0.5rem',
    cursor: 'pointer',
 }))
+
 const StyledButton = styled(Button)({
    color: '#F7F7F7',
    fontFamily: 'Inter',
@@ -70,26 +98,33 @@ const StyledButton = styled(Button)({
       background: '#BB7200',
    },
 })
+
 const StyledLogoIcon = styled(LogoIcon)({
    width: '5.5rem',
    height: '4.06rem',
-   marginLeft: '2.625rem',
 })
+
 const StyledSearch = styled('div')({
    alignItems: 'center',
    display: 'flex',
    marginLeft: '34rem',
    marginTop: '-2.20rem',
 })
+
 const StyledContentWrapper = styled('div')({
    display: 'flex',
    flexDirection: 'column',
    justifyContent: 'center',
    alignItems: 'center',
    gap: '3.12rem',
-   marginTop: '9.25rem',
-   width: '44.5 rem',
-   height: '2.625rem',
+   width: '100%',
+   height: '36.8rem',
    color: 'white',
-   fontfamily: 'Jenriv Titling',
+
+   '& .header': {
+      fontFamily: 'Jenriv Titling',
+      fontSize: '2.5rem',
+      fontWeight: '400',
+      textTransform: 'uppercase',
+   },
 })

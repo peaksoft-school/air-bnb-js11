@@ -24,6 +24,7 @@
       "react/react-in-jsx-scope": "off",
       "import/prefer-default-export": "off",
       "no-shadow": "off",
+      "import/no-extraneous-dependencies": "off",
       "react-hooks/exhaustive-deps": "off",
       "react-hooks/rules-of-hooks": "off",
       "react/function-component-definition": "off",

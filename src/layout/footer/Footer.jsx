@@ -1,4 +1,11 @@
-import { Box, Container, Link, Stack, Typography, styled } from '@mui/material'
+import {
+   Box,
+   Container,
+   Link,
+   Typography,
+   keyframes,
+   styled,
+} from '@mui/material'
 import {
    InstagramIcon,
    LogoIcon,
@@ -10,7 +17,7 @@ const Footer = () => {
    return (
       <StyleContainer>
          <Container>
-            <Stack py={1.25}>
+            <Box className="box" py={1.25}>
                <StyleStackContainer>
                   <StyleStackHover>
                      <Typography component={Link} href="#">
@@ -22,15 +29,15 @@ const Footer = () => {
                   </StyleStackHover>
                   <LogoIcon />
                   <StyleStacSocial>
-                     <InstagramIcon />
-                     <TelegramIcon />
-                     <WhatsAppIcon />
+                     <InstagramIcon className="icons instagram" />
+                     <TelegramIcon className="icons telegram" />
+                     <WhatsAppIcon className="icons watsapp" />
                   </StyleStacSocial>
                </StyleStackContainer>
                <StyleTypographyPeaksoft>
                   © Copyright PeakSoft. All Rights Reserved
                </StyleTypographyPeaksoft>
-            </Stack>
+            </Box>
          </Container>
       </StyleContainer>
    )
@@ -38,31 +45,88 @@ const Footer = () => {
 
 export default Footer
 
-const StyleStackHover = styled(Stack)(() => ({
+const StyleStackHover = styled(Box)(() => ({
+   display: 'flex',
    cursor: 'pointer',
-   flexDirection: 'row',
    gap: '2.4rem',
 }))
 
-const StyleStackContainer = styled(Stack)(() => ({
-   flexDirection: 'row',
+const StyleStackContainer = styled(Box)(() => ({
+   width: '100%',
+   display: 'flex',
    gap: '1rem',
    padding: '3.75rem 0',
    justifyContent: 'space-between',
 }))
 
-const StyleContainer = styled(Box)(() => ({
-   background: '#1C2E20',
-   color: '#fff',
+const StyleContainer = styled(Box)(({ theme }) => ({
+   background: theme.palette.secondary.blackGreen,
+   color: theme.palette.primary.main,
    fontFamily: 'Inter',
+   display: 'flex',
+   justifyContent: 'center',
+
+   '& .MuiContainer-root': {
+      padding: '0px 0px',
+      margin: '0px 0px',
+      minWidth: '77.5rem',
+   },
 }))
 
-const StyleStacSocial = styled(Stack)(() => ({
-   flexDirection: 'row',
+const slideInTop = keyframes`
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
+
+const StyleStacSocial = styled(Box)(() => ({
+   display: 'flex',
    gap: '1rem',
+
+   '& .icons': {
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      transitionDuration: '.3s',
+   },
+
+   'svg:hover': {
+      path: {
+         animation: `${slideInTop} 0.3s both`,
+      },
+   },
+
+   'svg:active': {
+      transform: 'scale(0.9)',
+      transitionDuration: '.3s',
+   },
+
+   '& .instagram:hover': {
+      backgroundColor: '#d62976',
+      transitionDuration: '.3s',
+   },
+
+   '& .telegram:hover': {
+      backgroundColor: '#0072b1',
+      transitionDuration: '.3s',
+   },
+
+   '& .watsapp:hover': {
+      backgroundColor: '#128C7E',
+      transitionDuration: '.3s',
+   },
 }))
-const StyleTypography = styled(Typography)(() => ({
-   color: '#FFBE58',
+
+const StyleTypography = styled(Typography)(({ theme }) => ({
+   color: theme.palette.secondary.lightBrown,
    fontFamily: 'Inter',
 }))
 

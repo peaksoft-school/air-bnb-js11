@@ -5,8 +5,8 @@ import Holl from '../../assets/images/holl.jpeg'
 import ChildRoom from '../../assets/images/child-room.jpeg'
 import BathRoom from '../../assets/images/bath-room.jpg'
 import HellweyRoom from '../../assets/images/hellwey-room.jpg'
-import mansion from '../../assets/images/hotel-mansion-img-2.jpg'
-import mansio2 from '../../assets/images/hotel-mansion-img-3.jpg'
+import mansion from '../../assets/images/orend-hose.jpg'
+import mansio2 from '../../assets/images/popular-house.jpg'
 
 const ROOMS = [
    { img: BedRoom, name: 'bed room' },
@@ -50,6 +50,5 @@ export const RATINGS = [
    { label: 2, progress: 78 },
    { label: 1, progress: 20 },
 ]
-const BASE_URL = ''
 
-export { ROOMS, data, BASE_URL }
+export { ROOMS, data }

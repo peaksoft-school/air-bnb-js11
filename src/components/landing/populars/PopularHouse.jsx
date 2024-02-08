@@ -41,7 +41,7 @@ const PopularHouse = () => {
          <PoppularHouseHeadline />
          <HouseCardContainer container spacing={1.25}>
             {houses.map(({ id, ...other }) => (
-               <StyleContainerGrid key={id} item>
+               <StyleContainerGrid className="card" key={id} item>
                   <PopularHouseCard {...other} />
                </StyleContainerGrid>
             ))}
@@ -54,14 +54,30 @@ export default PopularHouse
 
 const StyleContainerStack = styled(Stack)(() => ({
    display: 'flex',
+   alignItems: 'center',
    rowGap: '3.75rem',
-   padding: '10.625rem 0',
+   marginTop: '10.62rem',
 }))
 
 const HouseCardContainer = styled(Grid)(() => ({
    display: 'flex',
    justifyContent: 'center',
-   gap: '20px',
+   gap: '27px',
+
+   '& .card ': {
+      cursor: 'pointer',
+      transition: 'all 1s',
+
+      '&:hover': {
+         transform: 'scale(1.05)',
+         boxShadow: '12px 17px 51px rgba(0, 0, 0, 0.22)',
+         padding: '0px 0px',
+      },
+
+      '&:active': {
+         transform: 'scale(0.95) rotateZ(1.7deg)',
+      },
+   },
 }))
 
 const StyleContainerGrid = styled(Grid)(() => ({
