@@ -3,7 +3,7 @@ import { ROLES } from '../../utils/constants/routes'
 
 const initialState = {
    accessToken: null,
-   isAuth: true,
+   isAuth: false,
    role: ROLES.GUEST,
    email: null,
 }

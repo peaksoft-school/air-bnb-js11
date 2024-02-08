@@ -1,14 +1,19 @@
 import { Box, IconButton, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
-import { ThreePoint } from '../../assets/icons'
+import { DownArrowIcon, ThreePoint } from '../../assets/icons'
 
-const Meatballs = ({ options }) => {
+const Meatballs = ({ options, variant = 'dotes', onClick }) => {
    const [anchorEl, setAnchorEl] = useState(null)
    const open = Boolean(anchorEl)
 
    const handleClick = (e) => setAnchorEl(e.currentTarget)
 
    const handleClose = () => setAnchorEl(null)
+
+   const clickHandler = (key) => {
+      onClick(key)
+      handleClose()
+   }
 
    return (
       <Box>
@@ -20,7 +25,7 @@ const Meatballs = ({ options }) => {
             aria-haspopup="true"
             onClick={handleClick}
          >
-            <ThreePoint />
+            {variant === 'dotes' ? <ThreePoint /> : <DownArrowIcon />}
          </IconButton>
 
          <Menu
@@ -41,7 +46,7 @@ const Meatballs = ({ options }) => {
             }}
          >
             {options?.map(({ title, key }) => (
-               <MenuItem key={key} onClick={handleClose}>
+               <MenuItem key={key} onClick={() => clickHandler(key)}>
                   {title}
                </MenuItem>
             ))}
