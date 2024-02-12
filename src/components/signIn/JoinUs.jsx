@@ -18,16 +18,21 @@ const JoinUs = ({ isOpenModal, onClose }) => {
    const openSignInModal = () => setIsSignInModalOpen(true)
 
    const signInWithGoogleHandler = async () => {
-      await signInWithPopup(auth, provider).then((data) => {
-         dispatch(
-            authWithGoogleRequest({
-               tokenId: data.user.accessToken,
-               showToast,
-            })
-         )
-         onClose()
-      })
+      try {
+         await signInWithPopup(auth, provider).then((data) => {
+            dispatch(
+               authWithGoogleRequest({
+                  tokenId: data.user.accessToken,
+                  showToast,
+               })
+            )
+            onClose()
+         })
+      } catch (error) {
+         throw new Error(error)
+      }
    }
+
    const closeSignInModal = () => {
       setIsSignInModalOpen(false)
       onClose()

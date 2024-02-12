@@ -15,7 +15,7 @@ import { signInRequest } from '../../store/slice/auth/authThunk'
 const SignIn = ({ isOpenModal, onClose }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
-   const [visiblePassword, setVisiblePassword] = useState(true)
+   const [visiblePassword, setVisiblePassword] = useState(false)
 
    const {
       register,
