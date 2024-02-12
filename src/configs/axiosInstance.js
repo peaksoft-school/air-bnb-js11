@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = process.env.API_URL
+const BASE_URL = process.env.REACT_APP_API_URL
 
 export const axiosInstance = axios.create({
    baseURL: BASE_URL,
@@ -15,7 +15,7 @@ export const injectStore = (store) => {
    customStore = store
 }
 
-axios.interceptors.request.use(
+axiosInstance.interceptors.request.use(
    (config) => {
       const updateConfig = { ...config }
       const token = customStore.getState().auth.accessToken
@@ -23,16 +23,16 @@ axios.interceptors.request.use(
       if (token) {
          updateConfig.headers.Authorization = `Bearer ${token}`
       }
-      return config
+      return updateConfig
    },
    (error) => {
       return Promise.reject(error)
    }
 )
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
    (response) => {
-      Promise.resolve(response)
+      return Promise.resolve(response)
    },
    (error) => {
       if (error.response.status === 401) {

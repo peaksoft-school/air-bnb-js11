@@ -1,6 +1,9 @@
 export const routes = {
    ADMIN: {
       index: '/admin',
+      application: '/admin/application',
+      users: '/admin/users',
+      allHousing: '/admin/all-housing',
    },
 
    USER: {

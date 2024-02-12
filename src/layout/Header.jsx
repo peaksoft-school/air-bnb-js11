@@ -1,24 +1,37 @@
 import { Typography, styled, Button } from '@mui/material'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { LogoIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.jpg'
 import Input from '../components/UI/Input'
 import JoinUs from '../components/signIn/JoinUs'
 import Checkbox from '../components/UI/Checkbox'
+import GuestNotification from '../components/UI/GuestNotification'
 
 const Header = () => {
    const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
    const [nearbyChecked, setNearbyChecked] = useState(false)
+   const [isOpenGuestModal, setIsOpenGuestModal] = useState(false)
+   const { role } = useSelector((state) => state.auth)
 
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
+
+   const handleToggleModal = () => {
+      if (role === 'GUEST') {
+         setIsOpenGuestModal((prev) => !prev)
+      }
+   }
 
    return (
       <StyledContainer>
          <StyledHeader>
             <StyledLogoIcon />
             <StyledRegister>
-               <StyledText>leave an ad</StyledText>
-
+               <StyledText onClick={handleToggleModal}>leave an ad</StyledText>
+               <GuestNotification
+                  open={isOpenGuestModal}
+                  onClose={handleToggleModal}
+               />
                <StyledButton variant="button" onClick={handleChangeJoinUsModal}>
                   Join us
                </StyledButton>

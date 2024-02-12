@@ -10,7 +10,7 @@ import {
    PURGE,
    REGISTER,
 } from 'redux-persist'
-import { authSlice } from './slice/authSlice'
+import { authSlice } from './slice/auth/authSlice'
 
 const rootReducer = combineReducers({
    [authSlice.name]: authSlice.reducer,
