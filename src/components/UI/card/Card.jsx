@@ -15,6 +15,7 @@ const Card = ({
    blocked,
    newCard,
    option,
+   id,
 }) => {
    const changeIsLike = () => {
       // Здесь функция для update'та сердечки
@@ -62,7 +63,7 @@ const Card = ({
                      </>
                   )
                ) : (
-                  <Meatballs options={option} />
+                  <Meatballs options={option} id={id} />
                )}
             </LastContainer>
          </CardInnerContainer>

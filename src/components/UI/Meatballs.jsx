@@ -2,7 +2,7 @@ import { Box, IconButton, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
 import { DownArrowIcon, ThreePoint } from '../../assets/icons'
 
-const Meatballs = ({ options, variant = 'dotes', onClick }) => {
+const Meatballs = ({ options, variant = 'dotes', id }) => {
    const [anchorEl, setAnchorEl] = useState(null)
    const open = Boolean(anchorEl)
 
@@ -10,8 +10,8 @@ const Meatballs = ({ options, variant = 'dotes', onClick }) => {
 
    const handleClose = () => setAnchorEl(null)
 
-   const clickHandler = (key) => {
-      onClick(key)
+   const clickHandler = (onClick) => {
+      onClick(id)
       handleClose()
    }
 
@@ -45,8 +45,8 @@ const Meatballs = ({ options, variant = 'dotes', onClick }) => {
                },
             }}
          >
-            {options?.map(({ title, key }) => (
-               <MenuItem key={key} onClick={() => clickHandler(key)}>
+            {options?.map(({ title, onClick }) => (
+               <MenuItem key={title} onClick={() => clickHandler(onClick)}>
                   {title}
                </MenuItem>
             ))}

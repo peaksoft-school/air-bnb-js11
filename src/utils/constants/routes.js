@@ -3,6 +3,7 @@ export const routes = {
       index: '/admin',
       application: '/admin/application',
       users: '/admin/users',
+      user: '/admin/users/:userId',
       allHousing: '/admin/all-housing',
    },
 
