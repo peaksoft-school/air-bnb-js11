@@ -1,4 +1,5 @@
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { ROLES, routes } from '../utils/constants/routes'
 import PrivateRoutes from './PrivateRoutes'
 import { adminRoutes } from './AdminRoutes'
@@ -8,6 +9,8 @@ import { userRoutes } from './UserRoutes'
 import LandingPage from '../containers/LandingPage'
 
 const AppRoutes = () => {
+   const { role, isAuth } = useSelector((state) => state.auth)
+
    const router = createBrowserRouter([
       {
          path: routes.ADMIN.index,
@@ -16,6 +19,8 @@ const AppRoutes = () => {
                roles={[ROLES.ADMIN]}
                fallBackPath="/"
                component={<AdminLayout />}
+               role={role}
+               isAuth={isAuth}
             />
          ),
          children: adminRoutes,
@@ -24,16 +29,18 @@ const AppRoutes = () => {
          path: routes.USER.index,
          element: (
             <PrivateRoutes
-               roles={[ROLES.USER, ROLES.GUEST]}
+               roles={[ROLES.USER]}
                fallBackPath="/admin"
                component={<UserLayout />}
+               role={role}
+               isAuth={isAuth}
             />
          ),
          children: userRoutes,
       },
       {
          path: '/',
-         element: <LandingPage />,
+         element: role === 'ADMIN' ? <Navigate to="/admin" /> : <LandingPage />,
       },
       {
          path: '*',

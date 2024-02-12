@@ -1,12 +1,22 @@
 import { Box, Typography, styled } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { useState } from 'react'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
 import Modal from '../UI/Modal'
 import { schema } from '../../utils/helpers/validate'
+import { signInRequest } from '../../store/slice/auth/authThunk'
 
 const SignIn = ({ isOpenModal, onClose }) => {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const [visiblePassword, setVisiblePassword] = useState(false)
+
    const {
       register,
       handleSubmit,
@@ -16,10 +26,11 @@ const SignIn = ({ isOpenModal, onClose }) => {
       resolver: yupResolver(schema),
    })
 
-   const onSubmit = () => {
-      onClose()
-      reset()
+   const onSubmit = (data) => {
+      dispatch(signInRequest({ data, navigate, onClose, reset }))
    }
+
+   const handleChangeVisibility = () => setVisiblePassword((prev) => !prev)
 
    return (
       <StyledModal open={isOpenModal} onClose={onClose}>
@@ -40,10 +51,15 @@ const SignIn = ({ isOpenModal, onClose }) => {
 
                <Box className="input-container">
                   <Input
-                     type="password"
+                     type={visiblePassword ? 'text' : 'password'}
                      placeholder="Password"
                      {...register('password')}
                   />
+                  {visiblePassword ? (
+                     <VisibilityOffIcon onClick={handleChangeVisibility} />
+                  ) : (
+                     <VisibilityIcon onClick={handleChangeVisibility} />
+                  )}
                   <Typography className="validation">
                      {errors.password ? `${errors.password.message}` : ''}
                   </Typography>
@@ -103,6 +119,18 @@ const StyledModal = styled(Modal)(({ theme }) => ({
          alignItems: 'start',
          gap: '0.3rem',
          height: '55px',
+         position: 'relative',
+
+         '& .MuiSvgIcon-root': {
+            position: 'absolute',
+            top: '5px',
+            right: '1rem',
+            cursor: 'pointer',
+
+            path: {
+               fill: theme.palette.tertiary.middleGray,
+            },
+         },
       },
 
       '& .MuiFormControl-root.MuiTextField-root  ': {
