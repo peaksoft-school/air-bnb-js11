@@ -1,5 +1,6 @@
-import { useLocation, useParams } from 'react-router'
-import { Box, Typography, styled } from '@mui/material'
+import { useLocation } from 'react-router'
+import { Box, Skeleton, Typography, styled } from '@mui/material'
+import { useState } from 'react'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
@@ -18,8 +19,8 @@ const tabs = [
 ]
 
 const UserPage = () => {
-   const { userId } = useParams()
    const { pathname } = useLocation()
+   const [isLoading] = useState(false)
 
    const USER_BREADCRUMBS = [
       {
@@ -40,19 +41,32 @@ const UserPage = () => {
             <Box className="user-name">
                <Typography>Медер медербеков</Typography>
                <Box className="user-card">
-                  <Box>
-                     <img
-                        src="https://avatars.dzeninfra.ru/get-zen_doc/1592246/pub_5e3c84113a37040237bf3a29_5e3c8f373ca31f61b1afe494/scale_1200"
-                        alt="user-avatar"
-                        className="user-avatar"
-                     />
-                     <Typography>
-                        <span>Name:</span> Медер Медербеков
-                     </Typography>
-                     <Typography>
-                        <span>Contact</span>: mederbekov@gmail.com
-                     </Typography>
-                  </Box>
+                  {isLoading ? (
+                     <Box className="skeleton-container">
+                        <Skeleton
+                           variant="circular"
+                           width={90}
+                           height={90}
+                           className="user-avatar"
+                        />
+                        <Skeleton variant="text" />
+                        <Skeleton variant="text" />
+                     </Box>
+                  ) : (
+                     <Box>
+                        <img
+                           src="https://avatars.dzeninfra.ru/get-zen_doc/1592246/pub_5e3c84113a37040237bf3a29_5e3c8f373ca31f61b1afe494/scale_1200"
+                           alt="user-avatar"
+                           className="user-avatar"
+                        />
+                        <Typography>
+                           <span>Name:</span> Медер Медербеков
+                        </Typography>
+                        <Typography>
+                           <span>Contact</span>: mederbekov@gmail.com
+                        </Typography>
+                     </Box>
+                  )}
                </Box>
             </Box>
             <Box className="card-container">
@@ -67,6 +81,7 @@ export default UserPage
 
 const StyledUserContainer = styled(Box)(() => ({
    padding: '46px 40px',
+   position: 'relative',
 
    '& .user-container': {
       display: 'flex',
@@ -80,6 +95,18 @@ const StyledUserContainer = styled(Box)(() => ({
       },
 
       '& .user-card': {
+         '& .skeleton-container': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px',
+
+            '& .MuiSkeleton-text': {
+               fontSize: '1rem',
+               width: '18rem',
+            },
+         },
+
          '& .user-avatar': {
             width: '90px',
             height: '90px',

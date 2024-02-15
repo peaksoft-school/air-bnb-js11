@@ -112,11 +112,12 @@ const StyledHotel = styled('div')(({ background }) => ({
    display: 'flex',
    flexDirection: 'column',
    padding: '2.63rem 2.56rem',
-   marginLeft: '2.93rem',
 
    '& .first-hotel': {
       paddingTop: '3.75rem',
-      width: '32.8125rem',
+      maxWidth: '32.8125rem',
+      width: '100%',
+      minWidth: '29rem',
       height: '28.5rem',
    },
 

@@ -1,53 +1,47 @@
 import { Box, IconButton, styled } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 import { LogoIcon } from '../../assets/icons'
 import Meatballs from '../../components/UI/Meatballs'
-import { showToast } from '../../utils/helpers/toast'
-import { logout } from '../../store/slice/auth/authSlice'
 import { routes } from '../../utils/constants/routes'
-
-const option = [{ title: 'Log out', key: '1' }]
+import LogOutModal from '../../components/UI/LogOutModal'
 
 const AdminHeader = () => {
    const navigate = useNavigate()
-   const dispatch = useDispatch()
+   const [openLogOutModal, setOpenLogOutModal] = useState(false)
 
    const navigateHandler = () => navigate('/')
-   const onLogout = (key) => {
-      if (key === '1') {
-         dispatch(logout())
-         showToast({
-            title: 'Success',
-            message: 'Successfully have log get out',
-            type: 'success',
-         })
-      } else {
-         showToast({
-            title: 'Error',
-            message: 'Something went wrong',
-            type: 'error',
-         })
-      }
+
+   const onLogout = () => {
+      setOpenLogOutModal(true)
    }
 
+   const onCloseLogOutModal = () => {
+      setOpenLogOutModal(false)
+   }
+
+   const option = [{ title: 'Log out', onClick: onLogout }]
+
    return (
-      <HeaderContainer>
-         <div className="links-container">
-            <IconButton onClick={navigateHandler}>
-               <LogoIcon />
-            </IconButton>
-            <ul className="list">
-               <NavLink to={routes.ADMIN.application}>Application</NavLink>
-               <NavLink to={routes.ADMIN.users}>Users</NavLink>
-               <NavLink to={routes.ADMIN.allHousing}>All housing</NavLink>
-            </ul>
-         </div>
-         <div className="meatball-container">
-            Administrator
-            <Meatballs options={option} variant="arrow" onClick={onLogout} />
-         </div>
-      </HeaderContainer>
+      <>
+         <HeaderContainer>
+            <div className="links-container">
+               <IconButton onClick={navigateHandler}>
+                  <LogoIcon />
+               </IconButton>
+               <ul className="list">
+                  <NavLink to={routes.ADMIN.application}>Application</NavLink>
+                  <NavLink to={routes.ADMIN.users}>Users</NavLink>
+                  <NavLink to={routes.ADMIN.allHousing}>All housing</NavLink>
+               </ul>
+            </div>
+            <div className="meatball-container">
+               Administrator
+               <Meatballs options={option} variant="arrow" onClick={onLogout} />
+            </div>
+         </HeaderContainer>
+         <LogOutModal open={openLogOutModal} onClose={onCloseLogOutModal} />
+      </>
    )
 }
 

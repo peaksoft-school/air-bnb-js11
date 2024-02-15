@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Link, Typography, styled } from '@mui/material'
 import { signInWithPopup } from 'firebase/auth'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Modal from '../UI/Modal'
 import Button from '../UI/Button'
 import { GoogleIcon } from '../../assets/icons'
@@ -12,10 +12,12 @@ import { showToast } from '../../utils/helpers/toast'
 
 const JoinUs = ({ isOpenModal, onClose }) => {
    const dispatch = useDispatch()
-   const { role } = useSelector((state) => state.auth)
    const [isSignInModalOpen, setIsSignInModalOpen] = useState(false)
 
-   const openSignInModal = () => setIsSignInModalOpen(true)
+   const openSignInModal = () => {
+      setIsSignInModalOpen(true)
+      onClose()
+   }
 
    const signInWithGoogleHandler = async () => {
       try {
@@ -35,7 +37,6 @@ const JoinUs = ({ isOpenModal, onClose }) => {
 
    const closeSignInModal = () => {
       setIsSignInModalOpen(false)
-      onClose()
    }
 
    return (

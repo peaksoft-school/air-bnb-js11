@@ -1,4 +1,5 @@
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux'
 import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
@@ -9,19 +10,21 @@ const Card = ({
    rating,
    images,
    title,
-   localtion,
-   guests,
+   address,
+   maxGuests,
+   description,
    isLike,
    blocked,
    newCard,
+   province,
    option,
    id,
 }) => {
+   const { role } = useSelector((state) => state.auth)
+
    const changeIsLike = () => {
       // Здесь функция для update'та сердечки
    }
-
-   const role = 'ADMIN'
 
    return (
       <CardContainer blocked={blocked} newCard={newCard} role={role}>
@@ -45,14 +48,16 @@ const Card = ({
                </Rating>
             </PriceRatingInfo>
 
-            <HouseInfo>{title}</HouseInfo>
+            <HouseInfo>
+               {title}, {description}
+            </HouseInfo>
 
             <HouseLocation>
-               <LocationIcon /> {localtion}
+               <LocationIcon /> {address}, {province}
             </HouseLocation>
 
             <LastContainer>
-               <Guests>{guests} guests</Guests>
+               <Guests>{maxGuests} guests</Guests>
                {role === 'USER' ? (
                   blocked ? (
                      <Button disabled>Blocked</Button>

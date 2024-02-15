@@ -17,7 +17,8 @@ const StyledLoadingContainer = styled(Box)(() => ({
    },
 
    position: 'absolute',
-   top: '0',
+   top: 0,
+   left: 0,
    backdropFilter: 'blur(3px)',
    width: '100%',
    height: '100%',

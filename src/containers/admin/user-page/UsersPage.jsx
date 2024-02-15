@@ -24,7 +24,7 @@ const UsersPage = () => {
    const getAllUsers = async () => {
       setIsLoading(true)
       try {
-         const { data } = await axiosInstance.get('api/user')
+         const { data } = await axiosInstance.get('api/users')
          setUsers(data)
          setIsLoading(false)
          setError(null)
@@ -66,23 +66,31 @@ const UsersPage = () => {
                   </TableRow>
                </TableHead>
                <TableBody>
-                  {users.map((row, i) => (
-                     <TableRow
-                        key={row.id}
-                        onClick={() => handleNavigate(row.id)}
-                     >
-                        <TableCell>{i + 1}</TableCell>
-                        <TableCell>{row.username}</TableCell>
-                        <TableCell>{row.contact}</TableCell>
-                        <TableCell>{row.bookingsQuantity}</TableCell>
-                        <TableCell>{row.housesQuantity}</TableCell>
-                        <TableCell>
-                           <IconButton>
-                              <BasketIcon />
-                           </IconButton>
-                        </TableCell>
-                     </TableRow>
-                  ))}
+                  {users.map(
+                     (
+                        {
+                           id,
+                           username,
+                           contact,
+                           bookingsQuantity,
+                           housesQuantity,
+                        },
+                        i
+                     ) => (
+                        <TableRow key={id} onClick={() => handleNavigate(id)}>
+                           <TableCell>{i + 1}</TableCell>
+                           <TableCell>{username}</TableCell>
+                           <TableCell>{contact}</TableCell>
+                           <TableCell>{bookingsQuantity}</TableCell>
+                           <TableCell>{housesQuantity}</TableCell>
+                           <TableCell>
+                              <IconButton>
+                                 <BasketIcon />
+                              </IconButton>
+                           </TableCell>
+                        </TableRow>
+                     )
+                  )}
                </TableBody>
             </Table>
          </TableContainer>
