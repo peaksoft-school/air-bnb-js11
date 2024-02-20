@@ -14,6 +14,7 @@ import IconButton from '../../../components/UI/IconButton'
 import { BasketIcon } from '../../../assets/icons'
 import { axiosInstance } from '../../../configs/axiosInstance'
 import LoadingSpinner from '../../../components/UI/LoadingSpinner'
+import { showToast } from '../../../utils/helpers/toast'
 
 const UsersPage = () => {
    const [users, setUsers] = useState([])
@@ -24,13 +25,41 @@ const UsersPage = () => {
    const getAllUsers = async () => {
       setIsLoading(true)
       try {
-         const { data } = await axiosInstance.get('api/users')
+         const { data } = await axiosInstance.get('api/admin/users')
          setUsers(data)
-         setIsLoading(false)
          setError(null)
       } catch (error) {
-         setIsLoading(false)
          setError(error.response.data)
+         showToast({
+            title: 'Error',
+            message: error.response.data,
+            type: 'error',
+         })
+      } finally {
+         setIsLoading(false)
+      }
+   }
+
+   const deleteUser = async (id) => {
+      setIsLoading(true)
+      try {
+         await axiosInstance.delete(`api/users/${id}`)
+
+         showToast({
+            title: 'Success',
+            message: 'User successfully deleted',
+            type: 'success',
+         })
+
+         getAllUsers()
+      } catch (error) {
+         showToast({
+            title: 'Error',
+            message: error.response?.message,
+            type: 'error',
+         })
+      } finally {
+         setIsLoading(false)
       }
    }
 
@@ -53,47 +82,55 @@ const UsersPage = () => {
    return (
       <StyledContainer>
          <Typography>Users</Typography>
-         <TableContainer>
-            <Table>
-               <TableHead>
-                  <TableRow>
-                     <TableCell>№</TableCell>
-                     <TableCell>Name</TableCell>
-                     <TableCell>Contact</TableCell>
-                     <TableCell>Bookings</TableCell>
-                     <TableCell>Announcement</TableCell>
-                     <TableCell>Action</TableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-                  {users.map(
-                     (
-                        {
-                           id,
-                           username,
-                           contact,
-                           bookingsQuantity,
-                           housesQuantity,
-                        },
-                        i
-                     ) => (
-                        <TableRow key={id} onClick={() => handleNavigate(id)}>
-                           <TableCell>{i + 1}</TableCell>
-                           <TableCell>{username}</TableCell>
-                           <TableCell>{contact}</TableCell>
-                           <TableCell>{bookingsQuantity}</TableCell>
-                           <TableCell>{housesQuantity}</TableCell>
-                           <TableCell>
-                              <IconButton>
-                                 <BasketIcon />
-                              </IconButton>
-                           </TableCell>
-                        </TableRow>
-                     )
-                  )}
-               </TableBody>
-            </Table>
-         </TableContainer>
+         {users.length > 0 ? (
+            <TableContainer>
+               <Table>
+                  <TableHead>
+                     <TableRow>
+                        <TableCell>№</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Contact</TableCell>
+                        <TableCell>Bookings</TableCell>
+                        <TableCell>Announcement</TableCell>
+                        <TableCell>Action</TableCell>
+                     </TableRow>
+                  </TableHead>
+                  <TableBody>
+                     {users.map(
+                        (
+                           {
+                              id,
+                              username,
+                              contact,
+                              bookingsQuantity,
+                              housesQuantity,
+                           },
+                           i
+                        ) => (
+                           <TableRow key={id}>
+                              <TableCell>{i + 1}</TableCell>
+                              <TableCell onClick={() => handleNavigate(id)}>
+                                 {username}
+                              </TableCell>
+                              <TableCell onClick={() => handleNavigate(id)}>
+                                 {contact}
+                              </TableCell>
+                              <TableCell>{bookingsQuantity}</TableCell>
+                              <TableCell>{housesQuantity}</TableCell>
+                              <TableCell>
+                                 <IconButton onClick={() => deleteUser(id)}>
+                                    <BasketIcon />
+                                 </IconButton>
+                              </TableCell>
+                           </TableRow>
+                        )
+                     )}
+                  </TableBody>
+               </Table>
+            </TableContainer>
+         ) : (
+            <p className="not-found">There are no users yet</p>
+         )}
       </StyledContainer>
    )
 }
@@ -132,5 +169,16 @@ const StyledContainer = styled(TableContainer)(() => ({
          backgroundColor: '#d8d8d8',
          cursor: 'pointer',
       },
+      '& .MuiTableCell-root:last-child': {
+         '.MuiIconButton-root': {
+            position: 'relative',
+            zIndex: '100',
+         },
+      },
+   },
+
+   '& .not-found': {
+      fontSize: '30px',
+      textAlign: 'center',
    },
 }))

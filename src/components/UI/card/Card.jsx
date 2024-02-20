@@ -4,6 +4,7 @@ import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
 import Meatballs from '../Meatballs'
+import { notFoundImage } from '../../../assets/images'
 
 const Card = ({
    price,
@@ -35,7 +36,7 @@ const Card = ({
             </StyledBlockText>
          ) : null}
 
-         <CardSlider img={images} />
+         <CardSlider img={images.length > 0 ? images : [notFoundImage]} />
 
          <CardInnerContainer>
             <PriceRatingInfo>

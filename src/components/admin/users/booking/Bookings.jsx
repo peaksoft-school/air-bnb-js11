@@ -1,57 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { Box, styled } from '@mui/material'
 import { useParams } from 'react-router'
+import { useDispatch } from 'react-redux'
 import Card from '../../../UI/card/Card'
 import { axiosInstance } from '../../../../configs/axiosInstance'
 import LoadingSpinner from '../../../UI/LoadingSpinner'
 import { showToast } from '../../../../utils/helpers/toast'
+import {
+   blockedHouses,
+   deleteHouseAsync,
+} from '../../../../store/slice/admin/user/userThunk'
 
 const Bookings = () => {
+   const dispatch = useDispatch()
    const { userId } = useParams()
    const [bookings, setBookings] = useState([])
    const [isLoading, setIsLoading] = useState(true)
 
-   const getUserBookings = async () => {
+   const getUserHouses = async () => {
       setIsLoading(true)
       try {
          const { data } = await axiosInstance.get(
-            `api/houses/bookings/${userId}`
+            `api/admin/bookings/${userId}`
          )
          setBookings(data)
          return setIsLoading(false)
       } catch (error) {
+         setIsLoading(false)
          return error
       }
    }
 
    useEffect(() => {
-      getUserBookings()
+      getUserHouses()
    }, [])
-
-   const deleteHouse = async (id) => {
-      try {
-         await axiosInstance.delete(`api/houses/${id}`)
-         showToast({
-            title: 'Delete',
-            message: 'Successfully deleted',
-            type: 'success',
-         })
-         return getUserBookings()
-      } catch (e) {
-         return e
-      }
-   }
 
    const bookingOptions = [
       {
          title: 'Block',
          onClick: (id) => {
-            console.log(`Block ${id}`)
+            dispatch(
+               blockedHouses({ id, setIsLoading, showToast, getUserHouses })
+            )
          },
       },
       {
          title: 'Delete',
-         onClick: deleteHouse,
+         onClick: (id) =>
+            dispatch(
+               deleteHouseAsync({ id, setIsLoading, showToast, getUserHouses })
+            ),
       },
    ]
 
@@ -61,20 +59,12 @@ const Bookings = () => {
 
    return (
       <StyledBooking>
-         {bookings.map(
-            ({ maxGuests, images, address, price, rating, title, id }) => (
-               <Card
-                  key={id}
-                  guests={maxGuests}
-                  images={images}
-                  localtion={address}
-                  price={price}
-                  rating={rating}
-                  title={title}
-                  option={bookingOptions}
-                  id={id}
-               />
-            )
+         {bookings.length > 0 ? (
+            bookings.map((booking) => (
+               <Card key={booking.id} {...booking} option={bookingOptions} />
+            ))
+         ) : (
+            <p>There are no bookings yet</p>
          )}
       </StyledBooking>
    )
@@ -85,4 +75,9 @@ export default Bookings
 const StyledBooking = styled(Box)(() => ({
    display: 'flex',
    gap: '20px',
+
+   '& > p': {
+      fontSize: '30px',
+      margin: '0 auto',
+   },
 }))

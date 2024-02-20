@@ -24,6 +24,8 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={handleClick}
+            sx={{}}
+            style={{ padding: '8px' }}
          >
             {variant === 'dotes' ? <ThreePoint /> : <DownArrowIcon />}
          </IconButton>

@@ -1,11 +1,12 @@
-import { useLocation } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import { Box, Skeleton, Typography, styled } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
 import Bookings from '../../../components/admin/users/booking/Bookings'
 import Announcement from '../../../components/admin/users/booking/Announcement'
+import { axiosInstance } from '../../../configs/axiosInstance'
 
 const tabs = [
    {
@@ -20,7 +21,24 @@ const tabs = [
 
 const UserPage = () => {
    const { pathname } = useLocation()
-   const [isLoading] = useState(false)
+   const { userId } = useParams()
+   const [isLoading, setIsLoading] = useState(false)
+   const [user, setUser] = useState({})
+
+   const getUser = async () => {
+      setIsLoading(true)
+      try {
+         const { data } = await axiosInstance.get(`api/users/user/${userId}`)
+         setUser(data)
+         setIsLoading(false)
+      } catch (error) {
+         setIsLoading(false)
+      }
+   }
+
+   useEffect(() => {
+      getUser()
+   }, [])
 
    const USER_BREADCRUMBS = [
       {
@@ -28,7 +46,7 @@ const UserPage = () => {
          href: routes.ADMIN.users,
       },
       {
-         label: 'Медер медербеков',
+         label: user?.name,
          href: pathname,
       },
    ]
@@ -39,7 +57,7 @@ const UserPage = () => {
 
          <Box className="user-container">
             <Box className="user-name">
-               <Typography>Медер медербеков</Typography>
+               <Typography>{user?.name}</Typography>
                <Box className="user-card">
                   {isLoading ? (
                      <Box className="skeleton-container">
@@ -54,16 +72,14 @@ const UserPage = () => {
                      </Box>
                   ) : (
                      <Box>
-                        <img
-                           src="https://avatars.dzeninfra.ru/get-zen_doc/1592246/pub_5e3c84113a37040237bf3a29_5e3c8f373ca31f61b1afe494/scale_1200"
-                           alt="user-avatar"
-                           className="user-avatar"
-                        />
+                        <div className="user-avatar">
+                           {user.name && user.name[0]}
+                        </div>
                         <Typography>
-                           <span>Name:</span> Медер Медербеков
+                           <span>Name:</span> {user?.name}
                         </Typography>
                         <Typography>
-                           <span>Contact</span>: mederbekov@gmail.com
+                           <span>Contact</span>: {user?.email}
                         </Typography>
                      </Box>
                   )}
@@ -87,6 +103,7 @@ const StyledUserContainer = styled(Box)(() => ({
       display: 'flex',
       gap: '47px',
       alignItems: 'flex-start',
+      position: 'relative',
 
       '& .user-name': {
          display: 'flex',
@@ -108,11 +125,26 @@ const StyledUserContainer = styled(Box)(() => ({
          },
 
          '& .user-avatar': {
+            background: '#0298d9',
+            padding: '8px 12px',
+            borderRadius: '50%',
+            color: '#fff',
+            cursor: 'pointer',
             width: '90px',
             height: '90px',
-            objectFit: 'cover',
-            borderRadius: '50%',
+            fontSize: '50px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 5px',
          },
+
+         // '& .user-avatar': {
+         //    width: '90px',
+         //    height: '90px',
+         //    objectFit: 'cover',
+         //    borderRadius: '50%',
+         // },
          '& .MuiTypography-root': {
             '& span': {
                color: '#646464',

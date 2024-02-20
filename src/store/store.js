@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 })
 
 const persistConfig = {
-   key: 'root',
+   key: 'AIR_BNB',
    storage,
 }
 

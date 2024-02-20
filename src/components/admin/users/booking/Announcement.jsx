@@ -1,44 +1,84 @@
 import React, { useEffect, useState } from 'react'
 import { Box, styled } from '@mui/material'
 import { useParams } from 'react-router'
+import { useDispatch } from 'react-redux'
 import Card from '../../../UI/card/Card'
 import { axiosInstance } from '../../../../configs/axiosInstance'
 import LoadingSpinner from '../../../UI/LoadingSpinner'
 import Button from '../../../UI/Button'
+import { showToast } from '../../../../utils/helpers/toast'
+import {
+   blockedHouses,
+   deleteHouseAsync,
+} from '../../../../store/slice/admin/user/userThunk'
 
 const Announcement = () => {
+   const dispatch = useDispatch()
    const { userId } = useParams()
    const [announcements, setAnnouncements] = useState([])
    const [isLoading, setIsLoading] = useState(true)
 
-   const getUserAnnouncements = async () => {
+   const getUserHouses = async () => {
       setIsLoading(true)
       try {
          const { data } = await axiosInstance.get(
-            `api/houses/announcements/${userId}`
+            `api/admin/announcements/${userId}`
          )
-         setAnnouncements(data)
-         return setIsLoading(false)
+
+         return setAnnouncements(data)
       } catch (error) {
+         showToast({
+            title: 'Get User',
+            message: error.response?.message,
+            type: 'error',
+         })
          return error
+      } finally {
+         setIsLoading(false)
       }
    }
 
    useEffect(() => {
-      getUserAnnouncements()
+      getUserHouses()
    }, [])
+
+   const blockAllUserHouse = async () => {
+      setIsLoading(true)
+      try {
+         await axiosInstance.post(`api/houses/blockAllAds/${userId}`)
+         showToast({
+            title: 'Block all house',
+            message: 'Houses have been successfully blocked',
+            type: 'error',
+         })
+         return getUserHouses()
+      } catch (error) {
+         showToast({
+            title: 'Block all house',
+            message: error.response?.message,
+            type: 'error',
+         })
+         return error
+      } finally {
+         setIsLoading(false)
+      }
+   }
 
    const bookingOptions = [
       {
          title: 'Block',
          onClick: (id) => {
-            console.log(`Block ${id}`)
+            dispatch(
+               blockedHouses({ id, setIsLoading, showToast, getUserHouses })
+            )
          },
       },
       {
          title: 'Delete',
          onClick: (id) => {
-            console.log(`delete ${id}`)
+            dispatch(
+               deleteHouseAsync({ id, setIsLoading, showToast, getUserHouses })
+            )
          },
       },
    ]
@@ -49,24 +89,24 @@ const Announcement = () => {
 
    return (
       <>
-         <StyledBtnCont>
-            <Button>block all announcememt</Button>
-         </StyledBtnCont>
+         {announcements.length > 0 ? (
+            <StyledBtnCont>
+               <Button onClick={blockAllUserHouse}>
+                  block all announcememt
+               </Button>
+            </StyledBtnCont>
+         ) : null}
          <StyledBooking>
-            {announcements.map(
-               ({ maxGuests, images, address, price, rating, title, id }) => (
+            {announcements.length > 0 ? (
+               announcements.map((announcememt) => (
                   <Card
-                     key={id}
-                     guests={maxGuests}
-                     images={images}
-                     localtion={address}
-                     price={price}
-                     rating={rating}
-                     title={title}
+                     key={announcememt.id}
+                     {...announcememt}
                      option={bookingOptions}
-                     id={id}
                   />
-               )
+               ))
+            ) : (
+               <p>There are no announcememt yet</p>
             )}
          </StyledBooking>
       </>
@@ -78,11 +118,16 @@ export default Announcement
 const StyledBooking = styled(Box)(() => ({
    display: 'flex',
    gap: '20px',
+
+   '& > p': {
+      fontSize: '30px',
+      margin: '0 auto',
+   },
 }))
 
 const StyledBtnCont = styled(Box)(() => ({
    position: 'absolute',
    zIndex: 1,
-   left: 120,
-   bottom: -30,
+   left: 80,
+   bottom: 140,
 }))
