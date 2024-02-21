@@ -9,12 +9,15 @@ const Card = ({
    rating,
    images,
    title,
-   localtion,
-   guests,
+   address,
+   maxGuests,
+   description,
    isLike,
    blocked,
    newCard,
+   province,
    option,
+   id,
 }) => {
    const changeIsLike = () => {
       // Здесь функция для update'та сердечки
@@ -44,14 +47,14 @@ const Card = ({
                </Rating>
             </PriceRatingInfo>
 
-            <HouseInfo>{title}</HouseInfo>
-
+            <HouseInfo>
+               {title}, {description}
+            </HouseInfo>
             <HouseLocation>
-               <LocationIcon /> {localtion}
+               <LocationIcon /> {address}, {province}
             </HouseLocation>
-
             <LastContainer>
-               <Guests>{guests} guests</Guests>
+               <Guests>{maxGuests} guests</Guests>
                {role === 'USER' ? (
                   blocked ? (
                      <Button disabled>Blocked</Button>
@@ -62,7 +65,7 @@ const Card = ({
                      </>
                   )
                ) : (
-                  <Meatballs options={option} />
+                  <Meatballs options={option} id={id} />
                )}
             </LastContainer>
          </CardInnerContainer>

@@ -7,29 +7,15 @@ import { showToast } from '../../utils/helpers/toast'
 import { logout } from '../../store/slice/auth/authSlice'
 import { routes } from '../../utils/constants/routes'
 
-const option = [{ title: 'Log out', key: '1' }]
-
 const AdminHeader = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
 
    const navigateHandler = () => navigate('/')
-   const onLogout = (key) => {
-      if (key === '1') {
-         dispatch(logout())
-         showToast({
-            title: 'Success',
-            message: 'Successfully have log get out',
-            type: 'success',
-         })
-      } else {
-         showToast({
-            title: 'Error',
-            message: 'Something went wrong',
-            type: 'error',
-         })
-      }
+   const onLogout = () => {
+      dispatch(logout())
    }
+   const option = [{ title: 'Log out', onClick: onLogout }]
 
    return (
       <HeaderContainer>
@@ -45,7 +31,7 @@ const AdminHeader = () => {
          </div>
          <div className="meatball-container">
             Administrator
-            <Meatballs options={option} variant="arrow" onClick={onLogout} />
+            <Meatballs options={option} variant="arrow" />
          </div>
       </HeaderContainer>
    )

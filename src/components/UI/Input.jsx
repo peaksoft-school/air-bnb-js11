@@ -18,9 +18,8 @@ const Input = forwardRef(
 )
 
 const StyledInput = styled(TextField)(() => ({
-   width: '725px  ',
+   width: '45.3125rem',
    backgroundColor: '#fff',
-   marginBottom: '0px',
    borderRadius: '2px',
 
    '& .MuiOutlinedInput-input': {
