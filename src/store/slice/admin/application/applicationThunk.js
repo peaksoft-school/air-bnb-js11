@@ -21,6 +21,7 @@ export const deleteCardRequest = createAsyncThunk(
    async (payload, { rejectWithValue }) => {
       try {
          const response = await axiosInstance.delete(`/api/houses/${payload}`)
+         applicationRequest()
          return response.data
       } catch (error) {
          return rejectWithValue(error)
@@ -35,6 +36,7 @@ export const acceptCardRequest = createAsyncThunk(
          const response = await axiosInstance.post(
             `/api/admin/accepted-application/${payload}?value=APPROVE`
          )
+         applicationRequest()
          return response.data
       } catch (error) {
          return rejectWithValue(error)
@@ -49,6 +51,7 @@ export const rejectCardRequest = createAsyncThunk(
          const response = await axiosInstance.post(
             `/api/admin/accepted-application/${houseId}?value=REJECT&messageFromAdminToUser=${massage}`
          )
+         applicationRequest()
          return response.data
       } catch (error) {
          return rejectWithValue(error)

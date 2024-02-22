@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 import Card from '../UI/card/Card'
 import Modal from '../UI/Modal'
 import {
@@ -12,6 +12,7 @@ import {
 import Pagination from '../UI/Pagination'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
+import { Yurt } from '../../assets/images'
 
 const Application = () => {
    const dispatch = useDispatch()
@@ -55,20 +56,33 @@ const Application = () => {
       <StyledContainer>
          <h3 className="heading">APPLICATION</h3>
          <Box className="card-box">
-            {houses?.map((item) => (
-               <Box key={item.id}>
-                  <Card {...item} option={applicationCardMeatballsOptions} />
+            {houses.length !== '0' ? (
+               houses?.map((item) => (
+                  <Box key={item.id}>
+                     <Card {...item} option={applicationCardMeatballsOptions} />
+                  </Box>
+               ))
+            ) : (
+               <Box className="empty-page-box">
+                  <img src={Yurt} alt="yurt" className="yurt-img" />
+                  <Typography className="empty-text">
+                     This page is empty!
+                  </Typography>
                </Box>
-            ))}
+            )}
          </Box>
 
-         <Box className="pagination-box">
-            <Pagination
-               count={totalPages}
-               page={currentPage}
-               onChange={handleChange}
-            />
-         </Box>
+         {houses.length === '0' ? (
+            ''
+         ) : (
+            <Box className="pagination-box">
+               <Pagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={handleChange}
+               />
+            </Box>
+         )}
 
          <StyledModal open={isOpen} onClose={() => setIsOpen(false)}>
             <Box className="container">
@@ -85,7 +99,7 @@ const Application = () => {
                      variant="cancel"
                      className="cansel-button"
                   >
-                     CANSEl
+                     CANSEL
                   </Button>
                   <Button onClick={sendReject} className="send-button">
                      SEND
@@ -104,19 +118,40 @@ const StyledContainer = styled('div')(() => ({
    height: '100%',
    minHeight: '88.8vh',
    backgroundColor: '#f7f7f7',
+
    '& .pagination-box': {
       width: '100%',
       display: 'flex',
       justifyContent: 'center',
       marginTop: '3.75rem',
    },
+
    '& .card-box': {
       width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
       gap: '1rem',
       justifyContent: 'space-around',
+
+      '& .empty-page-box': {
+         width: '100%',
+         display: 'flex',
+         flexDirection: 'column',
+         alignItems: 'center',
+
+         '& .yurt-img': {
+            width: '50rem',
+            height: '30rem',
+         },
+
+         '& .empty-text': {
+            fontFamily: 'Inter',
+            fontSize: '1.125rem',
+            fontWeight: '500',
+         },
+      },
    },
+
    '& .heading': {
       marginLeft: '2.5rem',
       fontSize: '1.125rem',
@@ -132,6 +167,7 @@ const StyledInput = styled(Input)(() => ({
    marginTop: '1.5625rem',
    marginBottom: '1.875rem',
    padding: '10px, 8px, 10px, 16px',
+
    '& .MuiInputBase-root.MuiOutlinedInput-root': {
       minHeight: '6.5rem',
       borderRadius: '2px',
@@ -146,10 +182,12 @@ const StyledModal = styled(Modal)(() => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+
       '& .container': {
          display: 'flex',
          flexDirection: 'column',
          alignItems: 'center',
+
          '& .modal-heading': {
             marginTop: '1.5625rem',
             fontFamily: 'Inter',
@@ -157,6 +195,7 @@ const StyledModal = styled(Modal)(() => ({
             fontWeight: '500',
          },
       },
+
       '& .button-box': {
          width: '100%',
          height: '2.3125rem',
@@ -164,10 +203,12 @@ const StyledModal = styled(Modal)(() => ({
          justifyContent: 'flex-end',
          alignItems: 'center',
          gap: '0.5rem',
+
          '& .send-button': {
             width: '12.25rem',
             height: '2.3125rem',
          },
+
          '& .cansel-button': {
             width: '9.375rem',
             height: '2.0625rem',
