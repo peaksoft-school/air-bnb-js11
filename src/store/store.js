@@ -11,9 +11,11 @@ import {
    REGISTER,
 } from 'redux-persist'
 import { authSlice } from './slice/auth/authSlice'
+import { applicationSlice } from './slice/admin/application/applicationSlice'
 
 const rootReducer = combineReducers({
    [authSlice.name]: authSlice.reducer,
+   [applicationSlice.name]: applicationSlice.reducer,
 })
 
 const persistConfig = {
