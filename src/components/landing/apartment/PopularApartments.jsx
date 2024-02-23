@@ -151,7 +151,7 @@ const StyledMainText = styled('div')(({ background, theme }) => ({
       fontWeight: '500',
       margin: '1.75rem 0',
       lineHeight: 'normal',
-      fontfamily: 'Inter',
+      fontFamily: 'Inter',
    },
 
    '& .longText': {

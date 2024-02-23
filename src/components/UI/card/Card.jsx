@@ -52,11 +52,9 @@ const Card = ({
             <HouseInfo>
                {title}, {description}
             </HouseInfo>
-
             <HouseLocation>
                <LocationIcon /> {address}, {province}
             </HouseLocation>
-
             <LastContainer>
                <Guests>{maxGuests} guests</Guests>
                {role === 'USER' ? (

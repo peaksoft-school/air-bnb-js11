@@ -31,9 +31,10 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
       alignItems: 'center',
       justifyContent: 'center',
       gap: '1rem',
-      fontSize: '1rem',
+      fontSize: '0.875rem',
       fontWeight: '500',
       fontFamily: 'Inter',
+      borderRadius: '0.125rem',
    }
 
    const commonStyles = {
@@ -89,13 +90,11 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
    if (variant === 'cancel') {
       return {
          '&.MuiButtonBase-root': {
-            display: 'flex',
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
-            border: `0.0625rem solid ${theme.palette.tertiary.lightGray}`,
 
             '&:hover': {
-               backgroundColor: theme.palette.primary.main,
+               border: `1px solid ${theme.palette.tertiary.lightGray}`,
                color: theme.palette.primary.dark,
             },
          },
