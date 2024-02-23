@@ -12,7 +12,7 @@ export default Modal
 
 const StyledModal = styled(Modalka)(({ theme }) => ({
    '& .box': {
-      borderRadius: '0.125rem',
+      borderRadius: '12px',
       background: theme.palette.primary.main,
       position: 'absolute',
       top: '50%',

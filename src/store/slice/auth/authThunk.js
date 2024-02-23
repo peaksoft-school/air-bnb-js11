@@ -5,7 +5,11 @@ import { routes } from '../../../utils/constants/routes'
 
 export const signInRequest = createAsyncThunk(
    'auth/signIn',
-   async ({ data, navigate, onClose, reset }, { rejectWithValue }) => {
+   async (
+      { data, navigate, onClose, reset, setDisabledBtn },
+      { rejectWithValue }
+   ) => {
+      setDisabledBtn(true)
       try {
          const response = await axiosInstance.post('/api/auth/signIn', data)
 
@@ -29,6 +33,8 @@ export const signInRequest = createAsyncThunk(
          })
 
          return rejectWithValue(error)
+      } finally {
+         setDisabledBtn(false)
       }
    }
 )

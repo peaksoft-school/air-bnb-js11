@@ -1,7 +1,7 @@
 import { useLocation, useParams } from 'react-router'
 import { Box, Skeleton, Typography, styled } from '@mui/material'
 import { useEffect, useState } from 'react'
-import Breadcrumbs from '../../../components/UI/Breadcrumbs'
+import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
 import Bookings from '../../../components/admin/users/booking/Bookings'
@@ -53,7 +53,7 @@ const UserPage = () => {
 
    return (
       <StyledUserContainer>
-         <Breadcrumbs links={USER_BREADCRUMBS} />
+         <BreadCrumbs links={USER_BREADCRUMBS} />
 
          <Box className="user-container">
             <Box className="user-name">
@@ -71,7 +71,7 @@ const UserPage = () => {
                         <Skeleton variant="text" />
                      </Box>
                   ) : (
-                     <Box>
+                     <Box className="user-card-info">
                         <div className="user-avatar">
                            {user.name && user.name[0]}
                         </div>
@@ -112,6 +112,12 @@ const StyledUserContainer = styled(Box)(() => ({
       },
 
       '& .user-card': {
+         '& .user-card-info': {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+         },
+
          '& .skeleton-container': {
             display: 'flex',
             flexDirection: 'column',
@@ -129,7 +135,6 @@ const StyledUserContainer = styled(Box)(() => ({
             padding: '8px 12px',
             borderRadius: '50%',
             color: '#fff',
-            cursor: 'pointer',
             width: '90px',
             height: '90px',
             fontSize: '50px',
@@ -155,7 +160,7 @@ const StyledUserContainer = styled(Box)(() => ({
          border: '1px solid #c4c4c4',
          borderRadius: '12px',
          textAlign: 'center',
-         height: '250px',
+         height: 'fit-content',
          width: '420px',
       },
    },

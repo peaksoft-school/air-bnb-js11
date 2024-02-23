@@ -5,28 +5,16 @@ import { useState } from 'react'
 const Tabs = ({ tabs }) => {
    const [value, setValue] = useState(tabs[0].label)
 
-   const handleChange = (event, newValue) => {
-      setValue(newValue)
-   }
+   const handleChange = (_, newValue) => setValue(newValue)
 
    return (
       <StyledTabContainer>
          <TabContext value={value}>
-            <Box>
-               <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-               >
-                  {tabs.map(({ label }) => (
-                     <Tab
-                        key={label}
-                        label={label}
-                        value={label}
-                        sx={{ color: '#222' }}
-                     />
-                  ))}
-               </TabList>
-            </Box>
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+               {tabs.map(({ label }) => (
+                  <Tab key={label} label={label} value={label} />
+               ))}
+            </TabList>
             {tabs.map(({ Component, label }) => (
                <TabPanel key={label} value={label}>
                   {Component}
@@ -48,6 +36,8 @@ const StyledTabContainer = styled(Box)(() => ({
 
    '& .MuiTab-root': {
       color: '#363636 !important',
+      textTransform: 'capitalize',
+      fontSize: '18px',
    },
    '& .MuiTabs-indicator': {
       backgroundColor: '#363636',

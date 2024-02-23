@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Breadcrumbs as MuiBreadcrumbs, styled } from '@mui/material'
 
-const Breadcrumbs = ({ links }) => {
+const BreadCrumbs = ({ links }) => {
    const lastIndex = links.length - 1
 
    return (
@@ -21,7 +21,7 @@ const Breadcrumbs = ({ links }) => {
    )
 }
 
-export default Breadcrumbs
+export default BreadCrumbs
 
 const StyledBreadcrumbs = styled(MuiBreadcrumbs)(() => ({
    margin: '0 0 40px 0',

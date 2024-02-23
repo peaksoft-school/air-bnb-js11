@@ -16,14 +16,20 @@ const LogOutModal = ({ open, onClose }) => {
 
    return (
       <Modal open={open} onClose={onClose}>
-         Are you sure you want to log out
          <Container>
-            <Button variant="outlined" onClick={onClose} className="concel-btn">
-               Cancel
-            </Button>
-            <Button onClick={logOutHandler} className="done-btn">
-               Yes
-            </Button>
+            Are you sure you want to log out
+            <Box className="btn-cont">
+               <Button
+                  variant="outlined"
+                  onClick={onClose}
+                  className="concel-btn"
+               >
+                  Cancel
+               </Button>
+               <Button onClick={logOutHandler} className="done-btn">
+                  Yes
+               </Button>
+            </Box>
          </Container>
       </Modal>
    )
@@ -32,7 +38,15 @@ const LogOutModal = ({ open, onClose }) => {
 export default LogOutModal
 
 const Container = styled(Box)(() => ({
-   display: 'flex',
-   gap: '100px',
    marginTop: '20px',
+
+   '& .btn-cont': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: '30px',
+
+      '& .MuiButton-root': {
+         width: '100px',
+      },
+   },
 }))

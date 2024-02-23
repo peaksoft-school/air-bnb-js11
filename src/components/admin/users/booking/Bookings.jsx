@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, styled } from '@mui/material'
 import { useParams } from 'react-router'
 import { useDispatch } from 'react-redux'
@@ -61,7 +61,7 @@ const Bookings = () => {
       <StyledBooking>
          {bookings.length > 0 ? (
             bookings.map((booking) => (
-               <Card key={booking.id} {...booking} option={bookingOptions} />
+               <Card key={booking.id} option={bookingOptions} {...booking} />
             ))
          ) : (
             <p>There are no bookings yet</p>

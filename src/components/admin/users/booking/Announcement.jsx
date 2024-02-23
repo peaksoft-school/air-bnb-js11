@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, styled } from '@mui/material'
 import { useParams } from 'react-router'
 import { useDispatch } from 'react-redux'
@@ -49,7 +49,7 @@ const Announcement = () => {
          showToast({
             title: 'Block all house',
             message: 'Houses have been successfully blocked',
-            type: 'error',
+            type: 'success',
          })
          return getUserHouses()
       } catch (error) {
@@ -90,19 +90,20 @@ const Announcement = () => {
    return (
       <>
          {announcements.length > 0 ? (
-            <StyledBtnCont>
+            <StyledButtonsContainer>
                <Button onClick={blockAllUserHouse}>
-                  block all announcememt
+                  block all announcement
                </Button>
-            </StyledBtnCont>
+            </StyledButtonsContainer>
          ) : null}
+
          <StyledBooking>
             {announcements.length > 0 ? (
                announcements.map((announcememt) => (
                   <Card
                      key={announcememt.id}
-                     {...announcememt}
                      option={bookingOptions}
+                     {...announcememt}
                   />
                ))
             ) : (
@@ -125,9 +126,10 @@ const StyledBooking = styled(Box)(() => ({
    },
 }))
 
-const StyledBtnCont = styled(Box)(() => ({
+const StyledButtonsContainer = styled(Box)(() => ({
    position: 'absolute',
    zIndex: 1,
    left: 80,
    bottom: 140,
+   fontTransform: 'uppercase',
 }))
