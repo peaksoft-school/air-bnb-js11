@@ -15,11 +15,12 @@ export const authSlice = createSlice({
    initialState,
    reducers: {
       logout: (state) => {
-         state.role = ROLES
+         state.role = ROLES.GUEST
          state.isAuth = false
          state.email = null
          state.isLoading = false
          state.accessToken = null
+         localStorage.removeItem('AIR_BNB')
       },
    },
 

@@ -1,12 +1,15 @@
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { Suspense, lazy } from 'react'
 import { ROLES, routes } from '../utils/constants/routes'
 import PrivateRoutes from './PrivateRoutes'
 import { adminRoutes } from './AdminRoutes'
-import AdminLayout from '../layout/admin/AdminLayout'
-import UserLayout from '../layout/user/UserLayout'
 import { userRoutes } from './UserRoutes'
 import LandingPage from '../containers/LandingPage'
+import LoadingSpinner from '../components/UI/LoadingSpinner'
+
+const AdminLayout = lazy(() => import('../layout/admin/AdminLayout'))
+const UserLayout = lazy(() => import('../layout/user/UserLayout'))
 
 const AppRoutes = () => {
    const { role, isAuth } = useSelector((state) => state.auth)
@@ -18,7 +21,11 @@ const AppRoutes = () => {
             <PrivateRoutes
                roles={[ROLES.ADMIN]}
                fallBackPath="/"
-               component={<AdminLayout />}
+               component={
+                  <Suspense fallback={<LoadingSpinner />}>
+                     <AdminLayout />
+                  </Suspense>
+               }
                role={role}
                isAuth={isAuth}
             />
@@ -31,7 +38,11 @@ const AppRoutes = () => {
             <PrivateRoutes
                roles={[ROLES.USER]}
                fallBackPath="/admin"
-               component={<UserLayout />}
+               component={
+                  <Suspense fallback={<LoadingSpinner />}>
+                     <UserLayout />
+                  </Suspense>
+               }
                role={role}
                isAuth={isAuth}
             />

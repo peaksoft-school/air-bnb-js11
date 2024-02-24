@@ -44,7 +44,6 @@ export const applicationSlice = createSlice({
             state.error = null
          })
       builder
-         .addCase(acceptCardRequest.fulfilled, (state, { payload }) => {})
          .addCase(acceptCardRequest.rejected, (state, { payload }) => {
             state.loading = false
             state.error = payload

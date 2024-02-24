@@ -1,8 +1,10 @@
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux'
 import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
 import Meatballs from '../Meatballs'
+import { NotFound } from '../../../assets/images'
 
 const Card = ({
    price,
@@ -19,11 +21,11 @@ const Card = ({
    option,
    id,
 }) => {
+   const { role } = useSelector((state) => state.auth)
+
    const changeIsLike = () => {
       // Здесь функция для update'та сердечки
    }
-
-   const role = 'ADMIN'
 
    return (
       <CardContainer blocked={blocked} newCard={newCard} role={role}>
@@ -34,7 +36,7 @@ const Card = ({
             </StyledBlockText>
          ) : null}
 
-         <CardSlider img={images} />
+         <CardSlider img={images.length > 0 ? images : [NotFound]} />
 
          <CardInnerContainer>
             <PriceRatingInfo>

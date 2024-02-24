@@ -1,18 +1,24 @@
 import { Typography, styled, Button } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { LogoIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.jpg'
 import Input from '../components/UI/Input'
 import JoinUs from '../components/signIn/JoinUs'
 import Checkbox from '../components/UI/Checkbox'
 import GuestNotification from '../components/UI/GuestNotification'
+import Meatballs from '../components/UI/Meatballs'
+import LogOutModal from '../components/UI/LogOutModal'
 
 const Header = () => {
    const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
    const [nearbyChecked, setNearbyChecked] = useState(false)
    const [isOpenGuestModal, setIsOpenGuestModal] = useState(false)
-   const { role } = useSelector((state) => state.auth)
+   const [openLogOutModal, setOpenLogOutModal] = useState(false)
+   const { role, isAuth } = useSelector((state) => state.auth)
+   const { name } = useSelector((state) => state.user)
+   const navigate = useNavigate()
 
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
 
@@ -22,38 +28,74 @@ const Header = () => {
       }
    }
 
-   return (
-      <StyledContainer>
-         <StyledHeader>
-            <StyledLogoIcon />
-            <StyledRegister>
-               <StyledText onClick={handleToggleModal}>leave an ad</StyledText>
-               <GuestNotification
-                  open={isOpenGuestModal}
-                  onClose={handleToggleModal}
-               />
-               <StyledButton variant="button" onClick={handleChangeJoinUsModal}>
-                  Join us
-               </StyledButton>
-               <JoinUs
-                  isOpenModal={isOpenJoinUsModal}
-                  onClose={handleChangeJoinUsModal}
-               />
-            </StyledRegister>
-         </StyledHeader>
-         <StyledContentWrapper>
-            <h1 className="header">Find a place you&apos;ll love to stay at</h1>
-            <Input />
+   const onLogout = () => {
+      setOpenLogOutModal(true)
+   }
 
-            <StyledSearch>
-               <Checkbox
-                  label="Искать поблизости"
-                  changeChecked={setNearbyChecked}
-                  checked={nearbyChecked}
-               />
-            </StyledSearch>
-         </StyledContentWrapper>
-      </StyledContainer>
+   const onCloseLogOutModal = () => {
+      setOpenLogOutModal(false)
+   }
+
+   const options = [
+      {
+         title: 'Profile',
+         onClick: () => navigate('/user/profile'),
+      },
+      {
+         title: 'Log out',
+         onClick: onLogout,
+      },
+   ]
+
+   return (
+      <>
+         <StyledContainer>
+            <StyledHeader>
+               <StyledLogoIcon />
+               <StyledRegister>
+                  <StyledText onClick={handleToggleModal}>
+                     leave an ad
+                  </StyledText>
+                  <GuestNotification
+                     open={isOpenGuestModal}
+                     onClose={handleToggleModal}
+                  />
+                  {isAuth ? (
+                     <div className="user-info">
+                        <div className="username">{name && name[0]}</div>
+                        <Meatballs variant="arrow" options={options} />
+                     </div>
+                  ) : (
+                     <StyledButton
+                        variant="button"
+                        onClick={handleChangeJoinUsModal}
+                     >
+                        Join us
+                     </StyledButton>
+                  )}
+                  <JoinUs
+                     isOpenModal={isOpenJoinUsModal}
+                     onClose={handleChangeJoinUsModal}
+                  />
+               </StyledRegister>
+            </StyledHeader>
+            <StyledContentWrapper>
+               <h1 className="header">
+                  Find a place you&apos;ll love to stay at
+               </h1>
+               <Input />
+
+               <StyledSearch>
+                  <Checkbox
+                     label="Искать поблизости"
+                     changeChecked={setNearbyChecked}
+                     checked={nearbyChecked}
+                  />
+               </StyledSearch>
+            </StyledContentWrapper>
+         </StyledContainer>
+         <LogOutModal open={openLogOutModal} onClose={onCloseLogOutModal} />
+      </>
    )
 }
 export default Header
@@ -61,7 +103,9 @@ export default Header
 const StyledHeader = styled('header')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
-   width: '90rem',
+   width: '100%',
+   maxWidth: '90rem',
+   minWidth: '65rem',
    padding: '2.63rem 6.25rem',
    marginLeft: '3rem',
 }))
@@ -76,20 +120,24 @@ const StyledContainer = styled('div')(() => ({
    alignItems: 'center',
    background: `url(${headerBackground}) center/cover no-repeat`,
 }))
-const StyledVideo = styled('video')(() => ({
-   position: 'absolute',
-   top: 0,
-   left: 0,
-   width: '100%',
-   height: '100%',
-   objectFit: 'cover',
-   zIndex: -1,
-}))
 
 const StyledRegister = styled('div')(() => ({
    display: 'flex',
    gap: '3.75rem',
    textAlign: 'center',
+
+   '& .user-info': {
+      display: 'flex',
+      alignItems: 'flex-start',
+
+      '& .username': {
+         background: '#0298d9',
+         padding: '8px 12px',
+         borderRadius: '50%',
+         color: '#fff',
+         cursor: 'pointer',
+      },
+   },
 }))
 
 const StyledText = styled(Typography)(({ theme }) => ({
