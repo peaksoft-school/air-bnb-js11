@@ -60,7 +60,6 @@ const StyledContainer = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'center',
    marginBottom: '10.62rem',
-   cursor: 'pointer',
 
    '& .box': {
       display: 'flex',
@@ -75,6 +74,7 @@ const StyledImagesList = styled(ImageList)(({ theme }) => ({
    '& .image-conteiner': {
       display: 'flex',
       gap: '1.25rem',
+      cursor: 'pointer',
    },
 
    '& .image-box': {

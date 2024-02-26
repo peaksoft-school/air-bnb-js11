@@ -29,6 +29,7 @@ const data = [
       isLike: true,
       blocked: true,
       newCard: false,
+      id: 1,
    },
    {
       images: [mansio2],
@@ -40,6 +41,7 @@ const data = [
       isLike: false,
       blocked: false,
       newCard: true,
+      id: 2,
    },
 ]
 

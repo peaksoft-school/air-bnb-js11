@@ -1,4 +1,4 @@
-import { Box, IconButton, Menu, MenuItem } from '@mui/material'
+import { Box, IconButton, Menu, MenuItem, styled } from '@mui/material'
 import { useState } from 'react'
 import { DownArrowIcon, ThreePoint } from '../../assets/icons'
 
@@ -17,16 +17,17 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
 
    return (
       <Box>
-         <IconButton
+         <StyledIconButton
             aria-label="more"
             id="long-button"
             aria-controls={open ? 'long-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={handleClick}
+            open={+open}
          >
             {variant === 'dotes' ? <ThreePoint /> : <DownArrowIcon />}
-         </IconButton>
+         </StyledIconButton>
 
          <Menu
             id="long-menu"
@@ -40,7 +41,7 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
                paper: {
                   style: {
                      maxHeight: 48 * 4.5,
-                     width: '20ch',
+                     width: '12ch',
                   },
                },
             }}
@@ -56,3 +57,9 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
 }
 
 export default Meatballs
+
+const StyledIconButton = styled(IconButton)(({ open }) => ({
+   padding: '8px',
+   rotate: `${open ? '180deg' : ''}`,
+   transition: '500ms',
+}))

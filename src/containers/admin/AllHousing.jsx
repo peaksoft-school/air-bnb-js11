@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/system'
 import React, { useState } from 'react'
-import Select from '../UI/Select'
+import Select from '../../components/UI/Select'
 
 const AllHousing = () => {
    const [selectedOption, setSelectedOption] = useState('')
@@ -21,6 +21,7 @@ const AllHousing = () => {
             <h3 className="heading">ALL HOUSING</h3>
             <Box className="select-box">
                <Select
+                  value={selectedOption}
                   label="Select an Option"
                   onChange={handleSelectChange}
                   defaultId={1}

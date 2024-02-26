@@ -32,6 +32,7 @@ const StyledHeading = styled('h1')(({ theme }) => ({
    color: theme.palette.primary.dark,
    fontSize: '1rem',
    fontWeight: 500,
+   fontFamily: 'Inter',
 }))
 
 const StyledMessage = styled('p')(({ theme }) => ({

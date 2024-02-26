@@ -1,6 +1,5 @@
 import {
    FormControlLabel,
-   FormGroup,
    Checkbox as MuiCheckbox,
    styled,
 } from '@mui/material'
