@@ -10,7 +10,11 @@ export { default as FirstHotel } from './images/hotel.png'
 export { default as ImgAsmanHotelGuestHouse } from './images/orend-hose.jpg'
 export { default as ImgAsmanGuestHoues } from './images/orend-popular-hose.jpg'
 export { default as ImgAsmanGuestHotel } from './images/popular-house.jpg'
+<<<<<<< HEAD
 export { default as Bighool } from './images/bighool.png'
 export { default as smallhool1 } from './images/small-hool1.png'
 export { default as smallhool2 } from './images/small-hool2.png'
 export { default as smallhool3 } from './images/small-hool3.png'
+=======
+export { default as Yurt } from './images/yurt.png'
+>>>>>>> development
