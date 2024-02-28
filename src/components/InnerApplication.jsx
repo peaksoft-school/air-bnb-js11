@@ -1,14 +1,24 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Box, Typography, styled } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { Bighool, smallhool1, smallhool2, smallhool3 } from '../assets/images'
+import { getInnerPages } from '../store/slice/admin/inner-application/InnerApplicationThunk'
 
-const InnerApplication = () => {
+const InnerApplication = ({ id }) => {
    const sliderRef1 = useRef(null)
    const sliderRef2 = useRef(null)
+
+   const { accessToken } = useSelector((state) => state.innerPage)
+
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      dispatch(getInnerPages({ accessToken, id }))
+   }, [accessToken, dispatch, id])
 
    const settings = {
       slidesToShow: 2,

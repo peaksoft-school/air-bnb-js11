@@ -3,10 +3,10 @@ import { axiosInstance } from '../../../../configs/axiosInstance'
 
 const getInnerPages = createAsyncThunk(
    'pages/getInnerPages',
-   async ({ accessToken, currentPage, pageSize }, { rejectWithValue }) => {
+   async ({ accessToken, id }, { rejectWithValue }) => {
       try {
          const response = await axiosInstance.get(
-            `/api/houses/pages?currentPage=${currentPage}&pageSize=${pageSize}`,
+            `/api/houses/${id}`,
             accessToken
          )
          return response.data
