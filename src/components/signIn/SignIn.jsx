@@ -11,11 +11,13 @@ import Button from '../UI/Button'
 import Modal from '../UI/Modal'
 import { schema } from '../../utils/helpers/validate'
 import { signInRequest } from '../../store/slice/auth/authThunk'
+import LoadingBtn from '../UI/LoadingBtn'
 
 const SignIn = ({ isOpenModal, onClose }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const [visiblePassword, setVisiblePassword] = useState(false)
+   const [disabledBtn, setDisabledBtn] = useState(false)
 
    const {
       register,
@@ -27,7 +29,9 @@ const SignIn = ({ isOpenModal, onClose }) => {
    })
 
    const onSubmit = (data) => {
-      dispatch(signInRequest({ data, navigate, onClose, reset }))
+      dispatch(
+         signInRequest({ data, navigate, onClose, reset, setDisabledBtn })
+      )
    }
 
    const handleChangeVisibility = () => setVisiblePassword((prev) => !prev)
@@ -56,16 +60,18 @@ const SignIn = ({ isOpenModal, onClose }) => {
                      {...register('password')}
                   />
                   {visiblePassword ? (
-                     <VisibilityOffIcon onClick={handleChangeVisibility} />
-                  ) : (
                      <VisibilityIcon onClick={handleChangeVisibility} />
+                  ) : (
+                     <VisibilityOffIcon onClick={handleChangeVisibility} />
                   )}
                   <Typography className="validation">
                      {errors.password ? `${errors.password.message}` : ''}
                   </Typography>
                </Box>
 
-               <Button type="submit">SIGN IN</Button>
+               <Button type="submit" disabled={disabledBtn}>
+                  {disabledBtn ? <LoadingBtn /> : 'SIGN IN'}
+               </Button>
             </form>
          </Box>
       </StyledModal>

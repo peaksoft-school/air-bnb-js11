@@ -2,7 +2,7 @@ import { Button as MuiButton, styled } from '@mui/material'
 import { Google } from '../../assets/icons'
 
 const Button = ({
-   type = 'submit',
+   type = 'buton',
    onClick,
    disabled,
    children,
@@ -56,6 +56,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
                ...commonStyles,
                border: `0.0625rem solid ${theme.palette.primary.dark}`,
                backgroundColor: theme.palette.primary.main,
+               color: '#fff',
             },
 
             '&:active': {

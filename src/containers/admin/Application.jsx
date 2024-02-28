@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Typography, styled } from '@mui/material'
-import Card from '../UI/card/Card'
-import Modal from '../UI/Modal'
+import Card from '../../components/UI/card/Card'
+import Modal from '../../components/UI/Modal'
 import {
    acceptCardRequest,
    applicationRequest,
    deleteCardRequest,
    rejectCardRequest,
 } from '../../store/slice/admin/application/applicationThunk'
-import Pagination from '../UI/Pagination'
-import Input from '../UI/Input'
-import Button from '../UI/Button'
+import Pagination from '../../components/UI/Pagination'
+import Input from '../../components/UI/Input'
+import Button from '../../components/UI/Button'
 import { Yurt } from '../../assets/images'
 
 const Application = () => {

@@ -19,7 +19,12 @@ const CardSlider = ({ img }) => (
    >
       {img.map((images) => (
          <SwiperSlide key={images}>
-            <CardImg className="card-img" src={images} alt="house-img" />
+            <CardImg
+               className="card-img"
+               src={images}
+               alt="house-img"
+               loading="lazy"
+            />
          </SwiperSlide>
       ))}
 
