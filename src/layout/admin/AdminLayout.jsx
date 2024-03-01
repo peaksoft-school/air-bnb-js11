@@ -16,5 +16,4 @@ export default AdminLayout
 const StyledAdminLayout = styled(Box)(() => ({
    backgroundColor: '#f7f7f7',
    width: '100%',
-   height: '100vh',
 }))

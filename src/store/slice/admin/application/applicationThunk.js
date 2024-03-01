@@ -18,11 +18,12 @@ export const applicationRequest = createAsyncThunk(
 
 export const deleteCardRequest = createAsyncThunk(
    'application/deleteCard',
-   async (payload, { rejectWithValue }) => {
+
+   async ({ id, getData }, { dispatch, rejectWithValue }) => {
       try {
-         const response = await axiosInstance.delete(`/api/houses/${payload}`)
-         applicationRequest()
-         return response.data
+         await axiosInstance.delete(`/api/houses/${id}`)
+
+         return dispatch(applicationRequest(getData))
       } catch (error) {
          return rejectWithValue(error)
       }
@@ -31,13 +32,13 @@ export const deleteCardRequest = createAsyncThunk(
 
 export const acceptCardRequest = createAsyncThunk(
    'application/acceptCard',
-   async (payload, { rejectWithValue }) => {
+   async ({ id, getData }, { dispatch, rejectWithValue }) => {
       try {
-         const response = await axiosInstance.post(
-            `/api/admin/accepted-application/${payload}?value=APPROVE`
+         await axiosInstance.post(
+            `/api/admin/accepted-application/${id}?value=APPROVE`
          )
-         applicationRequest()
-         return response.data
+
+         return dispatch(applicationRequest(getData))
       } catch (error) {
          return rejectWithValue(error)
       }
@@ -46,13 +47,13 @@ export const acceptCardRequest = createAsyncThunk(
 
 export const rejectCardRequest = createAsyncThunk(
    'application/rejectCard',
-   async ({ houseId, massage }, { rejectWithValue }) => {
+   async ({ houseId, massage, getData }, { dispatch, rejectWithValue }) => {
       try {
-         const response = await axiosInstance.post(
+         await axiosInstance.post(
             `/api/admin/accepted-application/${houseId}?value=REJECT&messageFromAdminToUser=${massage}`
          )
-         applicationRequest()
-         return response.data
+
+         return dispatch(applicationRequest(getData))
       } catch (error) {
          return rejectWithValue(error)
       }

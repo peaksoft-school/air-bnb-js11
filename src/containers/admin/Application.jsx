@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Typography, styled } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import Card from '../../components/UI/card/Card'
-import Modal from '../../components/UI/Modal'
 import {
    acceptCardRequest,
    applicationRequest,
@@ -10,9 +9,8 @@ import {
    rejectCardRequest,
 } from '../../store/slice/admin/application/applicationThunk'
 import Pagination from '../../components/UI/Pagination'
-import Input from '../../components/UI/Input'
-import Button from '../../components/UI/Button'
-import { Yurt } from '../../assets/images'
+import RejectedModal from '../../components/UI/admin/RejectedModal'
+import { AdminNoDataImage } from '../../assets/images'
 
 const Application = () => {
    const dispatch = useDispatch()
@@ -24,7 +22,7 @@ const Application = () => {
    const [currentPage, setCurrentPage] = useState(1)
    const [houseId, setHouseId] = useState(null)
 
-   const handleChange = (event, value) => {
+   const handleChange = (e, value) => {
       setCurrentPage(value)
    }
 
@@ -32,8 +30,14 @@ const Application = () => {
       dispatch(applicationRequest({ accessToken, pageSize, currentPage }))
    }, [accessToken, dispatch, currentPage])
 
+   const getData = {
+      accessToken,
+      pageSize,
+      currentPage,
+   }
+
    const sendReject = () => {
-      dispatch(rejectCardRequest({ houseId, massage }))
+      dispatch(rejectCardRequest({ houseId, massage, getData }))
       setIsOpen((prev) => !prev)
       setMassage('')
    }
@@ -45,9 +49,15 @@ const Application = () => {
    }
 
    const applicationCardMeatballsOptions = [
-      { title: 'Accept', onClick: (id) => dispatch(acceptCardRequest(id)) },
+      {
+         title: 'Accept',
+         onClick: (id) => dispatch(acceptCardRequest({ id, getData })),
+      },
       { title: 'Reject', onClick: (id) => handleReject(id) },
-      { title: 'Delete', onClick: (id) => dispatch(deleteCardRequest(id)) },
+      {
+         title: 'Delete',
+         onClick: (id) => dispatch(deleteCardRequest({ id, getData })),
+      },
    ]
 
    const handleChangeMassageValue = (e) => setMassage(e.target.value)
@@ -55,8 +65,9 @@ const Application = () => {
    return (
       <StyledContainer>
          <h3 className="heading">APPLICATION</h3>
+
          <Box className="card-box">
-            {houses.length !== '0' ? (
+            {houses.length !== 0 ? (
                houses?.map((item) => (
                   <Box key={item.id}>
                      <Card {...item} option={applicationCardMeatballsOptions} />
@@ -64,10 +75,11 @@ const Application = () => {
                ))
             ) : (
                <Box className="empty-page-box">
-                  <img src={Yurt} alt="yurt" className="yurt-img" />
-                  <Typography className="empty-text">
-                     This page is empty!
-                  </Typography>
+                  <img
+                     src={AdminNoDataImage}
+                     alt="no data"
+                     className="noData-imgs"
+                  />
                </Box>
             )}
          </Box>
@@ -84,29 +96,13 @@ const Application = () => {
             </Box>
          )}
 
-         <StyledModal open={isOpen} onClose={() => setIsOpen(false)}>
-            <Box className="container">
-               <h3 className="modal-heading">REJECT</h3>
-               <StyledInput
-                  multiline
-                  placeholder="Write the reason for your rejection "
-                  value={massage}
-                  onChange={handleChangeMassageValue}
-               />
-               <Box className="button-box">
-                  <Button
-                     onClick={handleReject}
-                     variant="cancel"
-                     className="cansel-button"
-                  >
-                     CANSEL
-                  </Button>
-                  <Button onClick={sendReject} className="send-button">
-                     SEND
-                  </Button>
-               </Box>
-            </Box>
-         </StyledModal>
+         <RejectedModal
+            isOpen={isOpen}
+            onClose={handleReject}
+            value={massage}
+            onChange={handleChangeMassageValue}
+            sendRequest={sendReject}
+         />
       </StyledContainer>
    )
 }
@@ -123,15 +119,16 @@ const StyledContainer = styled('div')(() => ({
       width: '100%',
       display: 'flex',
       justifyContent: 'center',
-      marginTop: '3.75rem',
+      marginTop: '1rem',
    },
 
    '& .card-box': {
       width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
-      gap: '1rem',
-      justifyContent: 'space-around',
+      rowGap: '2rem',
+      columnGap: '5rem',
+      paddingLeft: '2.5rem',
 
       '& .empty-page-box': {
          width: '100%',
@@ -139,15 +136,9 @@ const StyledContainer = styled('div')(() => ({
          flexDirection: 'column',
          alignItems: 'center',
 
-         '& .yurt-img': {
-            width: '50rem',
+         '& .noData-img': {
+            width: '30rem',
             height: '30rem',
-         },
-
-         '& .empty-text': {
-            fontFamily: 'Inter',
-            fontSize: '1.125rem',
-            fontWeight: '500',
          },
       },
    },
@@ -159,61 +150,5 @@ const StyledContainer = styled('div')(() => ({
       padding: ' 1.75rem 0',
       lineHeight: 'normal',
       fontFamily: 'Inter',
-   },
-}))
-
-const StyledInput = styled(Input)(() => ({
-   width: '25.875rem',
-   marginTop: '1.5625rem',
-   marginBottom: '1.875rem',
-   padding: '10px, 8px, 10px, 16px',
-
-   '& .MuiInputBase-root.MuiOutlinedInput-root': {
-      minHeight: '6.5rem',
-      borderRadius: '2px',
-      display: 'flex',
-      alignItems: 'flex-start',
-   },
-}))
-
-const StyledModal = styled(Modal)(() => ({
-   '& .box': {
-      width: '29.625rem',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-
-      '& .container': {
-         display: 'flex',
-         flexDirection: 'column',
-         alignItems: 'center',
-
-         '& .modal-heading': {
-            marginTop: '1.5625rem',
-            fontFamily: 'Inter',
-            fontSize: '1.125rem',
-            fontWeight: '500',
-         },
-      },
-
-      '& .button-box': {
-         width: '100%',
-         height: '2.3125rem',
-         display: 'flex',
-         justifyContent: 'flex-end',
-         alignItems: 'center',
-         gap: '0.5rem',
-
-         '& .send-button': {
-            width: '12.25rem',
-            height: '2.3125rem',
-         },
-
-         '& .cansel-button': {
-            width: '9.375rem',
-            height: '2.0625rem',
-            borderRadius: '0px',
-         },
-      },
    },
 }))
