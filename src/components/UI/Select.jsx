@@ -39,7 +39,7 @@ const Select = forwardRef(
                      key={option.id}
                      value={isValueAsId ? option.value : option.id}
                   >
-                     {option.value}
+                     {option.label}
                   </MenuItem>
                ))}
             </StyledSelect>

@@ -3,6 +3,7 @@ import {
    acceptCardRequest,
    applicationRequest,
    deleteCardRequest,
+   rejectCardRequest,
 } from './applicationThunk'
 
 const initialState = {
@@ -31,10 +32,8 @@ export const applicationSlice = createSlice({
             state.loading = false
             state.error = payload
          })
+
       builder
-         .addCase(deleteCardRequest.fulfilled, (state, { payload }) => {
-            state.houses = state.houses.filter((house) => house.id !== payload)
-         })
          .addCase(deleteCardRequest.rejected, (state, { payload }) => {
             state.loading = false
             state.error = payload
@@ -43,12 +42,23 @@ export const applicationSlice = createSlice({
             state.loading = true
             state.error = null
          })
+
       builder
          .addCase(acceptCardRequest.rejected, (state, { payload }) => {
             state.loading = false
             state.error = payload
          })
          .addCase(acceptCardRequest.pending, (state) => {
+            state.loading = true
+            state.error = null
+         })
+
+      builder
+         .addCase(rejectCardRequest.rejected, (state, { payload }) => {
+            state.loading = false
+            state.error = payload
+         })
+         .addCase(rejectCardRequest.pending, (state) => {
             state.loading = true
             state.error = null
          })

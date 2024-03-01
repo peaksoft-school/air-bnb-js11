@@ -1,14 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../../../configs/axiosInstance'
 
-export const applicationRequest = createAsyncThunk(
-   'application/applicationRequest',
-   async ({ accessToken, currentPage, pageSize }, { rejectWithValue }) => {
+export const getFilteredHousingRequest = createAsyncThunk(
+   'allHousing/getFilteredHousing',
+   async ({ status, houseType, rating, price }, { rejectWithValue }) => {
       try {
-         const response = await axiosInstance.get(
-            `/api/admin/applications?currentPage=${currentPage}&pageSize=${pageSize}`,
-            accessToken
-         )
+         const params = {}
+
+         if (status !== 'All') {
+            params.status = status
+         }
+         if (houseType !== 'All') {
+            params.houseType = houseType
+         }
+         if (rating !== 'All') {
+            params.rating = rating
+         }
+         if (price !== 'All') {
+            params.price = price
+         }
+         const response = await axiosInstance.get(`/api/admin/house-filter`, {
+            params,
+         })
+
          return response.data
       } catch (error) {
          return rejectWithValue(error)
@@ -16,8 +30,8 @@ export const applicationRequest = createAsyncThunk(
    }
 )
 
-export const deleteCardRequest = createAsyncThunk(
-   'application/deleteCard',
+export const deleteCardAllHousingRequest = createAsyncThunk(
+   'allHousing/deleteCardAllHousing',
    async ({ id, getData, showToast }, { dispatch, rejectWithValue }) => {
       try {
          await axiosInstance.delete(`/api/houses/${id}`)
@@ -28,13 +42,13 @@ export const deleteCardRequest = createAsyncThunk(
             type: 'success',
          })
 
-         const responseData = await dispatch(applicationRequest(getData))
+         const responseData = await dispatch(getFilteredHousingRequest(getData))
 
          return responseData
       } catch (error) {
          showToast({
             title: 'Error',
-            message: 'Failed to delete card :(',
+            message: 'An error occurred while deleting the card :(',
             type: 'error',
          })
 
@@ -43,8 +57,8 @@ export const deleteCardRequest = createAsyncThunk(
    }
 )
 
-export const acceptCardRequest = createAsyncThunk(
-   'application/acceptCard',
+export const acceptCardAllHousingRequest = createAsyncThunk(
+   'allHousing/acceptCardallHousing',
    async ({ id, getData, showToast }, { dispatch, rejectWithValue }) => {
       try {
          await axiosInstance.post(
@@ -57,13 +71,13 @@ export const acceptCardRequest = createAsyncThunk(
             type: 'success',
          })
 
-         const responseData = await dispatch(applicationRequest(getData))
+         const responseData = await dispatch(getFilteredHousingRequest(getData))
 
          return responseData
       } catch (error) {
          showToast({
             title: 'Error',
-            message: 'Failed to accept card :(',
+            message: 'An error occurred while accepting the card :(',
             type: 'error',
          })
 
@@ -72,8 +86,8 @@ export const acceptCardRequest = createAsyncThunk(
    }
 )
 
-export const rejectCardRequest = createAsyncThunk(
-   'application/rejectCard',
+export const rejectCardAllHousingRequest = createAsyncThunk(
+   'allHousing/rejectCardallHousing',
    async (
       { houseId, massage, getData, showToast },
       { dispatch, rejectWithValue }
@@ -89,13 +103,13 @@ export const rejectCardRequest = createAsyncThunk(
             type: 'success',
          })
 
-         const responseData = await dispatch(applicationRequest(getData))
+         const responseData = await dispatch(getFilteredHousingRequest(getData))
 
          return responseData
       } catch (error) {
          showToast({
             title: 'Error',
-            message: 'Failed to reject card :(',
+            message: 'An error occurred while rejecting the card :(',
             type: 'error',
          })
 
