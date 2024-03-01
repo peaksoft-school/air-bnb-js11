@@ -18,9 +18,10 @@ import {
 } from '../../utils/constants/admin/allHousing'
 import RejectedModal from '../../components/UI/admin/RejectedModal'
 import { showToast } from '../../utils/helpers/toast'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
 
 const AllHousing = () => {
-   const { allHouses } = useSelector((state) => state.allHousing)
+   const { allHouses, loading } = useSelector((state) => state.allHousing)
    const dispatch = useDispatch()
 
    const [filterOption, setFilterOption] = useState(
@@ -102,6 +103,10 @@ const AllHousing = () => {
    const handleChangeHomeTypeValue = (e) => setHomeTypeOption(e.target.value)
    const handleChangePriceOptionValue = (e) =>
       setPriceFilterOption(e.target.value)
+
+   if (loading) {
+      return <LoadingSpinner />
+   }
 
    return (
       <StyledContainer>

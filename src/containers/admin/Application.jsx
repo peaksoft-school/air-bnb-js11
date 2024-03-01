@@ -11,11 +11,14 @@ import {
 import Pagination from '../../components/UI/Pagination'
 import RejectedModal from '../../components/UI/admin/RejectedModal'
 import { AdminNoDataImage } from '../../assets/images'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
 
 const Application = () => {
    const dispatch = useDispatch()
    const { accessToken } = useSelector((state) => state.auth)
-   const { houses, totalPages } = useSelector((state) => state.application)
+   const { houses, totalPages, loading } = useSelector(
+      (state) => state.application
+   )
    const [isOpen, setIsOpen] = useState(false)
    const [massage, setMassage] = useState('')
    const pageSize = 18
@@ -61,6 +64,10 @@ const Application = () => {
    ]
 
    const handleChangeMassageValue = (e) => setMassage(e.target.value)
+
+   if (loading) {
+      return <LoadingSpinner />
+   }
 
    return (
       <StyledContainer>
