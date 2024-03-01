@@ -32,12 +32,26 @@ export const getFilteredHousingRequest = createAsyncThunk(
 
 export const deleteCardAllHousingRequest = createAsyncThunk(
    'allHousing/deleteCardAllHousing',
-   async ({ id, getData }, { dispatch, rejectWithValue }) => {
+   async ({ id, getData, showToast }, { dispatch, rejectWithValue }) => {
       try {
          await axiosInstance.delete(`/api/houses/${id}`)
 
-         return dispatch(getFilteredHousingRequest(getData))
+         showToast({
+            title: 'Success',
+            message: 'Card is successfully deleted :)',
+            type: 'success',
+         })
+
+         const responseData = await dispatch(getFilteredHousingRequest(getData))
+
+         return responseData
       } catch (error) {
+         showToast({
+            title: 'Error',
+            message: 'An error occurred while deleting the card :(',
+            type: 'error',
+         })
+
          return rejectWithValue(error)
       }
    }
@@ -45,14 +59,28 @@ export const deleteCardAllHousingRequest = createAsyncThunk(
 
 export const acceptCardAllHousingRequest = createAsyncThunk(
    'allHousing/acceptCardallHousing',
-   async ({ id, getData }, { dispatch, rejectWithValue }) => {
+   async ({ id, getData, showToast }, { dispatch, rejectWithValue }) => {
       try {
          await axiosInstance.post(
             `/api/admin/accepted-application/${id}?value=APPROVE`
          )
 
-         return dispatch(getFilteredHousingRequest(getData))
+         showToast({
+            title: 'Success',
+            message: 'Card is successfully accepted :)',
+            type: 'success',
+         })
+
+         const responseData = await dispatch(getFilteredHousingRequest(getData))
+
+         return responseData
       } catch (error) {
+         showToast({
+            title: 'Error',
+            message: 'An error occurred while accepting the card :(',
+            type: 'error',
+         })
+
          return rejectWithValue(error)
       }
    }
@@ -60,14 +88,31 @@ export const acceptCardAllHousingRequest = createAsyncThunk(
 
 export const rejectCardAllHousingRequest = createAsyncThunk(
    'allHousing/rejectCardallHousing',
-   async ({ houseId, massage, getData }, { dispatch, rejectWithValue }) => {
+   async (
+      { houseId, massage, getData, showToast },
+      { dispatch, rejectWithValue }
+   ) => {
       try {
          await axiosInstance.post(
             `/api/admin/accepted-application/${houseId}?value=REJECT&messageFromAdminToUser=${massage}`
          )
 
-         return dispatch(getFilteredHousingRequest(getData))
+         showToast({
+            title: 'Success',
+            message: 'Card is successfully rejected :)',
+            type: 'success',
+         })
+
+         const responseData = await dispatch(getFilteredHousingRequest(getData))
+
+         return responseData
       } catch (error) {
+         showToast({
+            title: 'Error',
+            message: 'An error occurred while rejecting the card :(',
+            type: 'error',
+         })
+
          return rejectWithValue(error)
       }
    }

@@ -12,6 +12,7 @@ import Pagination from '../../components/UI/Pagination'
 import RejectedModal from '../../components/UI/admin/RejectedModal'
 import { AdminNoDataImage } from '../../assets/images'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import { showToast } from '../../utils/helpers/toast'
 
 const Application = () => {
    const dispatch = useDispatch()
@@ -40,7 +41,7 @@ const Application = () => {
    }
 
    const sendReject = () => {
-      dispatch(rejectCardRequest({ houseId, massage, getData }))
+      dispatch(rejectCardRequest({ houseId, massage, getData, showToast }))
       setIsOpen((prev) => !prev)
       setMassage('')
    }
@@ -54,12 +55,14 @@ const Application = () => {
    const applicationCardMeatballsOptions = [
       {
          title: 'Accept',
-         onClick: (id) => dispatch(acceptCardRequest({ id, getData })),
+         onClick: (id) =>
+            dispatch(acceptCardRequest({ id, getData, showToast })),
       },
       { title: 'Reject', onClick: (id) => handleReject(id) },
       {
          title: 'Delete',
-         onClick: (id) => dispatch(deleteCardRequest({ id, getData })),
+         onClick: (id) =>
+            dispatch(deleteCardRequest({ id, getData, showToast })),
       },
    ]
 

@@ -64,14 +64,9 @@ const AllHousing = () => {
             houseId,
             massage,
             getData,
+            showToast,
          })
       )
-
-      showToast({
-         title: 'Success',
-         message: 'Rejection message is successfully sent',
-         type: 'error',
-      })
 
       setIsOpen((prev) => !prev)
       setMassage('')
@@ -87,13 +82,13 @@ const AllHousing = () => {
       {
          title: 'Accept',
          onClick: (id) =>
-            dispatch(acceptCardAllHousingRequest({ id, getData })),
+            dispatch(acceptCardAllHousingRequest({ id, getData, showToast })),
       },
       { title: 'Reject', onClick: (id) => handleReject(id) },
       {
          title: 'Delete',
          onClick: (id) =>
-            dispatch(deleteCardAllHousingRequest({ id, getData })),
+            dispatch(deleteCardAllHousingRequest({ id, getData, showToast })),
       },
    ]
 
