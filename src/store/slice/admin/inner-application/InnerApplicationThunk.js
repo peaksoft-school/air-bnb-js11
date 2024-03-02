@@ -1,14 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../../../configs/axiosInstance'
 
-const getInnerPages = createAsyncThunk(
-   'pages/getInnerPages',
-   async ({ accessToken, id }, { rejectWithValue }) => {
+export const getInnerPages = createAsyncThunk(
+   'get/getInnerPages',
+   async ({ houseId }, { rejectWithValue }) => {
       try {
-         const response = await axiosInstance.get(
-            `/api/houses/${id}`,
-            accessToken
-         )
+         const response = await axiosInstance.get(`/api/houses/${houseId}`)
          return response.data
       } catch (error) {
          return rejectWithValue(error)
@@ -16,4 +13,6 @@ const getInnerPages = createAsyncThunk(
    }
 )
 
-export { getInnerPages }
+export const PAGES_THUNK = {
+   getInnerPages,
+}

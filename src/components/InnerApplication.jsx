@@ -5,23 +5,26 @@ import CircleIcon from '@mui/icons-material/Circle'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { useParams } from 'react-router'
 import { Bighool, smallhool1, smallhool2, smallhool3 } from '../assets/images'
-import { getInnerPages } from '../store/slice/admin/inner-application/InnerApplicationThunk'
+import { PAGES_THUNK } from '../store/slice/admin/inner-application/InnerApplicationThunk'
 
-const InnerApplication = ({ id }) => {
+const InnerApplication = () => {
    const sliderRef1 = useRef(null)
    const sliderRef2 = useRef(null)
-
-   const { accessToken } = useSelector((state) => state.innerPage)
-
    const dispatch = useDispatch()
+   const { applicationId } = useParams()
+
+   const selector = useSelector((state) => state.innerPage)
 
    useEffect(() => {
-      dispatch(getInnerPages({ accessToken, id }))
-   }, [accessToken, dispatch, id])
+      dispatch(PAGES_THUNK.getInnerPages({ houseId: applicationId }))
+   }, [dispatch])
+
+   const { house } = selector.innerPage
 
    const settings = {
-      slidesToShow: 2,
+      slidesToShow: 1,
       slidesToScroll: 1,
       arrows: true,
       fade: true,
@@ -35,11 +38,10 @@ const InnerApplication = ({ id }) => {
       dots: true,
       focusOnSelect: true,
    }
-
    return (
       <Box style={{ display: 'flex' }}>
          <Box>
-            <StyledName variant="h">NAME</StyledName>
+            <StyledName variant="h">{house.name}</StyledName>
             <StyledSlider {...settings} className="slider-for" ref={sliderRef1}>
                <img src={Bighool} alt="Bighool" />
                <img src={smallhool1} alt="smallhool1" />
@@ -83,32 +85,20 @@ const InnerApplication = ({ id }) => {
             </StyledNavSlider>
          </Box>
          <StyledContainer>
-            <StyledNameHotel variant="h5">Name of hotel</StyledNameHotel>
-            <StyledAddress variant="span">
-               12 Morris Ave, Toronto, ON, CA
-            </StyledAddress>
+            <StyledNameHotel variant="h5">{house.name}</StyledNameHotel>
+            <StyledAddress variant="span">{house.address}</StyledAddress>
             <Box style={{ display: 'flex', marginLeft: '3.30rem' }}>
-               <StyledLongtext variant="p">
-                  <br />
-                  The hotel will provide guests with air-conditioned rooms
-                  offering
-                  <br />
-                  a desk, a kettle, a fridge, a minibar, a safety deposit box, a
-                  flat-screen TV,
-                  <br /> and a shared bathroom with a shower. At Garden Hotel &
-                  SPA the
-                  <br />
-                  rooms have bed linen and towels.
-               </StyledLongtext>
+               <StyledLongtext variant="p">{house.description}</StyledLongtext>
             </Box>
             <StyledNameContainer>
+               {/* {house.userResponse.image} */}
                <CircleIcon className="circle-icon" />
                <Box className="box">
-                  <StyledAnna className="Anna" variant="span">
-                     Anna Annova
+                  <StyledAnna className="Anna">
+                     {house.userResponse.fullName}
                   </StyledAnna>
-                  <StyledGmail className="Gmail" variant="span">
-                     anna@gmail.com
+                  <StyledGmail className="Gmail">
+                     {house.userResponse.email}
                   </StyledGmail>
                </Box>
             </StyledNameContainer>
@@ -162,7 +152,7 @@ const StyledNameHotel = styled(Typography)({
    color: 'black',
    textAlign: 'center',
    marginTop: '11rem',
-   marginRight: '21.30rem',
+   marginRight: '6.15rem',
 })
 
 const StyledAddress = styled(Typography)({
