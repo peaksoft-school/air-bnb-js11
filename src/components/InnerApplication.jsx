@@ -1,27 +1,59 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Typography, styled } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle'
+import { useNavigate, useParams } from 'react-router'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { useParams } from 'react-router'
-import { Bighool, smallhool1, smallhool2, smallhool3 } from '../assets/images'
-import { PAGES_THUNK } from '../store/slice/admin/inner-application/InnerApplicationThunk'
+import Button from './UI/Button'
+import RejectedModal from './UI/admin/RejectedModal'
+import {
+   acceptInnerCardRequest,
+   getInnerPages,
+   rejectInnerCardRequest,
+} from '../store/slice/admin/inner-application/InnerApplicationThunk'
+import { showToast } from '../utils/helpers/toast'
 
 const InnerApplication = () => {
    const sliderRef1 = useRef(null)
    const sliderRef2 = useRef(null)
    const dispatch = useDispatch()
    const { applicationId } = useParams()
+   const [isOpen, setIsOpen] = useState(false)
+   const [massage, setMassage] = useState('')
+   const navigate = useNavigate()
 
    const selector = useSelector((state) => state.innerPage)
 
    useEffect(() => {
-      dispatch(PAGES_THUNK.getInnerPages({ houseId: applicationId }))
-   }, [dispatch])
+      dispatch(getInnerPages({ houseId: applicationId }))
+   }, [dispatch, applicationId])
 
    const { house } = selector.innerPage
+
+   if (!house) {
+      return null
+   }
+
+   const sendReject = () => {
+      dispatch(
+         rejectInnerCardRequest({ applicationId, massage, showToast, navigate })
+      )
+      setIsOpen((prev) => !prev)
+      setMassage('')
+   }
+
+   const handleReject = () => {
+      setIsOpen((prev) => !prev)
+      setMassage('')
+   }
+
+   const handleAccepted = () => {
+      dispatch(acceptInnerCardRequest({ applicationId, showToast, navigate }))
+   }
+
+   const handleChangeMassageValue = (e) => setMassage(e.target.value)
 
    const settings = {
       slidesToShow: 1,
@@ -38,15 +70,20 @@ const InnerApplication = () => {
       dots: true,
       focusOnSelect: true,
    }
+
    return (
       <Box style={{ display: 'flex' }}>
          <Box>
-            <StyledName variant="h">{house.name}</StyledName>
+            <StyledPath>
+               Application
+               <span className="path-house-name"> / {house.name}</span>
+            </StyledPath>
+            <StyledName variant="h3">{house.name}</StyledName>
             <StyledSlider {...settings} className="slider-for" ref={sliderRef1}>
-               <img src={Bighool} alt="Bighool" />
-               <img src={smallhool1} alt="smallhool1" />
-               <img src={smallhool2} alt="smallhool2" />
-               <img src={smallhool3} alt="smallhool3" />
+               {house.images &&
+                  house.images.map((image, index) => (
+                     <img key={image} src={image} alt={`House ${index}`} />
+                  ))}
             </StyledSlider>
 
             <StyledNavSlider
@@ -54,44 +91,25 @@ const InnerApplication = () => {
                className="slider-nav"
                ref={sliderRef2}
             >
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={Bighool}
-                     alt="Bighool"
-                  />
-               </div>
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={smallhool1}
-                     alt="smallhool1"
-                  />
-               </div>
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={smallhool2}
-                     alt="smallhool2"
-                  />
-               </div>
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={smallhool3}
-                     alt="smallhool3"
-                  />
-               </div>
+               {house.images &&
+                  house.images.map((image, index) => (
+                     <div key={image}>
+                        <img
+                           className="height-of-images"
+                           src={image}
+                           alt={`Thumbnail ${index}`}
+                        />
+                     </div>
+                  ))}
             </StyledNavSlider>
          </Box>
          <StyledContainer>
             <StyledNameHotel variant="h5">{house.name}</StyledNameHotel>
             <StyledAddress variant="span">{house.address}</StyledAddress>
-            <Box style={{ display: 'flex', marginLeft: '3.30rem' }}>
+            <Box style={{ display: 'flex' }}>
                <StyledLongtext variant="p">{house.description}</StyledLongtext>
             </Box>
             <StyledNameContainer>
-               {/* {house.userResponse.image} */}
                <CircleIcon className="circle-icon" />
                <Box className="box">
                   <StyledAnna className="Anna">
@@ -102,7 +120,26 @@ const InnerApplication = () => {
                   </StyledGmail>
                </Box>
             </StyledNameContainer>
+            <Box className="button-box">
+               <Button
+                  variant="outlined"
+                  className="outlined-button"
+                  onClick={handleReject}
+               >
+                  REJECT
+               </Button>
+               <Button className="normal-button" onClick={handleAccepted}>
+                  ACCEPT
+               </Button>
+            </Box>
          </StyledContainer>
+         <RejectedModal
+            isOpen={isOpen}
+            onClose={handleReject}
+            value={massage}
+            onChange={handleChangeMassageValue}
+            sendRequest={sendReject}
+         />
       </Box>
    )
 }
@@ -111,10 +148,7 @@ const StyledSlider = styled(Slider)({
    width: '38.30rem',
    height: 'auto',
    marginLeft: '2.5rem',
-   '.slick-prev, .slick-next': {
-      // width: '50%',
-      // height: 'auto',
-   },
+   '.slick-prev, .slick-next': {},
 })
 
 const StyledNavSlider = styled(Slider)({
@@ -131,6 +165,20 @@ const StyledNavSlider = styled(Slider)({
    },
 })
 
+const StyledPath = styled(Typography)({
+   fontSize: '16px',
+   fontWeight: '400',
+   fontFamily: 'Inter',
+   color: 'gray',
+   position: 'relative',
+   top: '2.30rem',
+   left: '2.40rem',
+
+   '& .path-house-name': {
+      color: 'black',
+   },
+})
+
 const StyledName = styled('div')({
    fontSize: '1rem',
    fontFamily: 'Inter',
@@ -144,15 +192,39 @@ const StyledContainer = styled('div')({
    textAlign: 'start',
    justifyContent: 'center',
    alignItems: 'center',
+   marginLeft: '3.30rem',
+
+   '& .button-box': {
+      width: '25rem',
+      gap: '20px',
+      display: 'flex',
+      marginTop: '3.5625rem',
+
+      '& .outlined-button': {
+         border: '1px solid #DD8A08',
+         color: ' #DD8A08',
+         width: '12.25rem',
+         height: '2.3125rem',
+         top: '22.625 ',
+         gap: '5rem',
+         '&:hover': {
+            border: 'white',
+         },
+      },
+      '& .normal-button': {
+         borderRadius: '0.5rem',
+         width: '12.25rem',
+         height: '2.3125rem',
+         top: '35.625 ',
+      },
+   },
 })
 
 const StyledNameHotel = styled(Typography)({
-   justifyContent: 'center',
+   textAlign: 'start',
    fontWeight: 'bold',
    color: 'black',
-   textAlign: 'center',
    marginTop: '11rem',
-   marginRight: '6.15rem',
 })
 
 const StyledAddress = styled(Typography)({
@@ -160,17 +232,17 @@ const StyledAddress = styled(Typography)({
    fontSize: '1rem',
    color: 'gray',
    textAlign: 'center',
-   marginLeft: '3.30rem',
 })
+
 const StyledLongtext = styled(Typography)({
    fontSize: '1rem',
    fontFamily: 'Inter',
    fontWeight: '400',
    color: 'black',
 })
+
 const StyledNameContainer = styled(Box)(() => ({
    display: 'flex',
-   marginLeft: '3rem',
    marginTop: '2.25rem',
    gap: '0.55rem',
 
@@ -198,4 +270,5 @@ const StyledGmail = styled(Typography)({
    fontSize: '1.07rem',
    color: 'gray',
 })
+
 export default InnerApplication

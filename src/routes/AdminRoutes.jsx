@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router'
-import UserPage from '../containers/admin/user-page/UserPage'
-import UsersPage from '../containers/admin/user-page/UsersPage'
-import { routes } from '../utils/constants/routes'
+import AllHousing from '../containers/admin/AllHousing'
 import Application from '../containers/admin/Application'
+import UsersPage from '../containers/admin/user-page/UsersPage'
+import UserPage from '../containers/admin/user-page/UserPage'
+import { routes } from '../utils/constants/routes'
 import InnerApplication from '../components/InnerApplication'
 
 export const adminRoutes = [
@@ -26,4 +27,5 @@ export const adminRoutes = [
       path: routes.ADMIN.user,
       element: <UserPage />,
    },
+   { path: routes.ADMIN.allHousing, element: <AllHousing /> },
 ]
