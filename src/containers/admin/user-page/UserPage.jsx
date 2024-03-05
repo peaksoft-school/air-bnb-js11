@@ -6,8 +6,8 @@ import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
 import Bookings from '../../../components/admin/users/booking/Bookings'
 import Announcement from '../../../components/admin/users/booking/Announcement'
-import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 import { getUser } from '../../../store/slice/admin/user/userThunk'
+import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 
 const tabs = [
    {
