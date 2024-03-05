@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Typography, styled } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle'
@@ -188,6 +188,7 @@ const StyledName = styled('div')({
    padding: '2.5rem',
    display: 'flex',
 })
+
 const StyledContainer = styled('div')({
    textAlign: 'start',
    justifyContent: 'center',
@@ -207,10 +208,12 @@ const StyledContainer = styled('div')({
          height: '2.3125rem',
          top: '22.625 ',
          gap: '5rem',
+
          '&:hover': {
             border: 'white',
          },
       },
+
       '& .normal-button': {
          borderRadius: '0.5rem',
          width: '12.25rem',
