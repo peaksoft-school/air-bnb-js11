@@ -14,7 +14,6 @@ import RejectedModal from '../../components/UI/admin/RejectedModal'
 import { AdminNoDataImage } from '../../assets/images'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
 import { showToast } from '../../utils/helpers/toast'
-import { getInnerPages } from '../../store/slice/admin/inner-application/InnerApplicationThunk'
 
 const Application = () => {
    const dispatch = useDispatch()
@@ -37,10 +36,6 @@ const Application = () => {
    useEffect(() => {
       dispatch(applicationRequest({ accessToken, pageSize, currentPage }))
    }, [accessToken, dispatch, currentPage])
-
-   useEffect(() => {
-      dispatch(getInnerPages({ houseId }))
-   }, [dispatch, houseId])
 
    const getData = {
       accessToken,

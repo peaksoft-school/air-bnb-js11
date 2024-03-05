@@ -33,7 +33,9 @@ export const acceptInnerCardRequest = createAsyncThunk(
             type: 'success',
          })
 
-         const responseData = await dispatch(getInnerPages(applicationId))
+         const responseData = await dispatch(
+            getInnerPages({ houseId: applicationId })
+         )
 
          return responseData
       } catch (error) {
@@ -66,9 +68,7 @@ export const rejectInnerCardRequest = createAsyncThunk(
             type: 'success',
          })
 
-         const responseData = await dispatch(getInnerPages(applicationId))
-
-         return responseData
+         return dispatch(getInnerPages({ houseId: applicationId }))
       } catch (error) {
          showToast({
             title: 'Error',

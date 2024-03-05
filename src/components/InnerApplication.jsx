@@ -28,7 +28,7 @@ const InnerApplication = () => {
 
    useEffect(() => {
       dispatch(getInnerPages({ houseId: applicationId }))
-   }, [dispatch, applicationId])
+   }, [dispatch])
 
    const { house } = selector.innerPage
 
@@ -113,10 +113,10 @@ const InnerApplication = () => {
                <CircleIcon className="circle-icon" />
                <Box className="box">
                   <StyledAnna className="Anna">
-                     {house.userResponse.fullName}
+                     {house.userResponse?.fullName}
                   </StyledAnna>
                   <StyledGmail className="Gmail">
-                     {house.userResponse.email}
+                     {house.userResponse?.email}
                   </StyledGmail>
                </Box>
             </StyledNameContainer>
