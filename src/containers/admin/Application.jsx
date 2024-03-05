@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { Box, styled } from '@mui/material'
 import Card from '../../components/UI/card/Card'
 import {
@@ -25,6 +26,8 @@ const Application = () => {
    const pageSize = 18
    const [currentPage, setCurrentPage] = useState(1)
    const [houseId, setHouseId] = useState(null)
+
+   const navigate = useNavigate()
 
    const handleChange = (e, value) => {
       setCurrentPage(value)
@@ -72,6 +75,8 @@ const Application = () => {
       return <LoadingSpinner />
    }
 
+   const goToInnerPage = (id) => navigate(`/admin/application/${id}`)
+
    return (
       <StyledContainer>
          <h3 className="heading">APPLICATION</h3>
@@ -79,7 +84,11 @@ const Application = () => {
          <Box className="card-box">
             {houses.length !== 0 ? (
                houses?.map((item) => (
-                  <Box key={item.id}>
+                  <Box
+                     key={item.id}
+                     className="card"
+                     onClick={() => goToInnerPage(item.id)}
+                  >
                      <Card {...item} option={applicationCardMeatballsOptions} />
                   </Box>
                ))
@@ -88,7 +97,7 @@ const Application = () => {
                   <img
                      src={AdminNoDataImage}
                      alt="no data"
-                     className="noData-imgs"
+                     className="noData-img"
                   />
                </Box>
             )}
