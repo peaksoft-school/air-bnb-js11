@@ -1,13 +1,19 @@
 import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
 import { FullStarIcon } from '../../../assets/icons'
-import { RATINGS } from '../../../utils/constants'
 
-const Rating = () => {
+const Rating = ({ rating }) => {
+   const RATINGS = [
+      { label: 5, progress: rating.rating_5_count },
+      { label: 4, progress: rating.rating_4_count },
+      { label: 3, progress: rating.rating_3_count },
+      { label: 2, progress: rating.rating_2_count },
+      { label: 1, progress: rating.rating_1_count },
+   ]
    return (
       <RatingChart>
          <RatingCont>
-            <p>4.2</p>
+            <p>{rating.total_feedback}</p>
             <FullStarIcon />
          </RatingCont>
          <RatingChartBarContainer>

@@ -4,6 +4,7 @@ import Application from '../containers/admin/Application'
 import UserPage from '../containers/admin/user-page/UserPage'
 import UsersPage from '../containers/admin/user-page/UsersPage'
 import { routes } from '../utils/constants/routes'
+import AnnouncementHouse from '../containers/admin/user-page/AnnouncementHouse'
 
 export const adminRoutes = [
    {
@@ -21,6 +22,10 @@ export const adminRoutes = [
    {
       path: routes.ADMIN.user,
       element: <UserPage />,
+   },
+   {
+      path: routes.ADMIN.userAnnouncement,
+      element: <AnnouncementHouse />,
    },
    { path: routes.ADMIN.allHousing, element: <AllHousing /> },
 ]

@@ -16,7 +16,7 @@ const StyledLoadingContainer = styled(Box)(() => ({
       alignSelf: 'center',
    },
 
-   position: 'absolute',
+   position: 'fixed',
    top: 0,
    left: 0,
    backdropFilter: 'blur(3px)',

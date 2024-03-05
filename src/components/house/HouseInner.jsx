@@ -1,31 +1,193 @@
 import React from 'react'
+import { Box, styled, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 import Feedback from '../UI/Feedback'
 import InnerApplication from './HouseImageSlider'
+import Button from '../UI/Button'
+import Rating from '../UI/rating/Rating'
+import {
+   blockedHouses,
+   deleteHouseAsync,
+} from '../../store/slice/admin/user/userThunk'
+import { showToast } from '../../utils/helpers/toast'
 
-const HouseInner = () => {
-   const feed = [
-      {
-         id: 1,
-         name: 'Aizat Jelden',
-         feedback:
-            ' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae, quod! Provident molestias ducimus amet aliquid adipisci possimus, facilis reiciendis dolorem velit quisquam, itaque aperiam similique excepturi quia blanditiis qui expedita voluptate autem labore doloremque dignissimos quos deserunt consectetur voluptates. Placeat quisquam, fugit possimus quae maiores laboriosam distinctio voluptas eligendi molestias error voluptatum amet, corporis pariatur praesentium numquam a deleniti vel laudantium commodi tempore nisi. Quam ipsa nemo facilis non dolor reprehenderit, blanditiis perferendis corrupti asperiores, optio dignissimos itaque aliquid, ea eaque repudiandae. Corrupti ab doloribus facere repellendus odit ipsum minima nesciunt dolorem id dolore eveniet a quod quibusdam harum, corporis blanditiis doloremque voluptate quidem enim sapiente facilis vel in. Numquam magnam dolorem asperiores, delectus ea mollitia beatae ipsa unde error molestiae, temporibus voluptas! Nobis accusamus odit itaque rem omnis quisquam distinctio eum tenetur natus, rerum in, doloribus voluptate iste vitae vero delectus ea autem, aperiam ad earum. Vero deserunt quisquam quaerat laudantium accusantium dicta ad dolorem eos. Eaque recusandae nobis porro repellendus praesentium tempora ratione tempore quaerat at hic ad mollitia eos incidunt itaque non natus voluptate, molestias sapiente iure quisquam quasi similique. Eaque aliquam iure cupiditate impedit incidunt pariatur deserunt nostrum fugit natus nobis ipsam vitae veniam corporis at ea commodi, ab, facere quod placeat iste? A sunt id nobis, suscipit explicabo aperiam cumque quisquam deleniti quo distinctio nisi maiores sequi consequuntur amet ea similique in, velit est voluptates veritatis? Ducimus maiores veniam quaerat laudantium sint corrupti, voluptas officiis ipsum neque nam autem illo accusamus enim repellat qui at eveniet cupiditate dicta placeat quia sed ad ratione blanditiis aspernatur. Tenetur expedita mollitia sit corporis vel, architecto ipsa consectetur illo, ex ut doloribus quod suscipit recusandae et officiis totam, explicabo vero commodi dolorum numquam natus! Blanditiis magni, quod corrupti ipsam deleniti veritatis natus doloribus. Sapiente exercitationem sint cupiditate sequi nam!',
-         rating: 4,
-         images: [],
-         likes: 190,
-         dislikes: 22,
-         userImage: '',
-         postedAt: '24.03.2023',
-      },
-   ]
+const HouseInner = ({ houseInfo, feedbacks, rating }) => {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
+   const deleteHouse = () => {
+      dispatch(deleteHouseAsync({ id: houseInfo.id, showToast, navigate }))
+   }
+
+   const blockHouse = () => {
+      dispatch(blockedHouses({ id: houseInfo.id, showToast }))
+   }
+
+   const status = houseInfo.houseStatus
 
    return (
-      <div>
-         <InnerApplication />
-         {feed.map((item) => (
-            <Feedback {...item} key={1} />
-         ))}
-      </div>
+      <StyledContainer>
+         <h1 className="title">{houseInfo.name}</h1>
+         <Box>
+            <Box className="slider-house">
+               <InnerApplication />
+               <Box className="house-info">
+                  <Typography className="house-type">
+                     {houseInfo.houseType}
+                  </Typography>
+                  <Typography className="house-guests">
+                     {houseInfo.maxGuests} Guests
+                  </Typography>
+                  <Typography className="house-name">
+                     {houseInfo.name}
+                  </Typography>
+                  <Typography className="house-location">
+                     {houseInfo.address}
+                  </Typography>
+                  <Typography className="house-description">
+                     {houseInfo.description}
+                  </Typography>
+                  <Box className="user-info">
+                     <img
+                        src={houseInfo.userResponse.image}
+                        alt="asdaw"
+                        width={40}
+                        height={40}
+                        className="user-avatar"
+                     />
+                     <Box>
+                        <Typography className="user-name">
+                           {houseInfo.userResponse.fullName}
+                        </Typography>
+                        <Typography className="user-email">
+                           {houseInfo.userResponse.email}
+                        </Typography>
+                     </Box>
+                  </Box>
+                  <Box className="button-container">
+                     <Button variant="outlined" onClick={deleteHouse}>
+                        Delete
+                     </Button>
+                     <Button
+                        onClick={blockHouse}
+                        disabled={status === 'BLOCKED'}
+                     >
+                        Block
+                     </Button>
+                  </Box>
+                  <Typography className="blocked-text">
+                     {status === 'BLOCKED'
+                        ? 'This house is already blocked'
+                        : ''}
+                  </Typography>
+               </Box>
+            </Box>
+            <Box className="second-container">
+               <Box className="feedback-container">
+                  {feedbacks && feedbacks.length > 0 ? (
+                     feedbacks.map((item) => (
+                        <>
+                           <h1 className="title">feedback</h1>
+
+                           <Feedback {...item} key={1} />
+                        </>
+                     ))
+                  ) : (
+                     <h1 className="title">there are no feedbacks yet</h1>
+                  )}
+               </Box>
+               <Rating rating={rating} />
+            </Box>
+         </Box>
+      </StyledContainer>
    )
 }
 
 export default HouseInner
+
+const StyledContainer = styled(Box)(() => ({
+   '& .title': {
+      textTransform: 'uppercase',
+      fontFamily: 'inherit',
+      fontWeight: 400,
+      color: '#222',
+      margin: '0 0 45px 0',
+   },
+
+   '& .slider-house': {
+      display: 'flex',
+      gap: '68px',
+
+      '& .house-type': {
+         display: 'inline-block',
+         margin: '0 15px 20px 0',
+         backgroundColor: '#fff0f6',
+         border: '1px solid #ffcbe0',
+         padding: '6px 8px',
+      },
+      '& .house-guests': {
+         display: 'inline-block',
+         backgroundColor: '#fff0f6',
+         border: '1px solid #ffcbe0',
+         padding: '6px 8px',
+      },
+
+      '& .house-name': {
+         fontSize: '20px',
+      },
+
+      '& .house-location': {
+         color: '#828282',
+         margin: '0 0 20px 0',
+      },
+
+      '& .house-description': {
+         margin: '0 0 20px 0',
+         fontSize: '16px',
+      },
+
+      '& .user-info': {
+         display: 'flex',
+         gap: '16px',
+         alignItems: 'center',
+         margin: '0 0 60px 0',
+
+         '& .user-avatar': {
+            borderRadius: '50%',
+         },
+
+         '& .user-name': {},
+         '& .user-email': {
+            color: '#828282',
+         },
+      },
+
+      '& .button-container': {
+         display: 'flex',
+         gap: '20px',
+         margin: '0 0 20px 0',
+
+         '.MuiButtonBase-root': {
+            width: '200px',
+         },
+      },
+
+      '& .blocked-text': {
+         textAlign: 'center',
+         color: '#f00',
+      },
+   },
+
+   '& .second-container': {
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '130px',
+
+      '& .feedback-container': {
+         maxWidth: '630px',
+         minWidth: '500px',
+         width: '100%',
+      },
+   },
+}))

@@ -1,92 +1,109 @@
-import React, { useRef } from 'react'
-import { Box, styled } from '@mui/material'
-import Slider from 'react-slick'
+import React, { useState } from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
+import { Box, styled } from '@mui/material'
 import {
    ImgAsmanHotelGuestHouse,
    ImgAsmanGuestHoues,
    ImgAsmanGuestHotel,
 } from '../../assets/images'
 
-const InnerApplication = () => {
-   const sliderRef1 = useRef(null)
-   const sliderRef2 = useRef(null)
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/navigation'
+import 'swiper/css/thumbs'
 
-   const settings = {
-      slidesToShow: 2,
-      slidesToScroll: 1,
-      arrows: true,
-      fade: true,
-      asNavFor: sliderRef2.current,
-   }
-   const navSettings = {
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      asNavFor: sliderRef1.current,
-      dots: true,
-      focusOnSelect: true,
-   }
+const InnerApplication = () => {
+   const [thumbsSwiper, setThumbsSwiper] = useState(null)
+
    return (
-      <Box style={{ display: 'flex' }}>
-         <Box>
-            <StyledSlider {...settings} className="slider-for" ref={sliderRef1}>
-               <img src={ImgAsmanHotelGuestHouse} alt="Bighool" />
-               <img src={ImgAsmanGuestHoues} alt="smallhool1" />
-               <img src={ImgAsmanGuestHotel} alt="smallhool2" />
-            </StyledSlider>
-            <StyledNavSlider
-               {...navSettings}
-               className="slider-nav"
-               ref={sliderRef2}
-            >
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={ImgAsmanHotelGuestHouse}
-                     alt="Bighool"
-                  />
-               </div>
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={ImgAsmanGuestHoues}
-                     alt="smallhool1"
-                  />
-               </div>
-               <div>
-                  <img
-                     className="height-of-images"
-                     src={ImgAsmanGuestHotel}
-                     alt="smallhool2"
-                  />
-               </div>
-            </StyledNavSlider>
-         </Box>
-      </Box>
+      <StyledContainer>
+         <Swiper
+            onSwiper={setThumbsSwiper}
+            style={{
+               '--swiper-navigation-color': '#fff',
+               '--swiper-pagination-color': '#fff',
+            }}
+            loop
+            spaceBetween={10}
+            navigation
+            {...(thumbsSwiper ? { thumbs: { swiper: thumbsSwiper } } : {})}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="mySwiper2"
+         >
+            <SwiperSlide>
+               <img src={ImgAsmanGuestHotel} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanGuestHoues} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanHotelGuestHouse} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanHotelGuestHouse} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanHotelGuestHouse} alt="" />
+            </SwiperSlide>
+         </Swiper>
+         <Swiper
+            onSwiper={setThumbsSwiper}
+            loop
+            spaceBetween={10}
+            slidesPerView={4}
+            freeMode
+            watchSlidesProgress
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="mySwiper"
+         >
+            <SwiperSlide>
+               <img src={ImgAsmanGuestHotel} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanGuestHoues} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanHotelGuestHouse} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanHotelGuestHouse} alt="" />
+            </SwiperSlide>
+            <SwiperSlide>
+               <img src={ImgAsmanHotelGuestHouse} alt="" />
+            </SwiperSlide>
+         </Swiper>
+      </StyledContainer>
    )
 }
 
 export default InnerApplication
 
-const StyledSlider = styled(Slider)({
-   width: '38.30rem',
-   height: 'auto',
-   marginLeft: '2.5rem',
-   '.slick-prev, .slick-next': {
-      // width: '50%',
-      // height: 'auto',
+const StyledContainer = styled(Box)(() => ({
+   margin: '0 0 45px 0',
+
+   '& .swiper ': {
+      margin: 0,
    },
-})
-const StyledNavSlider = styled(Slider)({
-   width: '39rem',
-   height: '31rem',
-   marginLeft: '2.5rem',
-   '& .slick-prev, .slick-next': {
-      color: 'blue',
+
+   '& .mySwiper': {
+      width: '600px',
+      height: '140px',
+      boxSizing: 'border-box',
    },
-   '& .height-of-images': {
-      height: '8.5rem',
-      width: '12.25rem',
+
+   '& .mySwiper2': {
+      width: '600px',
+      height: '500px',
+      margin: '0 0 10px 0',
    },
-})
+
+   '& .swiper-slide img': {
+      height: '100%',
+      width: '100%',
+      objectFit: 'cover',
+      display: 'block',
+   },
+}))

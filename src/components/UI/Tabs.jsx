@@ -38,12 +38,9 @@ const StyledTabContainer = styled(Box)(() => ({
       color: '#363636 !important',
       textTransform: 'capitalize',
       fontSize: '18px',
+      padding: '0 16px 12px',
    },
    '& .MuiTabs-indicator': {
       backgroundColor: '#363636',
-   },
-
-   '& .MuiButtonBase-root': {
-      padding: '0 16px 12px',
    },
 }))

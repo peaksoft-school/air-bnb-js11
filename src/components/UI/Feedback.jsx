@@ -70,8 +70,11 @@ const Feedback = ({
 export default Feedback
 
 const StyledContainer = styled(Box)(() => ({
-   width: '630px',
+   maxWidth: '630px',
+   minWidth: '500px',
+   width: '100%',
    color: '#646464',
+   margin: '0 0 60px 0',
 
    '& .user-rating': {
       display: 'flex',

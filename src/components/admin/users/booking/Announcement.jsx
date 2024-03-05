@@ -11,6 +11,7 @@ import {
    blockedHouses,
    deleteHouseAsync,
 } from '../../../../store/slice/admin/user/userThunk'
+import { AdminNoDataImage } from '../../../../assets/images'
 
 const Announcement = () => {
    const dispatch = useDispatch()
@@ -68,17 +69,13 @@ const Announcement = () => {
       {
          title: 'Block',
          onClick: (id) => {
-            dispatch(
-               blockedHouses({ id, setIsLoading, showToast, getUserHouses })
-            )
+            dispatch(blockedHouses({ id, showToast, getUserHouses }))
          },
       },
       {
          title: 'Delete',
          onClick: (id) => {
-            dispatch(
-               deleteHouseAsync({ id, setIsLoading, showToast, getUserHouses })
-            )
+            dispatch(deleteHouseAsync({ id, showToast, getUserHouses }))
          },
       },
    ]
@@ -103,11 +100,12 @@ const Announcement = () => {
                   <Card
                      key={announcememt.id}
                      option={bookingOptions}
+                     onNavigate
                      {...announcememt}
                   />
                ))
             ) : (
-               <p>There are no announcememt yet</p>
+               <img src={AdminNoDataImage} alt="no house" />
             )}
          </StyledBooking>
       </>
@@ -122,6 +120,11 @@ const StyledBooking = styled(Box)(() => ({
 
    '& > p': {
       fontSize: '30px',
+      margin: '0 auto',
+   },
+
+   '& > img': {
+      width: '500px',
       margin: '0 auto',
    },
 }))

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d00c2b55-f427-4bdc-ae97-b02e572ecbb5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Feedback.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Feedback.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Meatballs.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Meatballs.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Tabs.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Tabs.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/card/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/card/Card.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/users/booking/Announcement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/users/booking/Announcement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/house/HouseImageSlider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/house/HouseImageSlider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/house/HouseInner.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/house/HouseInner.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/admin/user-page/HousePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/admin/user-page/AnnouncementHouse.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/admin/user-page/UserPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/admin/user-page/UserPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/admin/AdminLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/admin/AdminLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AdminRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AdminRoutes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constants/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants/routes.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2d7akvvHVud5l1cEnbQEgryLw6m" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "feature/user-house-inner",
+    "last_opened_file_path": "C:/Users/ACER/Desktop/3 stage/bilingual-js11",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\ACER\\Desktop\\3 stage\\air-bnb-js11\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d00c2b55-f427-4bdc-ae97-b02e572ecbb5" name="Changes" comment="" />
+      <created>1709361720863</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709361720863</updated>
+      <workItem from="1709361725360" duration="643000" />
+      <workItem from="1709366515664" duration="7850000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

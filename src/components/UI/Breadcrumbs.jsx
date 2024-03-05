@@ -8,11 +8,11 @@ const BreadCrumbs = ({ links }) => {
       <StyledBreadcrumbs>
          {links.map(({ href, label }, index) =>
             index === lastIndex ? (
-               <Link href={href} key={label} sx={{ color: '#222 !important' }}>
+               <Link href={href} key={href} sx={{ color: '#222 !important' }}>
                   {label}
                </Link>
             ) : (
-               <Link key={label} href={href}>
+               <Link key={href} href={href}>
                   {label}
                </Link>
             )

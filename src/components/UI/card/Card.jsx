@@ -1,5 +1,6 @@
 import { styled } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
@@ -20,15 +21,29 @@ const Card = ({
    province,
    option,
    id,
+   onNavigate,
 }) => {
    const { role } = useSelector((state) => state.auth)
+   const navigate = useNavigate()
 
    const changeIsLike = () => {
       // Здесь функция для update'та сердечки
    }
 
+   const clickHandler = () => {
+      if (onNavigate) {
+         console.log('test')
+         navigate(`${id}`)
+      }
+   }
+
    return (
-      <CardContainer blocked={blocked} newCard={newCard} role={role}>
+      <CardContainer
+         blocked={blocked}
+         newCard={newCard}
+         role={role}
+         onClick={clickHandler}
+      >
          {blocked ? (
             <StyledBlockText>
                Your application has been blocked, please contact the

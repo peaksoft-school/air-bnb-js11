@@ -10,6 +10,7 @@ import {
    blockedHouses,
    deleteHouseAsync,
 } from '../../../../store/slice/admin/user/userThunk'
+import { AdminNoDataImage } from '../../../../assets/images'
 
 const Bookings = () => {
    const dispatch = useDispatch()
@@ -64,7 +65,7 @@ const Bookings = () => {
                <Card key={booking.id} option={bookingOptions} {...booking} />
             ))
          ) : (
-            <p>There are no bookings yet</p>
+            <img src={AdminNoDataImage} alt="no house" />
          )}
       </StyledBooking>
    )
@@ -78,6 +79,11 @@ const StyledBooking = styled(Box)(() => ({
 
    '& > p': {
       fontSize: '30px',
+      margin: '0 auto',
+   },
+
+   '& > img': {
+      width: '500px',
       margin: '0 auto',
    },
 }))
