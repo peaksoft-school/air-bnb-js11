@@ -50,7 +50,7 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                   </Typography>
                   <Box className="user-info">
                      <img
-                        src={houseInfo.userResponse.image}
+                        src={houseInfo.userResponse?.image}
                         alt="asdaw"
                         width={40}
                         height={40}
@@ -58,10 +58,10 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                      />
                      <Box>
                         <Typography className="user-name">
-                           {houseInfo.userResponse.fullName}
+                           {houseInfo.userResponse?.fullName}
                         </Typography>
                         <Typography className="user-email">
-                           {houseInfo.userResponse.email}
+                           {houseInfo.userResponse?.email}
                         </Typography>
                      </Box>
                   </Box>

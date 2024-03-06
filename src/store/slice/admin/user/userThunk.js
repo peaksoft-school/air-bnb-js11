@@ -14,61 +14,6 @@ export const getUser = createAsyncThunk(
    }
 )
 
-export const deleteHouseAsync = createAsyncThunk(
-   'user/deleteHouse',
-   async ({ id, showToast, getUserHouses, navigate }, { rejectWithValue }) => {
-      try {
-         await axiosInstance.delete(`api/houses/${id}`)
-
-         if (navigate) {
-            navigate(-1)
-         }
-
-         if (getUserHouses) {
-            getUserHouses()
-         }
-         return showToast({
-            title: 'Delete',
-            message: 'Successfully deleted',
-            type: 'success',
-         })
-      } catch (error) {
-         showToast({
-            title: 'Delete',
-            message: error.response?.message,
-            type: 'error',
-         })
-         return rejectWithValue(error.response.message)
-      }
-   }
-)
-
-export const blockedHouses = createAsyncThunk(
-   'user/blockedHouses',
-   async ({ id, showToast, getUserHouses }, { rejectWithValue }) => {
-      try {
-         await axiosInstance.post(`api/houses/blockedHousesById?houseId=${id}`)
-
-         if (getUserHouses) {
-            getUserHouses()
-         }
-
-         return showToast({
-            title: 'Block',
-            message: 'Successfully blocked',
-            type: 'success',
-         })
-      } catch (error) {
-         showToast({
-            title: 'Delete',
-            message: error.response?.message,
-            type: 'error',
-         })
-         return rejectWithValue(error.response.message)
-      }
-   }
-)
-
 export const getHouseById = createAsyncThunk(
    'userAnnouncement/getAnnouncement',
    async (announcementId, { rejectWithValue }) => {
@@ -110,6 +55,65 @@ export const getAnnouncementRating = createAsyncThunk(
          return data
       } catch (error) {
          return rejectWithValue(error)
+      }
+   }
+)
+
+export const deleteHouseAsync = createAsyncThunk(
+   'user/deleteHouse',
+   async (
+      { id, showToast, getUserHouses, navigate },
+      { rejectWithValue, dispatch }
+   ) => {
+      try {
+         await axiosInstance.delete(`api/houses/${id}`)
+
+         if (navigate) {
+            navigate(-1)
+         }
+
+         showToast({
+            title: 'Delete',
+            message: 'Successfully deleted',
+            type: 'success',
+         })
+         if (getUserHouses) {
+            return getUserHouses()
+         }
+         return dispatch(getHouseById(id))
+      } catch (error) {
+         showToast({
+            title: 'Delete',
+            message: error.response?.message,
+            type: 'error',
+         })
+         return rejectWithValue(error.response.message)
+      }
+   }
+)
+
+export const blockedHouses = createAsyncThunk(
+   'user/blockedHouses',
+   async ({ id, showToast, getUserHouses }, { rejectWithValue, dispatch }) => {
+      try {
+         await axiosInstance.post(`api/houses/blockedHousesById?houseId=${id}`)
+
+         showToast({
+            title: 'Block',
+            message: 'Successfully blocked',
+            type: 'success',
+         })
+         if (getUserHouses) {
+            return getUserHouses()
+         }
+         return dispatch(getHouseById(id))
+      } catch (error) {
+         showToast({
+            title: 'Delete',
+            message: error.response?.message,
+            type: 'error',
+         })
+         return rejectWithValue(error.response.message)
       }
    }
 )

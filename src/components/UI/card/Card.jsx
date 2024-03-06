@@ -16,7 +16,7 @@ const Card = ({
    maxGuests,
    description,
    isLike,
-   blocked,
+   status,
    newCard,
    province,
    option,
@@ -30,21 +30,22 @@ const Card = ({
       // Здесь функция для update'та сердечки
    }
 
-   const clickHandler = () => {
+   const clickHandler = (e) => {
+      e.stopPropagation()
+
       if (onNavigate) {
-         console.log('test')
          navigate(`${id}`)
       }
    }
 
    return (
       <CardContainer
-         blocked={blocked}
+         blocked={status}
          newCard={newCard}
          role={role}
          onClick={clickHandler}
       >
-         {blocked ? (
+         {status === 'BLOCKED' ? (
             <StyledBlockText>
                Your application has been blocked, please contact the
                administrator
@@ -73,7 +74,7 @@ const Card = ({
             <LastContainer>
                <Guests>{maxGuests} guests</Guests>
                {role === 'USER' ? (
-                  blocked ? (
+                  status === 'BLOCKED' ? (
                      <Button disabled>Blocked</Button>
                   ) : (
                      <>
@@ -97,17 +98,17 @@ const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
    maxWidth: '300px',
    width: '100%',
    minWidth: '200px',
-   backgroundColor: `${blocked ? '#D4D4D466' : '#f7f7f7'}`,
-   opacity: blocked ? 0.6 : 1,
+   backgroundColor: `${blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
+   opacity: blocked === 'BLOCKED' ? 0.6 : 1,
    borderRadius: '4px',
    transition: '200ms',
-   cursor: `${blocked ? 'default' : 'pointer'}`,
+   cursor: `${blocked === 'BLOCKED' ? 'default' : 'pointer'}`,
    border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
    padding: '2px',
 
    '&:hover': {
-      backgroundColor: `${!blocked ? '#fff' : ''}`,
-      boxShadow: `${!blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
+      backgroundColor: `${!blocked === 'BLOCKED' ? '#fff' : ''}`,
+      boxShadow: `${!blocked === 'BLOCKED' ? '0px -1px 10px 0px #ecedf2' : ''}`,
    },
 }))
 

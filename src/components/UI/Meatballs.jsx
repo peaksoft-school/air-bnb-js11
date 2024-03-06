@@ -6,7 +6,10 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
    const [anchorEl, setAnchorEl] = useState(null)
    const open = Boolean(anchorEl)
 
-   const handleClick = (e) => setAnchorEl(e.currentTarget)
+   const handleClick = (e) => {
+      e.stopPropagation()
+      setAnchorEl(e.currentTarget)
+   }
 
    const handleClose = () => setAnchorEl(null)
 
