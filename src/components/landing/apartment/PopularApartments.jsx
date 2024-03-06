@@ -1,93 +1,81 @@
-/* eslint-disable no-unused-vars */
 import { Box, styled, Typography } from '@mui/material'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useState } from 'react'
 import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
 import { FirstHotel } from '../../../assets/images'
-import {
-   SlickNextIcon,
-   SlickPrevIcon,
-   GreenLocationIcon,
-   ArrowRightIcon,
-} from '../../../assets/icons'
+import { GreenLocationIcon, ArrowRightIcon } from '../../../assets/icons'
 import { ROOMS } from '../../../utils/constants'
 
-const PopularApartments = ({ background }) => {
-   const [thumbsSwiper, setThumbsSwiper] = useState(null)
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
-   return (
-      <StyledContainer background={background}>
-         <Box className="container">
-            <StyledHotel background={background}>
-               <Typography className="title">
-                  {background ? 'Popular Apartments' : 'The Lastes'}
+const PopularApartments = ({ background }) => (
+   <StyledContainer background={background}>
+      <Box className="container">
+         <StyledHotel background={background}>
+            <Typography className="title">
+               {background ? 'Popular Apartments' : 'The Lastes'}
+            </Typography>
+            <img className="first-hotel" src={FirstHotel} alt="hotel" />
+         </StyledHotel>
+         <StyledMainText background={background}>
+            <Typography variant="h2" className="title-text">
+               Aska Lara Resort & Spa Hotel
+            </Typography>
+            <Typography variant="p" className="longText">
+               The Aska Lara Resort & Spa Hotel, which operates on an
+               all-inclusive system, occupies 2 plots separated by a road. The
+               hotel is located in the Lara district, 500 meters from the sea...
+            </Typography>
+            <StyledLocation>
+               <GreenLocationIcon />
+               <Typography variant="span" className="address">
+                  723510 Osh Muzurbek Alimbekov 9/7
                </Typography>
-               <img className="first-hotel" src={FirstHotel} alt="hotel" />
-            </StyledHotel>
-            <StyledMainText background={background}>
-               <Typography variant="h2" className="title-text">
-                  Aska Lara Resort & Spa Hotel
-               </Typography>
-               <Typography variant="p" className="longText">
-                  The Aska Lara Resort & Spa Hotel, which operates on an
-                  all-inclusive system, occupies 2 plots separated by a road.
-                  The hotel is located in the Lara district, 500 meters from the
-                  sea...
-               </Typography>
-               <StyledLocation>
-                  <GreenLocationIcon />
-                  <Typography variant="span" className="address">
-                     723510 Osh Muzurbek Alimbekov 9/7
-                  </Typography>
-               </StyledLocation>
-               <Typography variant="p" className="view">
-                  Read more
-               </Typography>
-            </StyledMainText>
-            <StyledSliderContent>
-               <Typography variant="p" className="view">
-                  View all
-               </Typography>
-               <StyledPictures>
-                  <Swiper
-                     spaceBetween={10}
-                     modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
-                     slidesPerView={2}
-                     pagination={{
-                        type: 'fraction',
-                     }}
-                     navigation={{
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                     }}
-                     className="swiper"
-                     loop
-                  >
-                     {ROOMS.map(({ name, img }) => (
-                        <SwiperSlide key={name}>
-                           <img src={img} alt={name} />
-                        </SwiperSlide>
-                     ))}
+            </StyledLocation>
+            <Typography variant="p" className="view">
+               Read more
+            </Typography>
+         </StyledMainText>
+         <StyledSliderContent>
+            <Typography variant="p" className="view">
+               View all
+            </Typography>
+            <StyledPictures>
+               <Swiper
+                  spaceBetween={10}
+                  modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
+                  slidesPerView={2}
+                  pagination={{
+                     type: 'fraction',
+                  }}
+                  navigation={{
+                     nextEl: '.swiper-button-next',
+                     prevEl: '.swiper-button-prev',
+                  }}
+                  className="swiper"
+                  loop
+               >
+                  {ROOMS.map(({ name, img }) => (
+                     <SwiperSlide key={name}>
+                        <img src={img} alt={name} />
+                     </SwiperSlide>
+                  ))}
 
-                     <Box className="arrow-buttons-container">
-                        <Box className="swiper-button-prev">
-                           <ArrowRightIcon />
-                        </Box>
-
-                        <Box className="swiper-button-next">
-                           <ArrowRightIcon />
-                        </Box>
+                  <Box className="arrow-buttons-container">
+                     <Box className="swiper-button-prev">
+                        <ArrowRightIcon />
                      </Box>
-                  </Swiper>
-               </StyledPictures>
-            </StyledSliderContent>
-         </Box>
-      </StyledContainer>
-   )
-}
+
+                     <Box className="swiper-button-next">
+                        <ArrowRightIcon />
+                     </Box>
+                  </Box>
+               </Swiper>
+            </StyledPictures>
+         </StyledSliderContent>
+      </Box>
+   </StyledContainer>
+)
 
 export default PopularApartments
 
@@ -115,8 +103,7 @@ const StyledContainer = styled('div')(({ background }) => ({
       fontFamily: 'Inter',
       fontWeight: '500',
       cursor: 'pointer',
-      textDecoration: ' underline',
-      marginTop: '-4.62rem',
+      textDecoration: 'underline',
       lineHeight: '130%',
    },
 
@@ -186,7 +173,7 @@ const StyledHotel = styled('div')(({ background }) => ({
 
    '& .title': {
       color: background ? 'white' : 'black',
-      fontFamily: 'Jenriv Titling',
+      fontFamily: 'Inter',
       fontSize: '1.25rem',
       fontWeight: '500',
       width: '14.75rem',

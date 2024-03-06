@@ -67,15 +67,10 @@ const HouseCardContainer = styled(Grid)(() => ({
    '& .card ': {
       cursor: 'pointer',
       transition: 'all 1s',
+      padding: '0px 0px',
 
       '&:hover': {
-         transform: 'scale(1.05)',
-         boxShadow: '12px 17px 51px rgba(0, 0, 0, 0.22)',
-         padding: '0px 0px',
-      },
-
-      '&:active': {
-         transform: 'scale(0.95) rotateZ(1.7deg)',
+         boxShadow: '0 0 15px rgba(0, 0, 0, 0.22)',
       },
    },
 }))
