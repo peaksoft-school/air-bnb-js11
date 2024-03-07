@@ -5,6 +5,7 @@ export const routes = {
       users: '/admin/users',
       user: '/admin/users/:userId',
       allHousing: '/admin/all-housing',
+      applicationById: '/admin/application/:applicationId',
    },
 
    USER: {
