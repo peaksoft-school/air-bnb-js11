@@ -178,12 +178,12 @@ const AllHousing = () => {
 
 export default AllHousing
 
-const StyledContainer = styled('div')(() => ({
+const StyledContainer = styled(Box)(({ theme }) => ({
    width: '100%',
    height: '100%',
    minHeight: '88.8vh',
    padding: '2.875rem 0rem',
-   backgroundColor: '#f7f7f7',
+   backgroundColor: theme.palette.primary.white,
 
    '& .heading': {
       marginLeft: '3rem',

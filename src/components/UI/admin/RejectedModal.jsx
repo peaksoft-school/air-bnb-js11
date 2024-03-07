@@ -108,7 +108,7 @@ const StyledModal = styled(Modal)(({ theme }) => ({
 
          '& .cansel-button': {
             width: '9.375rem',
-            height: '2.0625rem',
+            height: '2.3125rem',
             borderRadius: '0px',
          },
       },

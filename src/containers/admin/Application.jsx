@@ -119,11 +119,11 @@ const Application = () => {
 
 export default Application
 
-const StyledContainer = styled('div')(() => ({
+const StyledContainer = styled('div')(({ theme }) => ({
    width: '100%',
    height: '100%',
    minHeight: '88.8vh',
-   backgroundColor: '#f7f7f7',
+   backgroundColor: theme.palette.primary.white,
 
    '& .pagination-box': {
       width: '100%',
