@@ -6,7 +6,10 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
    const [anchorEl, setAnchorEl] = useState(null)
    const open = Boolean(anchorEl)
 
-   const handleClick = (e) => setAnchorEl(e.currentTarget)
+   const handleClick = (e) => {
+      e.stopPropagation()
+      setAnchorEl(e.currentTarget)
+   }
 
    const handleClose = () => setAnchorEl(null)
 
@@ -24,7 +27,6 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={handleClick}
-            open={+open}
          >
             {variant === 'dotes' ? <ThreePoint /> : <DownArrowIcon />}
          </StyledIconButton>
@@ -58,8 +60,11 @@ const Meatballs = ({ options, variant = 'dotes', id }) => {
 
 export default Meatballs
 
-const StyledIconButton = styled(IconButton)(({ open }) => ({
-   padding: '8px',
-   rotate: `${open ? '180deg' : ''}`,
-   transition: '500ms',
+const StyledIconButton = styled(IconButton)(() => ({
+   widths: 'fit-content',
+   padding: '10px',
+
+   '& .MuiIconButton-root': {
+      padding: '0',
+   },
 }))

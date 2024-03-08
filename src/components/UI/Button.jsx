@@ -120,7 +120,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
          },
 
          '&:disabled': {
-            background: theme.palette.secondary.main,
+            background: theme.palette.secondary.lightBrown,
          },
       },
    }
