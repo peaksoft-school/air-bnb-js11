@@ -1,8 +1,12 @@
 import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
+import { useSelector } from 'react-redux'
 import { FullStarIcon } from '../../../assets/icons'
+import Button from '../Button'
 
 const Rating = ({ rating }) => {
+   const role = useSelector((state) => state.auth)
+
    const RATINGS = [
       { label: 5, progress: rating.rating_5_count },
       { label: 4, progress: rating.rating_4_count },
@@ -11,33 +15,45 @@ const Rating = ({ rating }) => {
       { label: 1, progress: rating.rating_1_count },
    ]
    return (
-      <RatingChart>
-         <RatingCont>
-            <p>{rating.total_feedback}</p>
-            <FullStarIcon />
-         </RatingCont>
-         <RatingChartBarContainer>
-            {RATINGS.map((rating) => (
-               <RatingChartBar>
-                  <RatingLabel>{rating.label}</RatingLabel>
-                  <RatingProgressCont>
-                     <RatingProgress progress={rating.progress} />
-                  </RatingProgressCont>
-                  <RatingLabel>{rating.progress}%</RatingLabel>
-               </RatingChartBar>
-            ))}
-         </RatingChartBarContainer>
-      </RatingChart>
+      <StyledContainer>
+         <RatingChart>
+            <RatingCont>
+               <p>{rating.total_feedback}</p>
+               <FullStarIcon />
+            </RatingCont>
+            <RatingChartBarContainer>
+               {RATINGS.map((rating) => (
+                  <RatingChartBar>
+                     <RatingLabel>{rating.label}</RatingLabel>
+                     <RatingProgressCont>
+                        <RatingProgress progress={rating.progress} />
+                     </RatingProgressCont>
+                     <RatingLabel>{rating.progress}%</RatingLabel>
+                  </RatingChartBar>
+               ))}
+            </RatingChartBarContainer>
+         </RatingChart>
+         {role === 'ADMIN' ? null : (
+            <Button variant="outlined">Leave Feedback</Button>
+         )}
+      </StyledContainer>
    )
 }
 
 export default Rating
+
+const StyledContainer = styled(Box)(() => ({
+   '& .MuiButton-root': {
+      width: '100%',
+   },
+}))
 
 const RatingChart = styled(Box)(() => ({
    border: '1px solid #C4C4C4',
    borderRadius: '16px',
    padding: '21px 40px',
    width: 'fit-content',
+   marginBottom: '20px',
 }))
 
 const RatingCont = styled(Box)(() => ({

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, styled, Typography } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import Feedback from '../UI/Feedback'
 import InnerApplication from './HouseImageSlider'
@@ -15,6 +15,7 @@ import { showToast } from '../../utils/helpers/toast'
 const HouseInner = ({ houseInfo, feedbacks, rating }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { role } = useSelector((state) => state.auth)
 
    const deleteHouse = () => {
       dispatch(deleteHouseAsync({ id: houseInfo.id, showToast, navigate }))
@@ -65,22 +66,28 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                         </Typography>
                      </Box>
                   </Box>
-                  <Box className="button-container">
-                     <Button variant="outlined" onClick={deleteHouse}>
-                        Delete
-                     </Button>
-                     <Button
-                        onClick={blockHouse}
-                        disabled={status === 'BLOCKED'}
-                     >
-                        Block
-                     </Button>
-                  </Box>
-                  <Typography className="blocked-text">
-                     {status === 'BLOCKED'
-                        ? 'This house is already blocked'
-                        : ''}
-                  </Typography>
+                  {role === 'ADMIN' ? (
+                     <>
+                        <Box className="button-container">
+                           <Button variant="outlined" onClick={deleteHouse}>
+                              Delete
+                           </Button>
+                           <Button
+                              onClick={blockHouse}
+                              disabled={status === 'BLOCKED'}
+                           >
+                              Block
+                           </Button>
+                        </Box>
+                        <Typography className="blocked-text">
+                           {status === 'BLOCKED'
+                              ? 'This house is already blocked'
+                              : ''}
+                        </Typography>
+                     </>
+                  ) : (
+                     <h1>Здесь будет компонент для оплаты</h1>
+                  )}
                </Box>
             </Box>
             <Box className="second-container">
