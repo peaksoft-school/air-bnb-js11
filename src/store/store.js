@@ -12,10 +12,11 @@ import {
 } from 'redux-persist'
 import { authSlice } from './slice/auth/authSlice'
 import { applicationSlice } from './slice/admin/application/applicationSlice'
-import { userSlice } from './slice/user/userSlice'
+import { userSlice } from './slice/user/profile/userSlice'
 import { pageSlice } from './slice/admin/inner-application/innerPageSlice'
 import { allHousingSlice } from './slice/admin/allHousing/allHousingSlice'
 import { userInfoSlice } from './slice/admin/user/userInfoSlice'
+import { houseSlice } from './slice/user/house/houseSlice'
 
 const rootReducer = combineReducers({
    [authSlice.name]: authSlice.reducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
    [pageSlice.name]: pageSlice.reducer,
    [allHousingSlice.name]: allHousingSlice.reducer,
    [userInfoSlice.name]: userInfoSlice.reducer,
+   [houseSlice.name]: houseSlice.reducer,
 })
 
 const persistConfig = {

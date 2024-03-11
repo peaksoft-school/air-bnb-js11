@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Box, styled, Typography } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
@@ -7,75 +8,112 @@ import { ROOMS } from '../../../utils/constants'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { axiosInstance } from '../../../configs/axiosInstance'
 
-const PopularApartments = ({ background }) => (
-   <StyledContainer background={background}>
-      <Box className="container">
-         <StyledHotel background={background}>
-            <Typography className="title">
-               {background ? 'Popular Apartments' : 'The Lastes'}
-            </Typography>
-            <img className="first-hotel" src={FirstHotel} alt="hotel" />
-         </StyledHotel>
-         <StyledMainText background={background}>
-            <Typography variant="h2" className="title-text">
-               Aska Lara Resort & Spa Hotel
-            </Typography>
-            <Typography variant="p" className="longText">
-               The Aska Lara Resort & Spa Hotel, which operates on an
-               all-inclusive system, occupies 2 plots separated by a road. The
-               hotel is located in the Lara district, 500 meters from the sea...
-            </Typography>
-            <StyledLocation>
-               <GreenLocationIcon />
-               <Typography variant="span" className="address">
-                  723510 Osh Muzurbek Alimbekov 9/7
+const PopularApartments = ({ background }) => {
+   const [latestHouse, setLatestHouse] = useState({})
+   const [popularApartment, setPopularApartments] = useState({})
+
+   const getLatestAnnounement = async () => {
+      try {
+         const { data } = await axiosInstance.get(
+            '/api/houses/latestAnnouncement'
+         )
+         return setLatestHouse(data)
+      } catch (error) {
+         return error
+      }
+   }
+   const getPopularApartment = async () => {
+      try {
+         const { data } = await axiosInstance.get(
+            '/api/houses/getPopularApartment'
+         )
+         return setPopularApartments(data)
+      } catch (error) {
+         return error
+      }
+   }
+
+   useEffect(() => {
+      getPopularApartment()
+   }, [])
+
+   useEffect(() => {
+      getLatestAnnounement()
+   }, [])
+
+   return (
+      <StyledContainer background={background}>
+         <Box className="container">
+            <StyledHotel background={background}>
+               <Typography className="title">
+                  {background ? 'Popular Apartments' : 'The Lastes'}
                </Typography>
-            </StyledLocation>
-            <Typography variant="p" className="view">
-               Read more
-            </Typography>
-         </StyledMainText>
-         <StyledSliderContent>
-            <Typography variant="p" className="view">
-               View all
-            </Typography>
-            <StyledPictures>
-               <Swiper
-                  spaceBetween={10}
-                  modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
-                  slidesPerView={2}
-                  pagination={{
-                     type: 'fraction',
-                  }}
-                  navigation={{
-                     nextEl: '.swiper-button-next',
-                     prevEl: '.swiper-button-prev',
-                  }}
-                  className="swiper"
-                  loop
-               >
-                  {ROOMS.map(({ name, img }) => (
-                     <SwiperSlide key={name}>
-                        <img src={img} alt={name} />
-                     </SwiperSlide>
-                  ))}
+               <img className="first-hotel" src={FirstHotel} alt="hotel" />
+            </StyledHotel>
+            <StyledMainText background={background}>
+               <Typography variant="h2" className="title-text">
+                  {background ? popularApartment?.title : latestHouse?.title}
+               </Typography>
+               <Typography variant="p" className="longText">
+                  {background
+                     ? popularApartment?.description
+                     : latestHouse?.description}
+               </Typography>
+               <StyledLocation>
+                  <GreenLocationIcon />
+                  <Typography variant="span" className="address">
+                     {background
+                        ? popularApartment?.address
+                        : latestHouse?.address}
+                  </Typography>
+               </StyledLocation>
+               <Typography variant="p" className="view">
+                  Read more
+               </Typography>
+            </StyledMainText>
+            <StyledSliderContent>
+               <Typography variant="p" className="view">
+                  View all
+               </Typography>
+               <StyledPictures>
+                  <Swiper
+                     spaceBetween={10}
+                     modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
+                     slidesPerView={2}
+                     pagination={{
+                        type: 'fraction',
+                     }}
+                     navigation={{
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                     }}
+                     className="swiper"
+                     loop
+                  >
+                     {ROOMS.map(({ name, img }) => (
+                        <SwiperSlide key={name}>
+                           <img src={img} alt={name} />
+                        </SwiperSlide>
+                     ))}
 
-                  <Box className="arrow-buttons-container">
-                     <Box className="swiper-button-prev">
-                        <ArrowRightIcon />
-                     </Box>
+                     <Box className="arrow-buttons-container">
+                        <Box className="swiper-button-prev">
+                           <ArrowRightIcon />
+                        </Box>
 
-                     <Box className="swiper-button-next">
-                        <ArrowRightIcon />
+                        <Box className="swiper-button-next">
+                           <ArrowRightIcon />
+                        </Box>
                      </Box>
-                  </Box>
-               </Swiper>
-            </StyledPictures>
-         </StyledSliderContent>
-      </Box>
-   </StyledContainer>
-)
+                  </Swiper>
+               </StyledPictures>
+            </StyledSliderContent>
+         </Box>
+      </StyledContainer>
+   )
+}
 
 export default PopularApartments
 
