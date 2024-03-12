@@ -94,7 +94,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
             padding: '0.5rem 1rem',
 
             '&:hover': {
-               border: `1px solid ${theme.palette.tertiary.lightGray}`,
                color: theme.palette.primary.dark,
             },
          },
