@@ -81,7 +81,7 @@ const SignIn = ({ isOpenModal, onClose }) => {
 export default SignIn
 
 const StyledModal = styled(Modal)(({ theme }) => ({
-   '& .box': {
+   '& .content': {
       width: '29.625rem',
       display: 'flex',
       justifyContent: 'center',
