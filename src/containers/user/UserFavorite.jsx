@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled, Typography, Box } from '@mui/material'
-import { getFavorites } from '../../../store/slice/user/favoriteThunk'
-import Card from '../../../components/UI/card/Card'
+import { getFavorites } from '../../store/slice/user/favoriteThunk'
+import { UserNoDataImage } from '../../assets/images'
+import Card from '../../components/UI/card/Card'
 
 const UserFavorite = () => {
    const dispatch = useDispatch()
@@ -23,9 +24,11 @@ const UserFavorite = () => {
 
             <Box className="card-box">
                <Box>
-                  {favorites.map((item) => (
-                     <Card key={item.id} {...item} />
-                  ))}
+                  {favorites.length > 0 ? (
+                     favorites.map((item) => <Card key={item.id} {...item} />)
+                  ) : (
+                     <StyledImage src={UserNoDataImage} alt="No data" />
+                  )}
                </Box>
             </Box>
          </Box>
@@ -43,6 +46,7 @@ const StyledContainer = styled('div')(() => ({
    position: 'relative',
    top: '0rem',
    left: '6.25rem',
+   display: 'flex',
 
    '& .card-box': {
       fontSize: '16px',
@@ -50,7 +54,6 @@ const StyledContainer = styled('div')(() => ({
       fontFamily: 'Inter',
       position: 'relative',
       top: '1.875rem',
-      // left: '0rem',
    },
 }))
 
@@ -68,4 +71,10 @@ const StyledPath = styled(Typography)({
    '& .heading': {
       color: 'black',
    },
+})
+const StyledImage = styled('img')({
+   width: '37rem',
+   height: '37rem',
+   top: '12rem',
+   marginLeft: '60%',
 })
