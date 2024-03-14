@@ -21,7 +21,9 @@ const MyBookings = () => {
    return (
       <StyledBooking>
          {bookings && bookings.length > 0 ? (
-            bookings.map((booking) => <Card key={booking.id} {...booking} />)
+            bookings.map((booking) => (
+               <Card key={booking.id} isMyBooking {...booking} />
+            ))
          ) : (
             <img src={UserNoDataImage} alt="no house" />
          )}

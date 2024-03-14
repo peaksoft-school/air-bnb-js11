@@ -8,6 +8,7 @@ const RadioButton = ({ options, value, onChange }) => (
             value={value}
             control={<StyledRadio />}
             label={label}
+            name="asdaw"
          />
       ))}
    </RadioGroup>

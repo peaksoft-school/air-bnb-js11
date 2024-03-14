@@ -4,8 +4,8 @@ import {
    styled,
 } from '@mui/material'
 
-const Checkbox = ({ label = '', checked = false, changeChecked }) => {
-   const changeHandler = (e) => changeChecked(e.target.checked)
+const Checkbox = ({ label = '', checked = false, changeChecked, ...rest }) => {
+   const changeHandler = (e) => changeChecked(e)
 
    return (
       <FormControlLabel
@@ -13,6 +13,7 @@ const Checkbox = ({ label = '', checked = false, changeChecked }) => {
          label={label}
          checked={checked}
          onChange={changeHandler}
+         {...rest}
       />
    )
 }

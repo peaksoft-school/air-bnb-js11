@@ -49,10 +49,11 @@ const Profile = () => {
    const { role } = useSelector((state) => state.auth)
    const { name, email } = useSelector((state) => state.user)
 
-   useEffect(() => {
-      dispatch(getUser(userId))
-   }, [])
-
+   if (role === 'ADMIN') {
+      useEffect(() => {
+         dispatch(getUser(userId))
+      }, [])
+   }
    const ADMIN_BREADCRUMBS = [
       {
          label: 'Users',
@@ -117,13 +118,15 @@ const Profile = () => {
                            <span>Contact</span>:{' '}
                            {role === 'ADMIN' ? user?.email : email}
                         </Typography>
-                        <Button
-                           variant="cancel"
-                           className="logout"
-                           onClick={logOutHandler}
-                        >
-                           log out
-                        </Button>
+                        {role === 'ADMIN' ? null : (
+                           <Button
+                              variant="cancel"
+                              className="logout"
+                              onClick={logOutHandler}
+                           >
+                              log out
+                           </Button>
+                        )}
                      </Box>
                   )}
                </Box>

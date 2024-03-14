@@ -1,4 +1,4 @@
-import { styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Button from '../Button'
@@ -22,6 +22,7 @@ const Card = ({
    option,
    id,
    onNavigate,
+   isMyBooking = false,
 }) => {
    const { role } = useSelector((state) => state.auth)
    const navigate = useNavigate()
@@ -73,7 +74,7 @@ const Card = ({
             </HouseLocation>
             <LastContainer>
                <Guests>{maxGuests} guests</Guests>
-               {role === 'USER' ? (
+               {!isMyBooking && role === 'USER' ? (
                   status === 'BLOCKED' ? (
                      <Button disabled>Blocked</Button>
                   ) : (
@@ -82,10 +83,25 @@ const Card = ({
                         <StyledHeartIcon onClick={changeIsLike} like={isLike} />
                      </>
                   )
-               ) : (
+               ) : !isMyBooking ? (
                   <Meatballs options={option} id={id} />
-               )}
+               ) : null}
             </LastContainer>
+            {isMyBooking ? (
+               <CheckContainer>
+                  <CheckInfo>
+                     <Box>
+                        <Typography className="check">Check in</Typography>
+                        <Typography>02.02.22</Typography>
+                     </Box>
+                     <Box>
+                        <Typography className="check">Check in</Typography>
+                        <Typography>02.02.22</Typography>
+                     </Box>
+                  </CheckInfo>
+                  <Button>Change</Button>
+               </CheckContainer>
+            ) : null}
          </CardInnerContainer>
       </CardContainer>
    )
@@ -209,5 +225,17 @@ const StyledHeartIcon = styled(HeartIcon)(({ like }) => ({
       '&:last-child': {
          fill: `${like ? 'DD8A08' : 'none'}`,
       },
+   },
+}))
+
+const CheckContainer = styled(Box)(() => ({}))
+
+const CheckInfo = styled(Box)(() => ({
+   display: 'flex',
+   justifyContent: 'space-between',
+   margin: '0 0 10px 0',
+
+   '& .check': {
+      color: '#646464',
    },
 }))
