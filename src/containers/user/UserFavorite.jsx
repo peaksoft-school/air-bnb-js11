@@ -16,12 +16,13 @@ const UserFavorite = () => {
    return (
       <StyledContainer>
          <Box>
-            <StyledPath>
-               Main
-               <span className="path-favorite"> / Favorite </span>
-            </StyledPath>
-            <h3 className="heading">FAVORITE</h3>
-
+            <Box className="box-container">
+               <StyledPath>
+                  Main
+                  <span className="path-favorite"> / Favorite </span>
+               </StyledPath>
+               <h3 className="heading">FAVORITE</h3>
+            </Box>
             <Box className="card-box">
                <Box>
                   {favorites.length > 0 ? (
@@ -37,16 +38,18 @@ const UserFavorite = () => {
 }
 
 export default UserFavorite
-
 const StyledContainer = styled('div')(() => ({
    fontSize: '16px',
    fontWeight: '400',
    fontFamily: 'Inter',
    color: 'black',
-   position: 'relative',
    top: '0rem',
-   left: '6.25rem',
    display: 'flex',
+   '& .box-container': {
+      color: 'black',
+      position: 'relative',
+      left: '6.25rem',
+   },
 
    '& .card-box': {
       fontSize: '16px',
@@ -72,9 +75,10 @@ const StyledPath = styled(Typography)({
       color: 'black',
    },
 })
+
 const StyledImage = styled('img')({
-   width: '37rem',
-   height: '37rem',
+   width: '35rem',
+   height: '35rem',
    top: '12rem',
-   marginLeft: '60%',
+   marginLeft: '85%',
 })
