@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
 import Bookings from '../../../components/admin/users/booking/Bookings'
-import BreadCrumbs from '../../../components/UI/BreadCrumbs'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import Announcement from '../../../components/admin/users/booking/Announcement'
 import { getUser } from '../../../store/slice/admin/user/userThunk'
 

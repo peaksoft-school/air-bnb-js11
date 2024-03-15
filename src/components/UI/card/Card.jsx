@@ -16,6 +16,7 @@ const Card = ({
    maxGuests,
    description,
    isLike,
+   // houseStatus,
    status,
    newCard,
    province,
@@ -61,7 +62,8 @@ const Card = ({
                </Price>
                <Rating>
                   <FullStarIcon />
-                  {rating.toFixed(1)}
+                  {/* {rating.toFixed(1)} */}
+                  {rating}
                </Rating>
             </PriceRatingInfo>
 
