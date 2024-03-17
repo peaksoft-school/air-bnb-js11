@@ -8,7 +8,7 @@ import { UserNoDataImage } from '../../../assets/images'
 
 const OnModeration = () => {
    const dispatch = useDispatch()
-   const { announcement, isLoading } = useSelector((state) => state.houses)
+   const { moderation, isLoading } = useSelector((state) => state.houses)
 
    useEffect(() => {
       dispatch(getModeration())
@@ -19,23 +19,22 @@ const OnModeration = () => {
    }
 
    return (
-      <StyledAnnouncement>
-         {announcement && announcement.length > 0 ? (
-            announcement.map((booking) => (
-               <Card key={booking.id} {...booking} />
-            ))
+      <StyledModeration>
+         {moderation && moderation.length > 0 ? (
+            moderation.map((booking) => <Card key={booking.id} {...booking} />)
          ) : (
             <img src={UserNoDataImage} alt="no house" />
          )}
-      </StyledAnnouncement>
+      </StyledModeration>
    )
 }
 
 export default OnModeration
 
-const StyledAnnouncement = styled(Box)(() => ({
+const StyledModeration = styled(Box)(() => ({
    display: 'flex',
-   gap: '20px',
+   flexWrap: 'wrap',
+   gap: '10px',
 
    '& > p': {
       fontSize: '30px',

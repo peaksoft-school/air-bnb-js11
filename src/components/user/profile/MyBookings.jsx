@@ -35,7 +35,8 @@ export default MyBookings
 
 const StyledBooking = styled(Box)(() => ({
    display: 'flex',
-   gap: '20px',
+   flexWrap: 'wrap',
+   gap: '10px',
 
    '& > p': {
       fontSize: '30px',

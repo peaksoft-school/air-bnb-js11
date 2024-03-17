@@ -11,6 +11,7 @@ const Input = forwardRef(
             onChange={onChange}
             placeholder={placeholder || 'Region, city, apartment, house...'}
             ref={ref}
+            autoComplete="off"
             {...rest}
          />
       )

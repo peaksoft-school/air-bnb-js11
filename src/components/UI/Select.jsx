@@ -4,16 +4,19 @@ import {
    InputLabel,
    MenuItem,
    Select as MuiSelect,
+   Rating,
    styled,
 } from '@mui/material'
 import { DownArrowIcon } from '../../assets/icons'
 
 const Select = forwardRef(
-   ({ label, onChange, defaultId, isValueAsId, options, ...rest }, ref) => {
+   (
+      { label, onChange, defaultId, isValueAsId, options, isRating, ...rest },
+      ref
+   ) => {
       const findedOption = options.find((option) => option.id === +defaultId)
-      const defaultOption = isValueAsId ? findedOption.value : findedOption.id
 
-      const [option, setOption] = useState(defaultOption)
+      const [option, setOption] = useState(findedOption)
 
       const handleSelectChange = (e) => {
          setOption(e.target.value)
@@ -34,12 +37,19 @@ const Select = forwardRef(
                IconComponent={DownArrowIcon}
                {...rest}
             >
+               <MenuItem value="" selected>
+                  All
+               </MenuItem>
                {options?.map((option) => (
                   <MenuItem
                      key={option.id}
                      value={isValueAsId ? option.value : option.id}
                   >
-                     {option.label}
+                     {isRating ? (
+                        <Rating value={option.value} readOnly />
+                     ) : (
+                        option.label
+                     )}
                   </MenuItem>
                ))}
             </StyledSelect>

@@ -16,11 +16,17 @@ export const getBookings = createAsyncThunk(
 
 export const getAnnouncement = createAsyncThunk(
    'house/getAnnouncement',
-   async (_, { rejectWithValue }) => {
+   async ({ houseType, rating, price }, { rejectWithValue }) => {
       try {
-         const { data } = await axiosInstance.get('/api/users/houses')
+         const { data } = await axiosInstance.get('/api/users/filter', {
+            params: {
+               houseType,
+               rating,
+               price,
+            },
+         })
 
-         return data
+         return data.responses
       } catch (error) {
          return rejectWithValue(error)
       }
@@ -35,6 +41,21 @@ export const getModeration = createAsyncThunk(
          )
 
          return data
+      } catch (error) {
+         return rejectWithValue(error)
+      }
+   }
+)
+
+export const deleteAnnouncement = createAsyncThunk(
+   'house/deleteAnnouncement',
+   async (houseId, { dispatch, rejectWithValue }) => {
+      try {
+         axiosInstance.delete(`/api/houses/${houseId}`)
+
+         return dispatch(
+            getAnnouncement({ houseType: '', price: '', rating: '' })
+         )
       } catch (error) {
          return rejectWithValue(error)
       }

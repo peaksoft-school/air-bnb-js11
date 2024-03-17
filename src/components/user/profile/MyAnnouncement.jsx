@@ -1,224 +1,191 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-   Box,
-   Checkbox,
-   Chip,
-   FormControl,
-   InputLabel,
-   ListItemText,
-   MenuItem,
-   Rating,
-   Select,
-   Stack,
-   styled,
-} from '@mui/material'
-import { getAnnouncement } from '../../../store/slice/user/house/houseThunk'
+import { Box, Chip, Stack, styled } from '@mui/material'
 import LoadingSpinner from '../../UI/LoadingSpinner'
 import { UserNoDataImage } from '../../../assets/images'
 import Card from '../../UI/card/Card'
-import RadioButton from '../../UI/RadioButton'
+import {
+   deleteAnnouncement,
+   getAnnouncement,
+} from '../../../store/slice/user/house/houseThunk'
+import Select from '../../UI/Select'
 
 const radioOptions = [
    {
-      value: 'lowToHigh',
+      id: 1,
+      value: 'LOW_TO_HIGH',
       label: 'Low to high',
    },
    {
-      value: 'highToLow',
+      id: 2,
+      value: 'HIGH_TO_LOW',
       label: 'High to low',
    },
 ]
 
-const checkboxOptions = [
+const houseTypeOptions = [
    {
-      name: 'inWishList',
+      id: 1,
+      value: 'INWISHLIST',
       label: 'In wish list',
    },
    {
-      name: 'apartment',
+      id: 2,
+      value: 'APARTMENT',
       label: 'Apartment',
    },
    {
-      name: 'house',
+      id: 3,
+      value: 'HOUSE',
       label: 'House',
    },
 ]
 
 const ratingOption = [
    {
-      rating: 1,
+      value: 1,
+      id: 1,
    },
    {
-      rating: 2,
+      value: 2,
+      id: 2,
    },
    {
-      rating: 3,
+      value: 3,
+      id: 3,
    },
    {
-      rating: 4,
+      value: 4,
+      id: 4,
    },
    {
-      rating: 5,
+      value: 5,
+      id: 5,
    },
 ]
 
 const MyAnnouncement = () => {
    const dispatch = useDispatch()
    const { announcement, isLoading } = useSelector((state) => state.houses)
-
-   const [sortMenuOpen, setSortMenuOpen] = useState(false)
-   const [sortByRatingMenuOpen, setSortByRatingMenuOpen] = useState(false)
-   const [ratingState, setRatingState] = useState('')
-   const [sortState, setSortState] = useState([])
-   const [filterState, setFilterState] = useState({
-      inWishList: false,
-      apartment: false,
-      house: false,
-      price: '',
-   })
+   const [houseType, setHouseType] = useState('')
+   const [rating, setRating] = useState('')
+   const [price, setPrice] = useState('')
 
    const [filterChips, setFilterChips] = useState([])
 
-   console.log(filterChips)
-
    useEffect(() => {
-      dispatch(getAnnouncement())
-   }, [dispatch])
+      dispatch(
+         getAnnouncement({
+            houseType,
+            rating,
+            price,
+         })
+      )
+   }, [rating, houseType, price])
 
-   const handleSortMenuToggle = () => {
-      setSortMenuOpen((prev) => !prev)
-   }
-
-   const handleSortByRatingMenuToggle = () => {
-      setSortByRatingMenuOpen((prev) => !prev)
-   }
-
-   const handleSortChange = (event) => {
-      const {
-         target: { value },
-      } = event
-      setSortState(typeof value === 'string' ? value.split(',') : value)
-   }
-
-   const handlePriceChange = (event) => {
-      setFilterState((prev) => ({
-         ...prev,
-         price: event.target.value,
-      }))
-   }
-
-   const handleRatingChange = (event) => {
-      setRatingState(event.target.value)
-   }
-
-   useEffect(() => {
-      const newChips = []
-
-      sortState.forEach((option) => {
-         newChips.push({ key: option, label: option })
+   const updateFilterChips = (key, value, label) => {
+      setFilterChips((chips) => {
+         const existingChipIndex = chips.findIndex((chip) => chip.key === key)
+         if (existingChipIndex >= 0) {
+            const updatedChips = [...chips]
+            updatedChips[existingChipIndex] = {
+               key,
+               value,
+               label: `${label}: ${value}`,
+            }
+            return updatedChips
+         }
+         return [...chips, { key, value, label: `${label}: ${value}` }]
       })
-
-      if (filterState.price !== 'lowToHigh') {
-         const selectedSortOption = radioOptions.find(
-            (option) => option.value === filterState.price
-         )
-         newChips.push({ key: 'price', label: selectedSortOption?.label })
-      }
-
-      if (ratingState) {
-         newChips.push({ key: 'rating', label: `Rating: ${ratingState}` })
-      }
-
-      setFilterChips(newChips)
-   }, [filterState, ratingState, sortState])
-
-   console.log(sortState)
-
-   const handleDelete = (chipToDelete) => () => {
-      if (chipToDelete === 'rating') {
-         setRatingState('')
-      } else {
-         setFilterState((prev) => ({
-            ...prev,
-            [chipToDelete]: false,
-         }))
-      }
    }
 
-   if (isLoading) {
-      return <LoadingSpinner />
+   const handleHouseTypeChange = (e) => {
+      setHouseType(e.target.value)
+      updateFilterChips('houseType', e.target.value, 'House Type')
    }
+
+   const handleRatingChange = (e) => {
+      setRating(e.target.value)
+      updateFilterChips('rating', e.target.value, 'Rating')
+   }
+
+   const handlePriceChange = (e) => {
+      setPrice(e.target.value)
+      updateFilterChips('price', e.target.value, 'Price')
+   }
+
+   const handleChipDelete = (chipToDelete) => {
+      setFilterChips((chips) =>
+         chips.filter((chip) => chip.key !== chipToDelete)
+      )
+      if (chipToDelete === 'houseType') setHouseType('')
+      else if (chipToDelete === 'rating') setRating('')
+      else if (chipToDelete === 'price') setPrice('')
+   }
+
+   const announcementOptions = [
+      {
+         title: 'Edit',
+         onClick: () => {},
+      },
+      {
+         title: 'Delete',
+         onClick: (id) => dispatch(deleteAnnouncement(id)),
+      },
+   ]
+
    return (
       <StyledAnnouncement>
-         {announcement && !announcement.length > 0 ? (
-            <>
-               <FormControl className="form-control">
-                  <InputLabel id="sort">Sort</InputLabel>
-                  <Select
-                     multiple
-                     open={sortMenuOpen}
-                     onClose={handleSortMenuToggle}
-                     onOpen={handleSortMenuToggle}
-                     onChange={handleSortChange}
-                     value={sortState}
-                     labelId="sort"
-                     renderValue={(selected) => selected.join(', ')}
-                     label="sort"
-                  >
-                     <MenuItem value="All">All</MenuItem>
-                     {checkboxOptions.map((option) => (
-                        <MenuItem key={option.name} value={option.label}>
-                           <Checkbox
-                              color="warning"
-                              checked={sortState.indexOf(option.label) > -1}
-                           />
-                           <ListItemText primary={option.label} />
-                        </MenuItem>
-                     ))}
-                     <RadioButton
-                        options={radioOptions}
-                        value={filterState.price}
-                        onChange={handlePriceChange}
-                        name="price"
-                     />
-                  </Select>
-               </FormControl>
-               <FormControl className="form-control">
-                  <InputLabel id="sortByRatings">Sort by ratings</InputLabel>
+         <Box className="select-container">
+            <Select
+               options={houseTypeOptions}
+               defaultId={1}
+               onChange={handleHouseTypeChange}
+               isValueAsId
+               label="House type:"
+            />
+            <Select
+               options={ratingOption}
+               defaultId={1}
+               onChange={handleRatingChange}
+               isValueAsId
+               label="Rating:"
+               isRating
+            />
+            <Select
+               options={radioOptions}
+               defaultId={1}
+               onChange={handlePriceChange}
+               isValueAsId
+               label="Sort:"
+            />
+         </Box>
 
-                  <Select
-                     open={sortByRatingMenuOpen}
-                     onClose={handleSortByRatingMenuToggle}
-                     onOpen={handleSortByRatingMenuToggle}
-                     labelId="sortByRatings"
-                     label="Sort by ratings"
-                     value={ratingState}
-                     onChange={handleRatingChange}
-                  >
-                     <MenuItem value="">All</MenuItem>
-                     {ratingOption.map(({ rating }) => (
-                        <MenuItem key={rating} value={rating}>
-                           <Rating value={rating} readOnly />
-                        </MenuItem>
-                     ))}
-                  </Select>
-               </FormControl>
-               <Box>
-                  <Stack direction="row" spacing={1}>
-                     {filterChips.map((chip) => (
-                        <Chip
-                           key={chip.key}
-                           label={chip.label}
-                           onDelete={handleDelete(chip.key)}
-                        />
-                     ))}
-                  </Stack>
-               </Box>
-               {announcement.map((booking) => (
-                  <Card key={booking.id} {...booking} />
+         <Box>
+            <Stack direction="row" spacing={1}>
+               {filterChips.map((chip) => (
+                  <Chip
+                     key={chip.key}
+                     label={chip.label}
+                     onDelete={() => handleChipDelete(chip.key)}
+                  />
                ))}
-            </>
+            </Stack>
+         </Box>
+
+         {isLoading ? (
+            <LoadingSpinner />
+         ) : announcement && announcement.length > 0 ? (
+            <Box className="card-container">
+               {announcement.map((booking) => (
+                  <Card
+                     key={booking.id}
+                     {...booking}
+                     isMyAnnouncement
+                     option={announcementOptions}
+                  />
+               ))}
+            </Box>
          ) : (
             <img src={UserNoDataImage} alt="no house" />
          )}
@@ -231,8 +198,14 @@ export default MyAnnouncement
 const StyledAnnouncement = styled(Box)(() => ({
    gap: '20px',
 
+   '& .select-container': {
+      display: 'flex',
+      gap: '10px',
+      margin: '0 0 15px 0',
+   },
+
    '& .MuiSelect-select': {
-      height: '20px',
+      height: '25px',
    },
 
    '& .form-control': {
@@ -256,5 +229,12 @@ const StyledAnnouncement = styled(Box)(() => ({
    '& > img': {
       width: '500px',
       margin: '0 auto',
+   },
+
+   '& .card-container': {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '10px',
+      margin: '20px 0 0 0',
    },
 }))

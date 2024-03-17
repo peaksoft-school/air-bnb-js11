@@ -5,7 +5,7 @@ import { FullStarIcon } from '../../../assets/icons'
 import Button from '../Button'
 
 const Rating = ({ rating }) => {
-   const role = useSelector((state) => state.auth)
+   const { role } = useSelector((state) => state.auth)
 
    const RATINGS = [
       { label: 5, progress: rating.rating_5_count },

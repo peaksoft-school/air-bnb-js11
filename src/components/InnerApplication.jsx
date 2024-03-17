@@ -14,6 +14,7 @@ import {
    rejectInnerCardRequest,
 } from '../store/slice/admin/inner-application/InnerApplicationThunk'
 import { showToast } from '../utils/helpers/toast'
+import { NotFound } from '../assets/images'
 
 const InnerApplication = () => {
    const sliderRef1 = useRef(null)
@@ -80,10 +81,13 @@ const InnerApplication = () => {
             </StyledPath>
             <StyledName variant="h3">{house.name}</StyledName>
             <StyledSlider {...settings} className="slider-for" ref={sliderRef1}>
-               {house.images &&
+               {house.images.length > 0 ? (
                   house.images.map((image, index) => (
                      <img key={image} src={image} alt={`House ${index}`} />
-                  ))}
+                  ))
+               ) : (
+                  <img src={NotFound} alt="not found" />
+               )}
             </StyledSlider>
 
             <StyledNavSlider

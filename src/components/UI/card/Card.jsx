@@ -16,13 +16,14 @@ const Card = ({
    maxGuests,
    description,
    isLike,
-   status,
+   houseStatus,
    newCard,
    province,
    option,
    id,
    onNavigate,
    isMyBooking = false,
+   isMyAnnouncement = false,
 }) => {
    const { role } = useSelector((state) => state.auth)
    const navigate = useNavigate()
@@ -40,13 +41,8 @@ const Card = ({
    }
 
    return (
-      <CardContainer
-         blocked={status}
-         newCard={newCard}
-         role={role}
-         onClick={clickHandler}
-      >
-         {status === 'BLOCKED' ? (
+      <CardContainer blocked={houseStatus} newCard={newCard} role={role}>
+         {houseStatus === 'BLOCKED' ? (
             <StyledBlockText>
                Your application has been blocked, please contact the
                administrator
@@ -55,7 +51,7 @@ const Card = ({
 
          <CardSlider img={images.length > 0 ? images : [NotFound]} />
 
-         <CardInnerContainer>
+         <CardInnerContainer onClick={clickHandler}>
             <PriceRatingInfo>
                <Price>
                   ${price} / <span>day</span>
@@ -72,10 +68,12 @@ const Card = ({
             <HouseLocation>
                <LocationIcon /> {address}, {province}
             </HouseLocation>
-            <LastContainer>
+            <LastContainer onClick={(e) => e.stopPropagation()}>
                <Guests>{maxGuests} guests</Guests>
-               {!isMyBooking && role === 'USER' ? (
-                  status === 'BLOCKED' ? (
+               {isMyAnnouncement ? (
+                  <Meatballs options={option} id={id} />
+               ) : !isMyBooking && role === 'USER' ? (
+                  houseStatus === 'BLOCKED' ? (
                      <Button disabled>Blocked</Button>
                   ) : (
                      <>
