@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { Box, styled } from '@mui/material'
 import HouseInner from '../../../components/house/HouseInner'
-import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 import { routes } from '../../../utils/constants/routes'
 import {
    getHouseById,
    getAnnouncementFeedback,
    getAnnouncementRating,
 } from '../../../store/slice/admin/user/userThunk'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 
 const AnnouncementHouse = () => {
    const dispatch = useDispatch()

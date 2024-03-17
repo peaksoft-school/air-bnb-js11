@@ -16,7 +16,7 @@ const Card = ({
    maxGuests,
    description,
    isLike,
-   houseStatus,
+   status,
    newCard,
    province,
    option,
@@ -41,8 +41,8 @@ const Card = ({
    }
 
    return (
-      <CardContainer blocked={houseStatus} newCard={newCard} role={role}>
-         {houseStatus === 'BLOCKED' ? (
+      <CardContainer blocked={status} newCard={newCard} role={role}>
+         {status === 'BLOCKED' ? (
             <StyledBlockText>
                Your application has been blocked, please contact the
                administrator
@@ -58,7 +58,8 @@ const Card = ({
                </Price>
                <Rating>
                   <FullStarIcon />
-                  {rating.toFixed(1)}
+                  {/* {rating.toFixed(1)} */}
+                  {rating}
                </Rating>
             </PriceRatingInfo>
 
@@ -73,7 +74,7 @@ const Card = ({
                {isMyAnnouncement ? (
                   <Meatballs options={option} id={id} />
                ) : !isMyBooking && role === 'USER' ? (
-                  houseStatus === 'BLOCKED' ? (
+                  status === 'BLOCKED' ? (
                      <Button disabled>Blocked</Button>
                   ) : (
                      <>

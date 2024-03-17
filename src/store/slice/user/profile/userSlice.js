@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchProfile } from './userThunk'
+import { USER_THUNKS } from './userThunk'
+
+const { getUserInfo } = USER_THUNKS
 
 const initialState = {
    name: null,
@@ -12,6 +14,7 @@ const initialState = {
 export const userSlice = createSlice({
    name: 'user',
    initialState,
+
    reducers: {
       clearUserInfo: (state) => {
          state.email = null
@@ -21,22 +24,25 @@ export const userSlice = createSlice({
          state.name = null
       },
    },
+
    extraReducers: (builder) => {
       builder
-         .addCase(fetchProfile.fulfilled, (state, { payload }) => {
+         .addCase(getUserInfo.fulfilled, (state, { payload }) => {
             state.name = payload.name
             state.image = payload.iamge
             state.email = payload.email
             state.isLoading = false
          })
-         .addCase(fetchProfile.pending, (state) => {
+
+         .addCase(getUserInfo.pending, (state) => {
             state.isLoading = true
          })
-         .addCase(fetchProfile.rejected, (state, { payload }) => {
+
+         .addCase(getUserInfo.rejected, (state, { payload }) => {
             state.isLoading = false
             state.error = payload
          })
    },
 })
 
-export const { clearUserInfo } = userSlice.actions
+export const USER_ACTIONS = userSlice.actions

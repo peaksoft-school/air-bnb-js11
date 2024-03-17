@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { routes } from '../../utils/constants/routes'
 import Tabs from '../UI/Tabs'
 import Bookings from '../admin/users/profile/Bookings'
-import BreadCrumbs from '../UI/BreadCrumbs'
+import BreadCrumbs from '../UI/Breadcrumbs'
 import Announcement from '../admin/users/profile/Announcement'
 import { getUser } from '../../store/slice/admin/user/userThunk'
 import MyBookings from '../user/profile/MyBookings'
 import MyAnnouncement from '../user/profile/MyAnnouncement'
 import OnModeration from '../user/profile/OnModeration'
 import Button from '../UI/Button'
-import { logout } from '../../store/slice/auth/authSlice'
+import { AUTH_ACTIONS } from '../../store/slice/auth/authSlice'
 import { showToast } from '../../utils/helpers/toast'
 
 const tabs = [
@@ -77,7 +77,7 @@ const Profile = () => {
    ]
 
    const logOutHandler = () => {
-      dispatch(logout({ showToast }))
+      dispatch(AUTH_ACTIONS.logOut({ showToast }))
    }
 
    return (
@@ -121,7 +121,7 @@ const Profile = () => {
                         {role === 'ADMIN' ? null : (
                            <Button
                               variant="cancel"
-                              className="logout"
+                              className="logOut"
                               onClick={logOutHandler}
                            >
                               log out
@@ -163,7 +163,7 @@ const StyledUserContainer = styled(Box)(() => ({
             flexDirection: 'column',
             gap: '10px',
 
-            '& .logout': {
+            '& .logOut': {
                color: '#f00',
                textAlign: 'start',
                margin: '0 0 0 40px',

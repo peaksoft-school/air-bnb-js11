@@ -27,7 +27,7 @@ const GuestNotification = ({ open, onClose }) => {
 export default GuestNotification
 
 const StyledModal = styled(Modal)(({ theme }) => ({
-   '& .box': {
+   '& .content': {
       width: '29rem',
       height: '16rem',
       display: 'flex',

@@ -1,23 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
-import './App.css'
 import { useEffect } from 'react'
 import AppRoutes from './routes/AppRoutes'
-import { fetchProfile } from './store/slice/user/profile/userThunk'
-import { clearUserInfo } from './store/slice/user/profile/userSlice'
+import { USER_THUNKS } from './store/slice/user/profile/userThunk'
+import { USER_ACTIONS } from './store/slice/user/profile/userSlice'
+import './App.css'
 
 const App = () => {
    const { isAuth, role } = useSelector((state) => state.auth)
+
    const dispatch = useDispatch()
 
-   const getUserInfo = () => {
-      if (isAuth && role === 'USER') {
-         return dispatch(fetchProfile())
-      }
-      return dispatch(clearUserInfo())
-   }
-
    useEffect(() => {
-      getUserInfo()
+      if (isAuth && role === 'USER') dispatch(USER_THUNKS.getUserInfo())
+
+      dispatch(USER_ACTIONS.clearUserInfo())
    }, [isAuth])
 
    return <AppRoutes />
