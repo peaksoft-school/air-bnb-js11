@@ -47,7 +47,7 @@ const UserHeader = () => {
 
          <Input className="input" placeholder="Search" icon={<SearchIcon />} />
          <Button className="button">SUBMIT AN AD</Button>
-         <Typography className="fovorite">FOVORITE(4)</Typography>
+         <Typography className="fovorite">FAVORITE(4)</Typography>
 
          <Box className="user-info">
             <Box className="username">{name && name[0]}</Box>
@@ -63,11 +63,15 @@ export default UserHeader
 
 const StyledContainer = styled(Box)(({ theme }) => ({
    display: 'flex',
+   position: 'sticky',
+   top: '0',
+   zIndex: '1000',
    justifyContent: 'center',
    alignItems: 'center',
    padding: '0rem 6.25rem',
    width: '100%',
    height: '5.5rem',
+
    backgroundColor: theme.palette.primary.main,
 
    '& .logo-icon': {

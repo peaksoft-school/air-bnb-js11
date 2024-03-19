@@ -20,12 +20,15 @@ const RejectedModal = ({ isOpen, onClose, value, onChange, sendRequest }) => {
          <Box className="container">
             <h3 className="modal-heading">REJECT</h3>
 
-            <StyledInput
-               multiline
-               placeholder="Write the reason for your rejection "
-               value={value}
-               onChange={onChange}
-            />
+            <Box className="input-box">
+               <StyledInput
+                  multiline
+                  placeholder="Write the reason for your rejection "
+                  value={value}
+                  onChange={onChange}
+               />
+            </Box>
+
             <Typography className="validate">
                {disabled ? 'Fill the form !' : ''}
             </Typography>
@@ -55,14 +58,37 @@ export default RejectedModal
 
 const StyledInput = styled(Input)(() => ({
    width: '25.875rem',
-   marginTop: '1.5625rem',
-   padding: '10px, 8px, 10px, 16px',
+   border: '1px solid gray',
+
+   '&:hover': {
+      border: '2px solid #828282',
+   },
+
+   '&:focus-within': {
+      border: '2px solid #828282  !important',
+   },
 
    '& .MuiInputBase-root.MuiOutlinedInput-root': {
       minHeight: '6.5rem',
       borderRadius: '2px',
       display: 'flex',
       alignItems: 'flex-start',
+      height: '6.5rem',
+      overflowY: 'auto',
+   },
+
+   '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+         border: 'none',
+      },
+
+      '&:hover fieldset': {
+         border: 'none',
+      },
+   },
+
+   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      border: 'none',
    },
 }))
 
@@ -90,6 +116,11 @@ const StyledModal = styled(Modal)(({ theme }) => ({
             height: '1.20rem',
             color: theme.palette.secondary.main,
          },
+      },
+
+      '& .input-box': {
+         height: '6.6rem',
+         marginTop: '1.5625rem',
       },
 
       '& .button-box': {

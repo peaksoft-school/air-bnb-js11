@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
 import Bookings from '../../../components/admin/users/booking/Bookings'
-import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 import Announcement from '../../../components/admin/users/booking/Announcement'
 import { axiosInstance } from '../../../configs/axiosInstance'
+import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 
 const tabs = [
    {
