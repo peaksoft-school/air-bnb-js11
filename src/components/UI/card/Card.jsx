@@ -109,8 +109,8 @@ const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
    padding: '2px',
 
    '&:hover': {
-      backgroundColor: `${!blocked === 'BLOCKED' ? '#fff' : ''}`,
-      boxShadow: `${!blocked === 'BLOCKED' ? '0px -1px 10px 0px #ecedf2' : ''}`,
+      backgroundColor: `${!blocked ? '#fff' : ''}`,
+      boxShadow: `${!blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
    },
 }))
 

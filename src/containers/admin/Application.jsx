@@ -84,12 +84,9 @@ const Application = () => {
          <Box className="card-box">
             {houses.length !== 0 ? (
                houses?.map((item) => (
-                  <Box
-                     key={item.id}
-                     className="card"
-                     onClick={() => goToInnerPage(item.id)}
-                  >
+                  <Box key={item.id} className="card">
                      <Card
+                        onClick={() => goToInnerPage(item.id)}
                         {...item}
                         option={applicationCardMeatballsOptions}
                         onNavigate
@@ -142,7 +139,8 @@ const StyledContainer = styled('div')(({ theme }) => ({
       width: '100%',
       display: 'flex',
       justifyContent: 'center',
-      marginTop: '1rem',
+      marginTop: '2rem',
+      paddingBottom: '7rem',
    },
 
    '& .card-box': {
