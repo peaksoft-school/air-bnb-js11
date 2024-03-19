@@ -99,7 +99,7 @@ const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
    position: 'relative',
    maxWidth: '300px',
    width: '100%',
-   minWidth: '200px',
+   minWidth: '300px',
    backgroundColor: `${blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
    opacity: blocked === 'BLOCKED' ? 0.6 : 1,
    borderRadius: '4px',

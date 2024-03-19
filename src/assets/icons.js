@@ -31,7 +31,4 @@ export { ReactComponent as ThreePoint } from './icons/three-point.svg'
 export { ReactComponent as Google } from './icons/googleIcon.svg'
 export { ReactComponent as HeartIcon } from './icons/heart.svg'
 export { ReactComponent as SearchIcon } from './icons/search.svg'
-<<<<<<< HEAD
 export { ReactComponent as CameraIcon } from './icons/camera.svg'
-=======
->>>>>>> development

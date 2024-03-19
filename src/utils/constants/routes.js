@@ -11,11 +11,8 @@ export const routes = {
 
    USER: {
       index: '/user',
-<<<<<<< HEAD
       addHouse: '/user/add-house',
-=======
       favorite: '/user/favorite',
->>>>>>> development
    },
 }
 
