@@ -89,7 +89,11 @@ const Application = () => {
                      className="card"
                      onClick={() => goToInnerPage(item.id)}
                   >
-                     <Card {...item} option={applicationCardMeatballsOptions} />
+                     <Card
+                        {...item}
+                        option={applicationCardMeatballsOptions}
+                        onNavigate
+                     />
                   </Box>
                ))
             ) : (

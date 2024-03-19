@@ -73,7 +73,7 @@ const JoinUs = ({ isOpenModal, onClose }) => {
 export default JoinUs
 
 const StyledModal = styled(Modal)(({ theme }) => ({
-   '& .box': {
+   '& .content': {
       width: '29.625rem',
       borderRadius: ' 0.125rem',
    },

@@ -1,12 +1,19 @@
 import { useLocation, useParams } from 'react-router'
 import { Box, Skeleton, Typography, styled } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { routes } from '../../../utils/constants/routes'
 import Tabs from '../../../components/UI/Tabs'
 import Bookings from '../../../components/admin/users/booking/Bookings'
+<<<<<<< HEAD
 import Announcement from '../../../components/admin/users/booking/Announcement'
 import { axiosInstance } from '../../../configs/axiosInstance'
 import BreadCrumbs from '../../../components/UI/BreadCrumbs'
+=======
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
+import Announcement from '../../../components/admin/users/booking/Announcement'
+import { getUser } from '../../../store/slice/admin/user/userThunk'
+>>>>>>> development
 
 const tabs = [
    {
@@ -20,24 +27,13 @@ const tabs = [
 ]
 
 const UserPage = () => {
+   const dispatch = useDispatch()
    const { pathname } = useLocation()
    const { userId } = useParams()
-   const [isLoading, setIsLoading] = useState(false)
-   const [user, setUser] = useState({})
-
-   const getUser = async () => {
-      setIsLoading(true)
-      try {
-         const { data } = await axiosInstance.get(`api/users/user/${userId}`)
-         setUser(data)
-         setIsLoading(false)
-      } catch (error) {
-         setIsLoading(false)
-      }
-   }
+   const { user, isLoading } = useSelector((state) => state.userInfo)
 
    useEffect(() => {
-      getUser()
+      dispatch(getUser(userId))
    }, [])
 
    const USER_BREADCRUMBS = [

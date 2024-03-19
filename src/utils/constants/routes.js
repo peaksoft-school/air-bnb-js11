@@ -4,13 +4,18 @@ export const routes = {
       application: '/admin/application',
       users: '/admin/users',
       user: '/admin/users/:userId',
+      userAnnouncement: '/admin/users/:userId/:announcementId',
       allHousing: '/admin/all-housing',
       applicationById: '/admin/application/:applicationId',
    },
 
    USER: {
       index: '/user',
+<<<<<<< HEAD
       addHouse: '/user/add-house',
+=======
+      favorite: '/user/favorite',
+>>>>>>> development
    },
 }
 

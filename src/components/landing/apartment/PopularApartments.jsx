@@ -1,32 +1,12 @@
 import { Box, styled, Typography } from '@mui/material'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
 import { FirstHotel } from '../../../assets/images'
-import {
-   SlickNextIcon,
-   SlickPrevIcon,
-   GreenLocationIcon,
-} from '../../../assets/icons'
+import { GreenLocationIcon, ArrowRightIcon } from '../../../assets/icons'
 import { ROOMS } from '../../../utils/constants'
 
-const NextArrow = ({ onClick, className }) => (
-   <SlickNextIcon onClick={onClick} className={className} />
-)
-
-const PrevArrow = ({ onClick, className }) => (
-   <SlickPrevIcon onClick={onClick} className={className} />
-)
-
-const settings = {
-   dots: true,
-   infinite: false,
-   speed: 500,
-   slidesToShow: 1.8,
-   slidesToScroll: 1,
-   nextArrow: <NextArrow />,
-   prevArrow: <PrevArrow />,
-}
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const PopularApartments = ({ background }) => (
    <StyledContainer background={background}>
@@ -61,17 +41,36 @@ const PopularApartments = ({ background }) => (
                View all
             </Typography>
             <StyledPictures>
-               <StyledSlider {...settings}>
+               <Swiper
+                  spaceBetween={10}
+                  modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
+                  slidesPerView={2}
+                  pagination={{
+                     type: 'fraction',
+                  }}
+                  navigation={{
+                     nextEl: '.swiper-button-next',
+                     prevEl: '.swiper-button-prev',
+                  }}
+                  className="swiper"
+                  loop
+               >
                   {ROOMS.map(({ name, img }) => (
-                     <Box key={name}>
-                        <img
-                           src={img}
-                           alt={name}
-                           style={{ width: '14rem', height: '19.81rem' }}
-                        />
-                     </Box>
+                     <SwiperSlide key={name}>
+                        <img src={img} alt={name} />
+                     </SwiperSlide>
                   ))}
-               </StyledSlider>
+
+                  <Box className="arrow-buttons-container">
+                     <Box className="swiper-button-prev">
+                        <ArrowRightIcon />
+                     </Box>
+
+                     <Box className="swiper-button-next">
+                        <ArrowRightIcon />
+                     </Box>
+                  </Box>
+               </Swiper>
             </StyledPictures>
          </StyledSliderContent>
       </Box>
@@ -83,16 +82,18 @@ export default PopularApartments
 const StyledContainer = styled('div')(({ background }) => ({
    background: background ? '#4F7755' : 'white',
    minHeight: '46.3rem',
-   display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
+   maxWidth: '100%',
 
    '& .container': {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       height: '100%',
       marginLeft: '3rem',
+      marginRight: '3rem',
+      maxWidth: '100%',
    },
 
    '& .view': {
@@ -102,9 +103,60 @@ const StyledContainer = styled('div')(({ background }) => ({
       fontFamily: 'Inter',
       fontWeight: '500',
       cursor: 'pointer',
-      textDecoration: ' underline',
-      marginTop: '-4.62rem',
+      textDecoration: 'underline',
       lineHeight: '130%',
+   },
+
+   '& .swiper': {
+      maxWidth: '500px',
+      minWidth: '300px',
+      width: '100%',
+      height: '420px',
+
+      '& .swiper-slide img': {
+         height: '80%',
+         width: '100%',
+         objectFit: 'cover',
+         display: 'block',
+      },
+
+      '& .swiper-pagination': {
+         width: '250px',
+         color: background ? '#fff' : '#222',
+      },
+
+      '& .arrow-buttons-container': {
+         position: 'relative',
+         bottom: '17px',
+         width: '245px',
+         '& .swiper-button-prev': {
+            width: '70px',
+
+            '& svg': {
+               transform: 'rotate(180deg)',
+               path: {
+                  stroke: background ? '#fff' : '#222',
+               },
+            },
+
+            '&::after': {
+               content: 'none',
+            },
+         },
+         '& .swiper-button-next': {
+            width: '70px',
+
+            '& svg': {
+               path: {
+                  stroke: background ? '#fff' : '#222',
+               },
+            },
+
+            '&::after': {
+               content: 'none',
+            },
+         },
+      },
    },
 }))
 
@@ -115,15 +167,13 @@ const StyledHotel = styled('div')(({ background }) => ({
 
    '& .first-hotel': {
       paddingTop: '3.75rem',
-      maxWidth: '32.8125rem',
-      width: '100%',
-      minWidth: '29rem',
-      height: '28.5rem',
+      maxWidth: '100%',
+      height: 'auto',
    },
 
    '& .title': {
       color: background ? 'white' : 'black',
-      fontFamily: 'Jenriv Titling',
+      fontFamily: 'Inter',
       fontSize: '1.25rem',
       fontWeight: '500',
       width: '14.75rem',
@@ -186,40 +236,3 @@ const StyledSliderContent = styled('div')(() => ({
    alignItems: 'flex-end',
    marginLeft: '2.93rem',
 }))
-
-const StyledSlider = styled(Slider)({
-   maxWidth: '450px',
-   display: 'flex',
-   gap: '1rem',
-
-   '& .slick-prev, .slick-next': {
-      color: 'red',
-      position: 'absolute',
-      top: '23.5rem',
-      zIndex: '100',
-      width: '4.69644rem',
-      height: '1.4375rem',
-   },
-
-   '& .slick-prev': {
-      left: '1.5rem',
-   },
-
-   '& .slick-next': {
-      left: '22rem',
-      path: {
-         stroke: '#97C69E',
-      },
-      line: {
-         stroke: '#97C69E',
-      },
-   },
-
-   '& .slick-dots': {
-      bottom: '-4rem',
-   },
-
-   '& .slick-dot': {
-      color: '#fff',
-   },
-})

@@ -1,8 +1,8 @@
-import { Typography, styled, Button } from '@mui/material'
+import { Typography, styled, Button, InputAdornment } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { LogoIcon } from '../assets/icons'
+import { LogoIcon, SearchIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.jpg'
 import Input from '../components/UI/Input'
 import JoinUs from '../components/signIn/JoinUs'
@@ -86,7 +86,15 @@ const Header = () => {
                <h1 className="header">
                   Find a place you&apos;ll love to stay at
                </h1>
-               <Input />
+               <Input
+                  InputProps={{
+                     startAdornment: (
+                        <InputAdornment position="start">
+                           <SearchIcon />
+                        </InputAdornment>
+                     ),
+                  }}
+               />
 
                <StyledSearch>
                   <Checkbox

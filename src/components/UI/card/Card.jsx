@@ -1,5 +1,6 @@
 import { styled } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Button from '../Button'
 import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
@@ -15,21 +16,37 @@ const Card = ({
    maxGuests,
    description,
    isLike,
-   blocked,
+   // houseStatus,
+   status,
    newCard,
    province,
    option,
    id,
+   onNavigate,
 }) => {
    const { role } = useSelector((state) => state.auth)
+   const navigate = useNavigate()
 
    const changeIsLike = () => {
       // Здесь функция для update'та сердечки
    }
 
+   const clickHandler = (e) => {
+      e.stopPropagation()
+
+      if (onNavigate) {
+         navigate(`${id}`)
+      }
+   }
+
    return (
-      <CardContainer blocked={blocked} newCard={newCard} role={role}>
-         {blocked ? (
+      <CardContainer
+         blocked={status}
+         newCard={newCard}
+         role={role}
+         onClick={clickHandler}
+      >
+         {status === 'BLOCKED' ? (
             <StyledBlockText>
                Your application has been blocked, please contact the
                administrator
@@ -45,7 +62,8 @@ const Card = ({
                </Price>
                <Rating>
                   <FullStarIcon />
-                  {rating.toFixed(1)}
+                  {/* {rating.toFixed(1)} */}
+                  {rating}
                </Rating>
             </PriceRatingInfo>
 
@@ -58,7 +76,7 @@ const Card = ({
             <LastContainer>
                <Guests>{maxGuests} guests</Guests>
                {role === 'USER' ? (
-                  blocked ? (
+                  status === 'BLOCKED' ? (
                      <Button disabled>Blocked</Button>
                   ) : (
                      <>
@@ -82,17 +100,17 @@ const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
    maxWidth: '300px',
    width: '100%',
    minWidth: '200px',
-   backgroundColor: `${blocked ? '#D4D4D466' : '#f7f7f7'}`,
-   opacity: blocked ? 0.6 : 1,
+   backgroundColor: `${blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
+   opacity: blocked === 'BLOCKED' ? 0.6 : 1,
    borderRadius: '4px',
    transition: '200ms',
-   cursor: `${blocked ? 'default' : 'pointer'}`,
+   cursor: `${blocked === 'BLOCKED' ? 'default' : 'pointer'}`,
    border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
    padding: '2px',
 
    '&:hover': {
-      backgroundColor: `${!blocked ? '#fff' : ''}`,
-      boxShadow: `${!blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
+      backgroundColor: `${!blocked === 'BLOCKED' ? '#fff' : ''}`,
+      boxShadow: `${!blocked === 'BLOCKED' ? '0px -1px 10px 0px #ecedf2' : ''}`,
    },
 }))
 

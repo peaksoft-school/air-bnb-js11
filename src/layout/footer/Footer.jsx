@@ -27,7 +27,7 @@ const Footer = () => {
                         leave an ad
                      </StyleTypography>
                   </StyleStackHover>
-                  <LogoIcon />
+                  <LogoIcon className="logo" />
                   <StyleStacSocial>
                      <InstagramIcon className="icons instagram" />
                      <TelegramIcon className="icons telegram" />
@@ -57,6 +57,7 @@ const StyleStackContainer = styled(Box)(() => ({
    gap: '1rem',
    padding: '3.75rem 0',
    justifyContent: 'space-between',
+   alignItems: 'center',
 }))
 
 const StyleContainer = styled(Box)(({ theme }) => ({
@@ -65,6 +66,11 @@ const StyleContainer = styled(Box)(({ theme }) => ({
    fontFamily: 'Inter',
    display: 'flex',
    justifyContent: 'center',
+
+   '& .logo': {
+      width: '85px',
+      height: '60px',
+   },
 
    '& .MuiContainer-root': {
       padding: '0px 0px',

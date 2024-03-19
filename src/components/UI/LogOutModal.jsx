@@ -1,20 +1,21 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Box, Typography, styled } from '@mui/material'
 import Modal from './Modal'
 import Button from './Button'
-import { logout } from '../../store/slice/auth/authSlice'
+import { AUTH_ACTIONS } from '../../store/slice/auth/authSlice'
 import { showToast } from '../../utils/helpers/toast'
 
 const LogOutModal = ({ open, onClose }) => {
    const dispatch = useDispatch()
 
    const logOutHandler = () => {
-      dispatch(logout({ showToast }))
+      dispatch(AUTH_ACTIONS.logOut({ showToast }))
+
       onClose()
    }
 
    return (
+<<<<<<< HEAD
       <StyledModal open={open} onClose={onClose}>
          <h3 className="modal-heading">Log out</h3>
 
@@ -36,11 +37,31 @@ const LogOutModal = ({ open, onClose }) => {
             </Button>
          </Box>
       </StyledModal>
+=======
+      <Modal open={open} onClose={onClose}>
+         <StyledContainer>
+            <h2>LOG OUT</h2>
+
+            <p>Are you sure you want to log out</p>
+
+            <Box className="buttons">
+               <Button variant="cancel" className="cancel" onClick={onClose}>
+                  CANCEL
+               </Button>
+
+               <Button className="log-out" onClick={logOutHandler}>
+                  LOG OUT
+               </Button>
+            </Box>
+         </StyledContainer>
+      </Modal>
+>>>>>>> development
    )
 }
 
 export default LogOutModal
 
+<<<<<<< HEAD
 const StyledModal = styled(Modal)(({ theme }) => ({
    '& .box': {
       width: '29.625rem',
@@ -87,6 +108,41 @@ const StyledModal = styled(Modal)(({ theme }) => ({
             height: '2.3121rem',
             borderRadius: '0px',
          },
+=======
+const StyledContainer = styled(Box)(() => ({
+   marginTop: '20px',
+   display: 'flex',
+   flexDirection: 'column',
+   justifyContent: 'center',
+   alignItems: 'center',
+
+   '& > h2': {
+      fontSize: '18px',
+      fontWeight: '500',
+      lineHeight: '21.78px',
+   },
+
+   '& > p': {
+      fontSize: '16px',
+      fontWeight: '400',
+      lineHeight: '19.36px',
+      marginTop: '20px',
+   },
+
+   '& > .buttons': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: '8px',
+      marginTop: '30px',
+
+      '& > .cancel': {
+         width: '150px',
+      },
+
+      '& > .log-out': {
+         width: '196px',
+>>>>>>> development
       },
    },
 }))

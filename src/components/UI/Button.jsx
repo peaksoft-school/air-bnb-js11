@@ -94,7 +94,6 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
             border: `1px solid ${theme.palette.primary.main}`,
 
             '&:hover': {
-               border: `1px solid ${theme.palette.tertiary.lightGray}`,
                color: theme.palette.primary.dark,
             },
          },
@@ -120,7 +119,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
          },
 
          '&:disabled': {
-            background: theme.palette.secondary.main,
+            background: theme.palette.secondary.lightBrown,
          },
       },
    }

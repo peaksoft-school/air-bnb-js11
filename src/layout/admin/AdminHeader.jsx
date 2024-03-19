@@ -1,66 +1,68 @@
+import { useState } from 'react'
 import { Box, IconButton, styled } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { LogoIcon } from '../../assets/icons'
 import Meatballs from '../../components/UI/Meatballs'
-import { routes } from '../../utils/constants/routes'
 import LogOutModal from '../../components/UI/LogOutModal'
+import { routes } from '../../utils/constants/routes'
+import { LogoIcon } from '../../assets/icons'
 
 const AdminHeader = () => {
+   const [toggleLogOut, setToggleLogOut] = useState(false)
+
    const navigate = useNavigate()
-   const [openLogOutModal, setOpenLogOutModal] = useState(false)
 
    const navigateHandler = () => navigate('/')
 
-   const onLogout = () => {
-      setOpenLogOutModal(true)
-   }
+   const toggleLogOutHandler = () => setToggleLogOut((prev) => !prev)
 
-   const onCloseLogOutModal = () => {
-      setOpenLogOutModal(false)
-   }
-
-   const option = [{ title: 'Log out', onClick: onLogout }]
+   const option = [{ title: 'Log out', onClick: toggleLogOutHandler }]
 
    return (
       <>
-         <HeaderContainer>
-            <div className="links-container">
+         <StyledContainer>
+            <Box className="navigations-box">
                <IconButton onClick={navigateHandler}>
                   <LogoIcon />
                </IconButton>
-               <ul className="list">
+
+               <nav>
                   <NavLink to={routes.ADMIN.application}>Application</NavLink>
                   <NavLink to={routes.ADMIN.users}>Users</NavLink>
                   <NavLink to={routes.ADMIN.allHousing}>All housing</NavLink>
-               </ul>
-            </div>
-            <div className="meatball-container">
+               </nav>
+            </Box>
+
+            <Box className="log-out">
                Administrator
-               <Meatballs options={option} variant="arrow" onClick={onLogout} />
-            </div>
-         </HeaderContainer>
-         <LogOutModal open={openLogOutModal} onClose={onCloseLogOutModal} />
+               <Meatballs
+                  options={option}
+                  variant="arrow"
+                  onClick={toggleLogOutHandler}
+               />
+            </Box>
+         </StyledContainer>
+
+         <LogOutModal open={toggleLogOut} onClose={toggleLogOutHandler} />
       </>
    )
 }
 
 export default AdminHeader
 
-const HeaderContainer = styled(Box)(() => ({
-   background: '#0b0b0b',
+const StyledContainer = styled(Box)(() => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
    color: '#fff',
+   background: '#0b0b0b',
    padding: '14px 40px',
 
-   '& .links-container': {
+   '& > .navigations-box': {
       display: 'flex',
       alignItems: 'center',
       gap: '83px',
 
-      '& .list': {
+      '& > nav': {
          display: 'flex',
          gap: '36px',
 
@@ -68,12 +70,14 @@ const HeaderContainer = styled(Box)(() => ({
             color: '#fff',
             textDecoration: 'none',
          },
-         '& .active': {
+
+         '& > .active': {
             color: '#ff4b4b',
          },
       },
    },
-   '& .meatball-container': {
+
+   '& > .log-out': {
       display: 'flex',
       alignItems: 'center',
    },
