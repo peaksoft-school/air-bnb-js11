@@ -7,6 +7,7 @@ import { adminRoutes } from './AdminRoutes'
 import { userRoutes } from './UserRoutes'
 import LandingPage from '../containers/LandingPage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
+import NotFound from '../layout/NotFound'
 
 const AdminLayout = lazy(() => import('../layout/admin/AdminLayout'))
 const UserLayout = lazy(() => import('../layout/user/UserLayout'))
@@ -53,10 +54,7 @@ const AppRoutes = () => {
          path: '/',
          element: role === 'ADMIN' ? <Navigate to="/admin" /> : <LandingPage />,
       },
-      {
-         path: '*',
-         element: <Navigate to="/" />,
-      },
+      { path: '*', element: <NotFound /> },
    ])
 
    return <RouterProvider router={router} />

@@ -1,8 +1,11 @@
 import { forwardRef } from 'react'
-import { TextField, styled } from '@mui/material'
+import { InputAdornment, TextField, styled } from '@mui/material'
 
 const Input = forwardRef(
-   ({ type, label, placeholder, onChange, onClick, value, ...rest }, ref) => {
+   (
+      { type, label, placeholder, onChange, onClick, icon, value, ...rest },
+      ref
+   ) => {
       return (
          <StyledInput
             type={type}
@@ -11,6 +14,11 @@ const Input = forwardRef(
             onChange={onChange}
             placeholder={placeholder || 'Region, city, apartment, house...'}
             ref={ref}
+            InputProps={{
+               startAdornment: icon && (
+                  <InputAdornment position="start">{icon}</InputAdornment>
+               ),
+            }}
             {...rest}
          />
       )

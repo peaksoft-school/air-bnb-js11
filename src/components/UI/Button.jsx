@@ -26,7 +26,6 @@ export default Button
 
 const StyledButton = styled(MuiButton)(({ variant, theme }) => {
    const baseStyles = {
-      width: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -54,7 +53,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
 
             '&:hover': {
                ...commonStyles,
-               border: `0.0625rem solid ${theme.palette.primary.dark}`,
+               border: `0.0625rem solid ${theme.palette.secondary.main}`,
                backgroundColor: theme.palette.primary.main,
                color: '#fff',
             },
@@ -92,6 +91,7 @@ const StyledButton = styled(MuiButton)(({ variant, theme }) => {
          '&.MuiButtonBase-root': {
             color: theme.palette.tertiary.middleGray,
             padding: '0.5rem 1rem',
+            border: `1px solid ${theme.palette.primary.main}`,
 
             '&:hover': {
                color: theme.palette.primary.dark,

@@ -11,6 +11,7 @@ export const routes = {
 
    USER: {
       index: '/user',
+      addHouse: '/user/add-house',
       favorite: '/user/favorite',
    },
 }

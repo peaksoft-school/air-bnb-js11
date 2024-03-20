@@ -4,7 +4,7 @@ import {
    styled,
 } from '@mui/material'
 
-const Checkbox = ({ label = '', checked = false, changeChecked }) => {
+const Checkbox = ({ label = '', checked = false, changeChecked, ...rest }) => {
    const changeHandler = (e) => changeChecked(e.target.checked)
 
    return (
@@ -13,6 +13,7 @@ const Checkbox = ({ label = '', checked = false, changeChecked }) => {
          label={label}
          checked={checked}
          onChange={changeHandler}
+         {...rest}
       />
    )
 }
