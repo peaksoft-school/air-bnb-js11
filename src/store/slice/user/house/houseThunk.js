@@ -32,6 +32,20 @@ export const getAnnouncement = createAsyncThunk(
       }
    }
 )
+
+export const getAnnouncementById = createAsyncThunk(
+   'house/getAnnouncementById',
+   async (houseId, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get(`/api/houses/${houseId}`)
+
+         return data
+      } catch (error) {
+         return rejectWithValue(error)
+      }
+   }
+)
+
 export const getModeration = createAsyncThunk(
    'house/getModeration',
    async (_, { rejectWithValue }) => {

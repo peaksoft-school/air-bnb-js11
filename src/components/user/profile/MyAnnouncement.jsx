@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Box, Chip, Stack, styled } from '@mui/material'
 import LoadingSpinner from '../../UI/LoadingSpinner'
 import { UserNoDataImage } from '../../../assets/images'
-import Card from '../../UI/card/Card'
 import {
    deleteAnnouncement,
    getAnnouncement,
 } from '../../../store/slice/user/house/houseThunk'
 import Select from '../../UI/Select'
+import Card from '../../UI/card/Card'
 
 const radioOptions = [
    {
@@ -183,6 +183,7 @@ const MyAnnouncement = () => {
                      {...booking}
                      isMyAnnouncement
                      option={announcementOptions}
+                     onNavigate
                   />
                ))}
             </Box>

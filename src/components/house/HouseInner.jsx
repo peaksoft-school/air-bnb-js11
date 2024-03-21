@@ -3,7 +3,7 @@ import { Box, styled, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import Feedback from '../UI/Feedback'
-import InnerApplication from './HouseImageSlider'
+import HouseImageSlider from './HouseImageSlider'
 import Button from '../UI/Button'
 import Rating from '../UI/rating/Rating'
 import {
@@ -12,7 +12,7 @@ import {
 } from '../../store/slice/admin/user/userThunk'
 import { showToast } from '../../utils/helpers/toast'
 
-const HouseInner = ({ houseInfo, feedbacks, rating }) => {
+const HouseInner = ({ houseInfo, feedbacks, rating, isMyAnnouncement }) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const { role } = useSelector((state) => state.auth)
@@ -21,37 +21,47 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
       dispatch(deleteHouseAsync({ id: houseInfo.id, showToast, navigate }))
    }
 
+   const blocked = houseInfo.houseStatus === 'BLOCKED'
+
    const blockHouse = () => {
-      dispatch(blockedHouses({ id: houseInfo.id, showToast }))
+      dispatch(
+         blockedHouses({
+            id: houseInfo.id,
+            block: blocked,
+            showToast,
+         })
+      )
    }
 
-   const status = houseInfo.houseStatus
+   const editHouse = () => {
+      // edit house func
+   }
 
    return (
       <StyledContainer>
-         <h1 className="title">{houseInfo.name}</h1>
+         <h1 className="title">{houseInfo?.name}</h1>
          <Box>
             <Box className="slider-house">
-               <InnerApplication />
+               <HouseImageSlider images={houseInfo.images} />
                <Box className="house-info">
                   <Typography className="house-type">
-                     {houseInfo.houseType}
+                     {houseInfo?.houseType}
                   </Typography>
                   <Typography className="house-guests">
-                     {houseInfo.maxGuests} Guests
+                     {houseInfo?.maxGuests} Guests
                   </Typography>
                   <Typography className="house-name">
-                     {houseInfo.name}
+                     {houseInfo?.name}
                   </Typography>
                   <Typography className="house-location">
-                     {houseInfo.address}
+                     {houseInfo?.address}
                   </Typography>
                   <Typography className="house-description">
-                     {houseInfo.description}
+                     {houseInfo?.description}
                   </Typography>
                   <Box className="user-info">
                      <img
-                        src={houseInfo.userResponse?.image}
+                        src={houseInfo?.userResponse?.image}
                         alt="asdaw"
                         width={40}
                         height={40}
@@ -59,10 +69,10 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                      />
                      <Box>
                         <Typography className="user-name">
-                           {houseInfo.userResponse?.fullName}
+                           {houseInfo?.userResponse?.fullName}
                         </Typography>
                         <Typography className="user-email">
-                           {houseInfo.userResponse?.email}
+                           {houseInfo?.userResponse?.email}
                         </Typography>
                      </Box>
                   </Box>
@@ -72,19 +82,25 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                            <Button variant="outlined" onClick={deleteHouse}>
                               Delete
                            </Button>
-                           <Button
-                              onClick={blockHouse}
-                              disabled={status === 'BLOCKED'}
-                           >
-                              Block
+                           <Button onClick={blockHouse}>
+                              {houseInfo?.houseStatus === 'BLOCKED'
+                                 ? 'Unblock'
+                                 : 'Block'}
                            </Button>
                         </Box>
                         <Typography className="blocked-text">
-                           {status === 'BLOCKED'
+                           {houseInfo?.houseStatus === 'BLOCKED'
                               ? 'This house is already blocked'
                               : ''}
                         </Typography>
                      </>
+                  ) : isMyAnnouncement ? (
+                     <Box className="button-container">
+                        <Button variant="outlined" onClick={deleteHouse}>
+                           Delete
+                        </Button>
+                        <Button onClick={editHouse}>Edit</Button>
+                     </Box>
                   ) : (
                      <h1>Здесь будет компонент для оплаты</h1>
                   )}

@@ -36,10 +36,12 @@ const Header = () => {
       setOpenLogOutModal(false)
    }
 
+   const goToProfile = () => navigate('/user/profile')
+
    const options = [
       {
          title: 'Profile',
-         onClick: () => navigate('/user/profile'),
+         onClick: goToProfile,
       },
       {
          title: 'Log out',

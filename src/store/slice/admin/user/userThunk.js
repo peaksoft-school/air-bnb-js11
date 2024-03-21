@@ -94,13 +94,18 @@ export const deleteHouseAsync = createAsyncThunk(
 
 export const blockedHouses = createAsyncThunk(
    'user/blockedHouses',
-   async ({ id, showToast, getUserHouses }, { rejectWithValue, dispatch }) => {
+   async (
+      { id, block, showToast, getUserHouses },
+      { rejectWithValue, dispatch }
+   ) => {
       try {
-         await axiosInstance.post(`api/houses/blockedHousesById?houseId=${id}`)
+         const { data } = await axiosInstance.post(
+            `api/houses/blockedHousesById?houseId=${id}&blockOrUnblock=${block}`
+         )
 
          showToast({
             title: 'Block',
-            message: 'Successfully blocked',
+            message: data.message,
             type: 'success',
          })
          if (getUserHouses) {

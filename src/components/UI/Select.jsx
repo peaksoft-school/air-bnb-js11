@@ -84,6 +84,7 @@ const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
    transform: 'none',
    justifyContent: 'space-between',
    marginLeft: '0.75rem',
+   zIndex: 0,
 
    '&.MuiInputLabel-shrink': {
       color: theme.palette.tertiary.middleGray,

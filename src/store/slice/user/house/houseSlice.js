@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAnnouncement, getBookings, getModeration } from './houseThunk'
+import {
+   getAnnouncement,
+   getAnnouncementById,
+   getBookings,
+   getModeration,
+} from './houseThunk'
 
 const initialState = {
    isLoading: false,
@@ -7,6 +12,7 @@ const initialState = {
    bookings: [],
    announcement: [],
    moderation: [],
+   announcementById: null,
 }
 
 const addAsyncCases = (builder, asyncThunk, dataField) => {
@@ -31,5 +37,6 @@ export const houseSlice = createSlice({
       addAsyncCases(builder, getBookings, 'bookings')
       addAsyncCases(builder, getAnnouncement, 'announcement')
       addAsyncCases(builder, getModeration, 'moderation')
+      addAsyncCases(builder, getAnnouncementById, 'announcementById')
    },
 })
