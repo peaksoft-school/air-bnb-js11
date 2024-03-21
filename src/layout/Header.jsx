@@ -10,6 +10,7 @@ import Checkbox from '../components/UI/Checkbox'
 import GuestNotification from '../components/UI/GuestNotification'
 import Meatballs from '../components/UI/Meatballs'
 import LogOutModal from '../components/UI/LogOutModal'
+import { ROLES, routes } from '../utils/constants/routes'
 
 const Header = () => {
    const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
@@ -23,8 +24,10 @@ const Header = () => {
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
 
    const handleToggleModal = () => {
-      if (role === 'GUEST') {
+      if (role === ROLES.GUEST) {
          setIsOpenGuestModal((prev) => !prev)
+      } else if (role === ROLES.USER) {
+         navigate(routes.USER.addHouse)
       }
    }
 
@@ -142,7 +145,11 @@ const StyledRegister = styled('div')(() => ({
 
       '& .username': {
          background: '#0298d9',
-         padding: '8px 12px',
+         width: '2.3125rem',
+         height: '2.3125rem',
+         display: 'flex',
+         justifyContent: 'center',
+         alignItems: 'center',
          borderRadius: '50%',
          color: '#fff',
          cursor: 'pointer',

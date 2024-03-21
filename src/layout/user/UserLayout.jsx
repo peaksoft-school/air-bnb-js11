@@ -1,10 +1,14 @@
 import { Box, styled } from '@mui/material'
 import { Outlet } from 'react-router'
+import UserHeader from './UserHeader'
+import Footer from '../footer/Footer'
 
 const UserLayout = () => {
    return (
       <StyledUserLayout>
+         <UserHeader />
          <Outlet />
+         <Footer />
       </StyledUserLayout>
    )
 }

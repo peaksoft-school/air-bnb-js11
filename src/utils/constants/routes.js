@@ -13,6 +13,7 @@ export const routes = {
       index: '/user',
       profile: '/user/profile',
       announcement: '/user/profile/:houseId',
+      addHouse: '/user/add-house',
       favorite: '/user/favorite',
    },
 }
