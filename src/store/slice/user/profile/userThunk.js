@@ -5,9 +5,9 @@ export const getUserInfo = createAsyncThunk(
    'user/getUserProfile',
    async (_, { rejectWithValue }) => {
       try {
-         const response = await axiosInstance.get('api/users/profile')
+         const { data } = await axiosInstance.get('api/users/profile')
 
-         return response.data
+         return data
       } catch (error) {
          return rejectWithValue(error.response?.data)
       }

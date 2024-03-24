@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router'
-import { Box, Skeleton, Typography, styled } from '@mui/material'
+import { Avatar, Box, Skeleton, Typography, styled } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { routes } from '../../utils/constants/routes'
@@ -47,7 +47,7 @@ const Profile = () => {
    const { userId } = useParams()
    const { user, isLoading } = useSelector((state) => state.userInfo)
    const { role } = useSelector((state) => state.auth)
-   const { name, email } = useSelector((state) => state.user)
+   const { name, email, image } = useSelector((state) => state.user)
 
    if (role === 'ADMIN') {
       useEffect(() => {
@@ -105,11 +105,10 @@ const Profile = () => {
                      </Box>
                   ) : (
                      <Box className="user-card-info">
-                        <div className="user-avatar">
-                           {role === 'ADMIN'
-                              ? user.name && user.name[0]
-                              : name[0]}
-                        </div>
+                        <Avatar
+                           className="user-avatar"
+                           src={role === 'ADMIN' ? user.image : image}
+                        />
                         <Typography>
                            <span>Name:</span>{' '}
                            {role === 'ADMIN' ? user?.name : name}
@@ -184,16 +183,9 @@ const StyledUserContainer = styled(Box)(() => ({
          },
 
          '& .user-avatar': {
-            background: '#0298d9',
-            padding: '8px 12px',
-            borderRadius: '50%',
             color: '#fff',
             width: '90px',
             height: '90px',
-            fontSize: '50px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             margin: '0 auto 5px',
          },
 

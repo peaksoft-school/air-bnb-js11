@@ -32,14 +32,11 @@ const Select = forwardRef(
 
             <StyledSelect
                onChange={handleSelectChange}
-               value={option}
+               value={option.value}
                ref={ref}
                IconComponent={DownArrowIcon}
                {...rest}
             >
-               <MenuItem value="" selected>
-                  All
-               </MenuItem>
                {options?.map((option) => (
                   <MenuItem
                      key={option.id}

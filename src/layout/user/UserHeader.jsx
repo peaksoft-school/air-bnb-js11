@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from '@mui/material'
+import { Avatar, Box, Typography, styled } from '@mui/material'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
@@ -8,10 +8,11 @@ import Input from '../../components/UI/Input'
 import Button from '../../components/UI/Button'
 import Meatballs from '../../components/UI/Meatballs'
 import LogOutModal from '../../components/UI/LogOutModal'
+import { routes } from '../../utils/constants/routes'
 
 const UserHeader = () => {
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
-   const { name } = useSelector((state) => state.user)
+   const { image } = useSelector((state) => state.user)
    const navigate = useNavigate()
 
    const onLogout = () => {
@@ -22,10 +23,16 @@ const UserHeader = () => {
       setOpenLogOutModal(false)
    }
 
+   const navigateToAddHouse = () => {
+      navigate(routes.USER.addHouse)
+   }
+
+   const navigateToFavorites = () => navigate(routes.USER.favorite)
+
    const options = [
       {
          title: 'Profile',
-         onClick: () => navigate('/user/profile'),
+         onClick: () => navigate(routes.USER.profile),
       },
       {
          title: 'Log out',
@@ -36,7 +43,7 @@ const UserHeader = () => {
    const [isChecked, setIsChecked] = useState()
    return (
       <StyledContainer>
-         <LogoIcon className="logo-icon" />
+         <LogoIcon className="logo-icon" onClick={() => navigate('/')} />
 
          <Checkbox
             className="checkbox"
@@ -46,11 +53,19 @@ const UserHeader = () => {
          />
 
          <Input className="input" placeholder="Search" icon={<SearchIcon />} />
-         <Button className="button">SUBMIT AN AD</Button>
-         <Typography className="fovorite">FAVORITE(4)</Typography>
+         <Button className="button" onClick={navigateToAddHouse}>
+            SUBMIT AN AD
+         </Button>
+         <Typography className="favorite" onClick={navigateToFavorites}>
+            FAVORITE
+         </Typography>
 
          <Box className="user-info">
-            <Box className="username">{name && name[0]}</Box>
+            <Avatar
+               src={image}
+               className="username"
+               onClick={() => navigate(routes.USER.profile)}
+            />
             <Meatballs variant="arrow" options={options} />
          </Box>
 
@@ -78,6 +93,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       marginRight: '8.625rem',
       width: '4.625rem',
       height: '3.438rem',
+      cursor: 'pointer',
 
       '& path': {
          fill: theme.palette.secondary.blackGreen,
@@ -126,7 +142,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       },
    },
 
-   '& .fovorite': {
+   '& .favorite': {
       marginLeft: '1.875rem',
       marginRight: '1.875rem',
       fontFamily: 'Inter',
@@ -134,6 +150,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
       fontWeight: ' 400',
       lineHeight: '19px',
       textAlign: ' left',
+      cursor: 'pointer',
    },
 
    '& .user-info': {

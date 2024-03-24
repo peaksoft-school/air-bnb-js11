@@ -6,6 +6,7 @@ import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
 import Meatballs from '../Meatballs'
 import { NotFound } from '../../../assets/images'
+import { axiosInstance } from '../../../configs/axiosInstance'
 
 const Card = ({
    price,
@@ -28,8 +29,15 @@ const Card = ({
    const { role } = useSelector((state) => state.auth)
    const navigate = useNavigate()
 
-   const changeIsLike = () => {
+   const changeIsLike = async (houseId) => {
       // Здесь функция для update'та сердечки
+      try {
+         await axiosInstance.post(`/api/favorites/${houseId}`)
+
+         return 'a'
+      } catch (error) {
+         return error
+      }
    }
 
    const clickHandler = (e) => {
@@ -41,8 +49,13 @@ const Card = ({
    }
 
    return (
-      <CardContainer blocked={status} newCard={newCard} role={role}>
-         {status === 'BLOCKED' ? (
+      <CardContainer
+         myannouncement={isMyAnnouncement}
+         blocked={status}
+         newCard={newCard}
+         role={role}
+      >
+         {isMyAnnouncement && status === 'BLOCKED' ? (
             <StyledBlockText>
                Your application has been blocked, please contact the
                administrator
@@ -79,7 +92,10 @@ const Card = ({
                   ) : (
                      <>
                         <Button>BOOK</Button>
-                        <StyledHeartIcon onClick={changeIsLike} like={isLike} />
+                        <StyledHeartIcon
+                           onClick={() => changeIsLike(id)}
+                           like={isLike}
+                        />
                      </>
                   )
                ) : !isMyBooking ? (
@@ -108,24 +124,26 @@ const Card = ({
 
 export default Card
 
-const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
-   position: 'relative',
-   maxWidth: '300px',
-   width: '100%',
-   minWidth: '300px',
-   backgroundColor: `${blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
-   opacity: blocked === 'BLOCKED' ? 0.6 : 1,
-   borderRadius: '4px',
-   transition: '200ms',
-   cursor: `${blocked === 'BLOCKED' ? 'default' : 'pointer'}`,
-   border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
-   padding: '2px',
+const CardContainer = styled('div')(
+   ({ myannouncement, blocked, newCard, role }) => ({
+      position: 'relative',
+      maxWidth: '300px',
+      width: '100%',
+      minWidth: '300px',
+      backgroundColor: `${myannouncement && blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
+      opacity: blocked === 'BLOCKED' ? 0.6 : 1,
+      borderRadius: '4px',
+      transition: '200ms',
+      cursor: `${myannouncement && blocked === 'BLOCKED' ? 'default' : 'pointer'}`,
+      border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
+      padding: '2px',
 
-   '&:hover': {
-      backgroundColor: `${!blocked ? '#fff' : ''}`,
-      boxShadow: `${!blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
-   },
-}))
+      '&:hover': {
+         backgroundColor: `${myannouncement && !blocked ? '#fff' : ''}`,
+         boxShadow: `${myannouncement && !blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
+      },
+   })
+)
 
 const StyledBlockText = styled('p')(() => ({
    backgroundColor: '#646464',

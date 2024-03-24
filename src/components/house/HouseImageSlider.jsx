@@ -28,7 +28,7 @@ const HouseImageSlider = ({ images }) => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
          >
-            {images.map((img) => (
+            {images?.map((img) => (
                <SwiperSlide key={img}>
                   <img src={img} alt="house img" />
                </SwiperSlide>
@@ -44,7 +44,7 @@ const HouseImageSlider = ({ images }) => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
          >
-            {images.map((img) => (
+            {images?.map((img) => (
                <SwiperSlide key={img}>
                   <img src={img} alt="house img" />
                </SwiperSlide>

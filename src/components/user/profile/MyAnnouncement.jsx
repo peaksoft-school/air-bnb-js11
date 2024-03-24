@@ -13,11 +13,16 @@ import Card from '../../UI/card/Card'
 const radioOptions = [
    {
       id: 1,
+      value: '',
+      label: 'All',
+   },
+   {
+      id: 2,
       value: 'LOW_TO_HIGH',
       label: 'Low to high',
    },
    {
-      id: 2,
+      id: 3,
       value: 'HIGH_TO_LOW',
       label: 'High to low',
    },
@@ -26,16 +31,21 @@ const radioOptions = [
 const houseTypeOptions = [
    {
       id: 1,
+      value: '',
+      label: 'All',
+   },
+   {
+      id: 2,
       value: 'INWISHLIST',
       label: 'In wish list',
    },
    {
-      id: 2,
+      id: 3,
       value: 'APARTMENT',
       label: 'Apartment',
    },
    {
-      id: 3,
+      id: 4,
       value: 'HOUSE',
       label: 'House',
    },
@@ -43,24 +53,29 @@ const houseTypeOptions = [
 
 const ratingOption = [
    {
-      value: 1,
       id: 1,
+      value: '',
+      label: 'All',
    },
    {
-      value: 2,
+      value: 1,
       id: 2,
    },
    {
-      value: 3,
+      value: 2,
       id: 3,
    },
    {
-      value: 4,
+      value: 3,
       id: 4,
    },
    {
-      value: 5,
+      value: 4,
       id: 5,
+   },
+   {
+      value: 5,
+      id: 6,
    },
 ]
 
@@ -83,9 +98,21 @@ const MyAnnouncement = () => {
       )
    }, [rating, houseType, price])
 
+   const handleChipDelete = (chipToDelete) => {
+      setFilterChips((chips) =>
+         chips.filter((chip) => chip.key !== chipToDelete)
+      )
+      if (chipToDelete === 'houseType') setHouseType('')
+      else if (chipToDelete === 'rating') setRating('')
+      else if (chipToDelete === 'price') setPrice('')
+   }
+
    const updateFilterChips = (key, value, label) => {
       setFilterChips((chips) => {
          const existingChipIndex = chips.findIndex((chip) => chip.key === key)
+         if (value === '') {
+            handleChipDelete(key)
+         }
          if (existingChipIndex >= 0) {
             const updatedChips = [...chips]
             updatedChips[existingChipIndex] = {
@@ -114,15 +141,6 @@ const MyAnnouncement = () => {
       updateFilterChips('price', e.target.value, 'Price')
    }
 
-   const handleChipDelete = (chipToDelete) => {
-      setFilterChips((chips) =>
-         chips.filter((chip) => chip.key !== chipToDelete)
-      )
-      if (chipToDelete === 'houseType') setHouseType('')
-      else if (chipToDelete === 'rating') setRating('')
-      else if (chipToDelete === 'price') setPrice('')
-   }
-
    const announcementOptions = [
       {
          title: 'Edit',
@@ -141,6 +159,7 @@ const MyAnnouncement = () => {
                options={houseTypeOptions}
                defaultId={1}
                onChange={handleHouseTypeChange}
+               value={houseType}
                isValueAsId
                label="House type:"
             />
@@ -203,10 +222,11 @@ const StyledAnnouncement = styled(Box)(() => ({
       display: 'flex',
       gap: '10px',
       margin: '0 0 15px 0',
+      flexWrap: 'wrap',
    },
 
    '& .MuiSelect-select': {
-      height: '25px',
+      height: '30px !important',
    },
 
    '& .form-control': {

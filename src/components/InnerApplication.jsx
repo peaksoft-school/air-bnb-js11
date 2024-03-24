@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Typography, styled } from '@mui/material'
-import CircleIcon from '@mui/icons-material/Circle'
+import { Avatar, Box, Typography, styled } from '@mui/material'
 import { useNavigate, useParams } from 'react-router'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -114,7 +113,10 @@ const InnerApplication = () => {
                <StyledLongtext variant="p">{house.description}</StyledLongtext>
             </Box>
             <StyledNameContainer>
-               <CircleIcon className="circle-icon" />
+               <Avatar
+                  className="circle-icon"
+                  src={house.userResponse?.image}
+               />
                <Box className="box">
                   <StyledAnna className="Anna">
                      {house.userResponse?.fullName}

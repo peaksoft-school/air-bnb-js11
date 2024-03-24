@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box, styled, Typography } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
-import { FirstHotel } from '../../../assets/images'
 import { GreenLocationIcon, ArrowRightIcon } from '../../../assets/icons'
-import { ROOMS } from '../../../utils/constants'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -13,15 +11,22 @@ import { axiosInstance } from '../../../configs/axiosInstance'
 const PopularApartments = ({ background }) => {
    const [latestHouse, setLatestHouse] = useState({})
    const [popularApartment, setPopularApartments] = useState({})
+   const [isLoading, setIsLoading] = useState(false)
+   const [popularApartmentImage, setPopularApartmentImage] = useState(null)
+   const [latestHouseImage, setLatestHouseImage] = useState(null)
 
    const getLatestAnnounement = async () => {
+      setIsLoading(true)
       try {
          const { data } = await axiosInstance.get(
             '/api/houses/latestAnnouncement'
          )
+         setPopularApartmentImage(data.images[0])
          return setLatestHouse(data)
       } catch (error) {
          return error
+      } finally {
+         setIsLoading(false)
       }
    }
    const getPopularApartment = async () => {
@@ -29,9 +34,12 @@ const PopularApartments = ({ background }) => {
          const { data } = await axiosInstance.get(
             '/api/houses/getPopularApartment'
          )
+         setLatestHouseImage(data.images[0])
          return setPopularApartments(data)
       } catch (error) {
          return error
+      } finally {
+         setIsLoading(false)
       }
    }
 
@@ -43,6 +51,12 @@ const PopularApartments = ({ background }) => {
       getLatestAnnounement()
    }, [])
 
+   if (isLoading) {
+      return <h1>Loading</h1>
+   }
+
+   console.log(popularApartment)
+
    return (
       <StyledContainer background={background}>
          <Box className="container">
@@ -50,7 +64,11 @@ const PopularApartments = ({ background }) => {
                <Typography className="title">
                   {background ? 'Popular Apartments' : 'The Lastes'}
                </Typography>
-               <img className="first-hotel" src={FirstHotel} alt="hotel" />
+               <img
+                  className="first-hotel"
+                  src={background ? latestHouseImage : popularApartmentImage}
+                  alt="hotel"
+               />
             </StyledHotel>
             <StyledMainText background={background}>
                <Typography variant="h2" className="title-text">
@@ -92,11 +110,17 @@ const PopularApartments = ({ background }) => {
                      className="swiper"
                      loop
                   >
-                     {ROOMS.map(({ name, img }) => (
-                        <SwiperSlide key={name}>
-                           <img src={img} alt={name} />
-                        </SwiperSlide>
-                     ))}
+                     {background
+                        ? popularApartment?.images?.map((image) => (
+                             <SwiperSlide key={image}>
+                                <img src={image} alt="house img" />
+                             </SwiperSlide>
+                          ))
+                        : latestHouse?.images?.map((image) => (
+                             <SwiperSlide key={image}>
+                                <img src={image} alt="house img" />
+                             </SwiperSlide>
+                          ))}
 
                      <Box className="arrow-buttons-container">
                         <Box className="swiper-button-prev">

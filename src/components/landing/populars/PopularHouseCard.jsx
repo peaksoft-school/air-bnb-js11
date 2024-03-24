@@ -7,12 +7,11 @@ import {
    styled,
 } from '@mui/material'
 import { FullStarIcon, LocationIcon } from '../../../assets/icons'
-import { NotFound } from '../../../assets/images'
 
-const PopularHouseCard = ({ title, address, price, rating }) => {
+const PopularHouseCard = ({ title, address, price, rating, images }) => {
    return (
       <StyleCard>
-         <StyleCardMedia image={NotFound}>
+         <StyleCardMedia image={images[0]}>
             <StyleBox>
                <StyleTypography>
                   <FullStarIcon />

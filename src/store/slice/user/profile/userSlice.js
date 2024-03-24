@@ -29,7 +29,7 @@ export const userSlice = createSlice({
       builder
          .addCase(getUserInfo.fulfilled, (state, { payload }) => {
             state.name = payload.name
-            state.image = payload.iamge
+            state.image = payload.image
             state.email = payload.email
             state.isLoading = false
          })

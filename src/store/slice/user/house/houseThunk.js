@@ -68,7 +68,7 @@ export const deleteAnnouncement = createAsyncThunk(
          axiosInstance.delete(`/api/houses/${houseId}`)
 
          return dispatch(
-            getAnnouncement({ houseType: '', price: '', rating: '' })
+            getAnnouncement({ houseType: '', rating: '', price: '' })
          )
       } catch (error) {
          return rejectWithValue(error)
