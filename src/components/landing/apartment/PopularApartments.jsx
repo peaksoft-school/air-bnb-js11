@@ -55,8 +55,6 @@ const PopularApartments = ({ background }) => {
       return <h1>Loading</h1>
    }
 
-   console.log(popularApartment)
-
    return (
       <StyledContainer background={background}>
          <Box className="container">
