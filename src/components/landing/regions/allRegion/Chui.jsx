@@ -2,9 +2,9 @@ import { Box, Typography, styled } from '@mui/material'
 import React from 'react'
 import { ChuiImage } from '../../../../assets/images'
 
-const Chui = () => {
+const Chui = ({ onClick }) => {
    return (
-      <StyledLongCard className="conteiner">
+      <StyledLongCard className="conteiner" onClick={onClick}>
          <div className="long-image">
             <div className="card-inner">
                <div className="card-front">

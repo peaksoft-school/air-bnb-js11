@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box, styled, Typography } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
+import { useNavigate } from 'react-router'
 import { GreenLocationIcon, ArrowRightIcon } from '../../../assets/icons'
 
 import 'slick-carousel/slick/slick.css'
@@ -14,6 +15,7 @@ const PopularApartments = ({ background }) => {
    const [isLoading, setIsLoading] = useState(false)
    const [popularApartmentImage, setPopularApartmentImage] = useState(null)
    const [latestHouseImage, setLatestHouseImage] = useState(null)
+   const navigate = useNavigate()
 
    const getLatestAnnounement = async () => {
       setIsLoading(true)
@@ -50,6 +52,15 @@ const PopularApartments = ({ background }) => {
    useEffect(() => {
       getLatestAnnounement()
    }, [])
+
+   const handleClickViewAll = () =>
+      background
+         ? navigate(`/user/inner-region`, {
+              state: { popular: 'ASC', apartment: 'APARTMENT' },
+           })
+         : navigate(`/user/inner-region`, {
+              state: { popular: 'DESK', apartment: '' },
+           })
 
    if (isLoading) {
       return <h1>Loading</h1>
@@ -90,7 +101,7 @@ const PopularApartments = ({ background }) => {
                </Typography>
             </StyledMainText>
             <StyledSliderContent>
-               <Typography variant="p" className="view">
+               <Typography onClick={handleClickViewAll} className="view">
                   View all
                </Typography>
                <StyledPictures>

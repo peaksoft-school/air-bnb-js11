@@ -1,6 +1,14 @@
-import { Link, Stack, Typography, styled } from '@mui/material'
+import { Stack, Typography, styled } from '@mui/material'
+import { useNavigate } from 'react-router'
 
 const PoppularHouseHeadline = () => {
+   const navigate = useNavigate()
+
+   const handleClickPopularHouse = () =>
+      navigate(`/user/inner-region`, {
+         state: { popular: 'ASC', apartment: 'HOUSE' },
+      })
+
    return (
       <StylStackContainer>
          <StyleStackTitle>
@@ -10,7 +18,7 @@ const PoppularHouseHeadline = () => {
                your last minute locations.
             </StyleTypographyTitle>
          </StyleStackTitle>
-         <StyleLinkTypography component={Link} href="#">
+         <StyleLinkTypography onClick={handleClickPopularHouse}>
             View all
          </StyleLinkTypography>
       </StylStackContainer>

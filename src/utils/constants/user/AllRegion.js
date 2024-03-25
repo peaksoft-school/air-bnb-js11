@@ -7,6 +7,7 @@ export const REGION_SORT_OPTIONS = [
    { id: 6, value: 'TALAS', label: 'Talas' },
    { id: 7, value: 'CHUI', label: 'Chui' },
    { id: 8, value: 'OSH', label: 'Osh' },
+   { id: 9, value: 'BISHKEK', label: 'Bishkek' },
 ]
 
 export const POPULAR_SORT_OPTIONS = [

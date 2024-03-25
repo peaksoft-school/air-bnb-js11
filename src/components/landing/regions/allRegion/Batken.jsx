@@ -2,9 +2,9 @@ import { Box, Typography, styled } from '@mui/material'
 import React from 'react'
 import { BatkenImage } from '../../../../assets/images'
 
-const Batken = () => {
+const Batken = ({ onClick }) => {
    return (
-      <StyledCard className="conteiner">
+      <StyledCard className="conteiner" onClick={onClick}>
          <div className="card">
             <div className="card-inner">
                <div className="card-front">

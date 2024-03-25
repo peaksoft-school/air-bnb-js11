@@ -1,14 +1,7 @@
 import { useNavigate } from 'react-router'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-   Box,
-   Container,
-   // Link,
-   Typography,
-   keyframes,
-   styled,
-} from '@mui/material'
+import { Box, Container, Typography, keyframes, styled } from '@mui/material'
 import {
    InstagramIcon,
    LogoIcon,
@@ -37,7 +30,9 @@ const Footer = () => {
             <Box className="box" py={1.25}>
                <StyleStackContainer>
                   <StyleStackHover>
-                     <Typography>Regions</Typography>
+                     <a href="#region" className="region">
+                        Regions
+                     </a>
                      <StyleTypography onClick={handleToggleModal}>
                         leave an ad
                      </StyleTypography>
@@ -68,6 +63,15 @@ const StyleStackHover = styled(Box)(() => ({
    display: 'flex',
    cursor: 'pointer',
    gap: '2.4rem',
+
+   '& .region': {
+      fontFamily: 'Inter',
+      fontSize: '1.125rem',
+      fontWeight: '400',
+      lineHeight: '1.361rem',
+      color: '#ffffff',
+      textDecoration: 'none',
+   },
 }))
 
 const StyleStackContainer = styled(Box)(() => ({

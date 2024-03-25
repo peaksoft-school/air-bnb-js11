@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+// import { useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Chip, styled, Typography } from '@mui/material'
-import { useParams } from 'react-router'
+import { useLocation } from 'react-router'
 import Select from '../../../components/UI/Select'
 import {
    acceptCardAllHousingRequest,
@@ -26,16 +27,19 @@ const UserInnerRegion = () => {
    const { regionsHouse, totalPages, loading } = useSelector(
       (state) => state.regionsHouses
    )
-   const { area } = useParams()
+   const { state } = useLocation()
+
    const dispatch = useDispatch()
    const [sortOption, setSortOption] = useState(
-      REGION_SORT_OPTIONS[0]?.value || area.toUpperCase().replace(/-/g, '_')
+      REGION_SORT_OPTIONS[0]?.value ||
+         state?.region?.toUpperCase()?.replace(/-/g, '_') ||
+         ''
    )
    const [sortByOption, setSortByOption] = useState(
-      POPULAR_SORT_OPTIONS[0]?.value || ''
+      POPULAR_SORT_OPTIONS[0]?.value || '' || state?.popular
    )
    const [homeTypeOption, setHomeTypeOption] = useState(
-      HOUSE_TYPE_OPTIONS[0]?.value || ''
+      HOUSE_TYPE_OPTIONS[0]?.value || '' || state?.apartment
    )
    const [priceFilterOption, setPriceFilterOption] = useState(
       PRICE_FILTER_OPTIONS[0]?.value || ''
@@ -154,14 +158,14 @@ const UserInnerRegion = () => {
                Main{' '}
                <span className="path-naryn">
                   /{' '}
-                  {area.replace(/\b\w/g, (firstLetter) =>
-                     firstLetter.toUpperCase()
+                  {state.region?.replace(/\b\w/g, (firstLetter) =>
+                     firstLetter?.toUpperCase()
                   )}
                </span>
             </Typography>
 
             <Box className="select-box">
-               <h3 className="heading"> {area.toUpperCase()}</h3>
+               <h3 className="heading"> {state.region?.toUpperCase()}</h3>
 
                <Select
                   className="select-style"
@@ -206,7 +210,7 @@ const UserInnerRegion = () => {
             {sortOption !== '' && (
                <Chip
                   label={sortOption
-                     .toLowerCase()
+                     ?.toLowerCase()
                      .replace(/_/g, '-')
                      .replace(/\b\w/g, (firstLetter) =>
                         firstLetter.toUpperCase()
@@ -227,7 +231,7 @@ const UserInnerRegion = () => {
             {homeTypeOption !== '' && (
                <Chip
                   label={homeTypeOption
-                     .toLowerCase()
+                     ?.toLowerCase()
                      .replace(/\b\w/g, (firstLetter) =>
                         firstLetter.toUpperCase()
                      )}
