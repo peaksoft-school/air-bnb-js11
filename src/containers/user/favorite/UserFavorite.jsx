@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled, Typography, Box } from '@mui/material'
-import { getFavorites } from '../../store/slice/user/favoriteThunk'
-import { UserNoDataImage } from '../../assets/images'
-import Card from '../../components/UI/card/Card'
+import { getFavorites } from '../../../store/slice/user/favoriteThunk'
+import { UserNoDataImage } from '../../../assets/images'
+import Card from '../../../components/UI/card/Card'
 
 const UserFavorite = () => {
    const dispatch = useDispatch()

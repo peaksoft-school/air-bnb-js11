@@ -8,6 +8,7 @@ import { pageSlice } from './slice/admin/inner-application/innerPageSlice'
 import { allHousingSlice } from './slice/admin/allHousing/allHousingSlice'
 import { userInfoSlice } from './slice/admin/user/userInfoSlice'
 import { favoriteSlice } from './slice/user/favoriteSlice'
+import { userInnerRegionSlice } from './slice/user/userInner/userInnerRegionSlice'
 
 const rootReducer = combineReducers({
    [authSlice.name]: authSlice.reducer,
@@ -17,6 +18,8 @@ const rootReducer = combineReducers({
    [allHousingSlice.name]: allHousingSlice.reducer,
    [userInfoSlice.name]: userInfoSlice.reducer,
    [favoriteSlice.name]: favoriteSlice.reducer,
+   [userSlice.name]: userSlice.reducer,
+   [userInnerRegionSlice.name]: userInnerRegionSlice.reducer,
 })
 
 const persistConfig = {

@@ -12,6 +12,7 @@ export const routes = {
    USER: {
       index: '/user',
       favorite: '/user/favorite',
+      innerRegion: '/user/inner-region',
    },
 }
 
