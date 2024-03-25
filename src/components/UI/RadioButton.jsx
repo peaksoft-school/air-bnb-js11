@@ -1,13 +1,14 @@
 import { FormControlLabel, Radio, RadioGroup, styled } from '@mui/material'
 
-const RadioButton = ({ options, value, onChange }) => (
-   <RadioGroup value={value} onChange={onChange}>
+const RadioButton = ({ options, value, onChange, ...rest }) => (
+   <RadioGroup value={value} onChange={onChange} {...rest}>
       {options.map(({ value, label }) => (
-         <FormControlLabel
+         <StyledFormControlLabel
             key={value}
             value={value}
             control={<StyledRadio />}
             label={label}
+            labelPlacement="end"
          />
       ))}
    </RadioGroup>
@@ -21,4 +22,8 @@ const StyledRadio = styled(Radio)(({ theme }) => ({
    '&.Mui-checked': {
       color: theme.palette.secondary.main,
    },
+}))
+
+const StyledFormControlLabel = styled(FormControlLabel)(() => ({
+   marginRight: '2.5rem',
 }))

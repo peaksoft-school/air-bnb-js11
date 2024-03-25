@@ -18,7 +18,7 @@ const Regions = () => (
             }}
             className="heading"
          >
-            Regions in Kyrgyzstan
+            Regions in kyrgystan{' '}
          </h2>
          <Typography className="description">
             You can visit the site any day and be sure that you will find
@@ -26,19 +26,21 @@ const Regions = () => (
          </Typography>
 
          <StyledImagesList>
-            <Box className="image-container">
+            <Box className="image-conteiner">
                <Chui />
                <Box className="image-box">
-                  <Box className="image-container">
+                  <Box className="image-conteiner">
                      <Batken />
                      <JalalAbad />
                   </Box>
                   <Naryn />
                </Box>
             </Box>
-            <Box className="image-container">
+         </StyledImagesList>
+         <StyledImagesList>
+            <Box className="image-conteiner">
                <Box className="image-box">
-                  <Box className="image-container">
+                  <Box className="image-conteiner">
                      <IssykKul />
                      <Talas />
                   </Box>
@@ -58,6 +60,7 @@ const StyledContainer = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'center',
    marginBottom: '10.62rem',
+   cursor: 'pointer',
 
    '& .box': {
       display: 'flex',
@@ -69,10 +72,9 @@ const StyledContainer = styled('div')(() => ({
 }))
 
 const StyledImagesList = styled(ImageList)(({ theme }) => ({
-   '& .image-container': {
+   '& .image-conteiner': {
       display: 'flex',
       gap: '1.25rem',
-      cursor: 'pointer',
    },
 
    '& .image-box': {

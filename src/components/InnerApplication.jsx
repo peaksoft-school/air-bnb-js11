@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Typography, styled } from '@mui/material'
-import CircleIcon from '@mui/icons-material/Circle'
+import { Avatar, Box, Typography, styled } from '@mui/material'
 import { useNavigate, useParams } from 'react-router'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -14,6 +13,7 @@ import {
    rejectInnerCardRequest,
 } from '../store/slice/admin/inner-application/InnerApplicationThunk'
 import { showToast } from '../utils/helpers/toast'
+import { NotFound } from '../assets/images'
 
 const InnerApplication = () => {
    const sliderRef1 = useRef(null)
@@ -80,10 +80,13 @@ const InnerApplication = () => {
             </StyledPath>
             <StyledName variant="h3">{house.name}</StyledName>
             <StyledSlider {...settings} className="slider-for" ref={sliderRef1}>
-               {house.images &&
+               {house.images.length > 0 ? (
                   house.images.map((image, index) => (
                      <img key={image} src={image} alt={`House ${index}`} />
-                  ))}
+                  ))
+               ) : (
+                  <img src={NotFound} alt="not found" />
+               )}
             </StyledSlider>
 
             <StyledNavSlider
@@ -110,7 +113,10 @@ const InnerApplication = () => {
                <StyledLongtext variant="p">{house.description}</StyledLongtext>
             </Box>
             <StyledNameContainer>
-               <CircleIcon className="circle-icon" />
+               <Avatar
+                  className="circle-icon"
+                  src={house.userResponse?.image}
+               />
                <Box className="box">
                   <StyledAnna className="Anna">
                      {house.userResponse?.fullName}

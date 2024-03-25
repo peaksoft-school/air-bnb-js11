@@ -8,10 +8,10 @@ import {
 } from '@mui/material'
 import { FullStarIcon, LocationIcon } from '../../../assets/icons'
 
-const PopularHouseCard = ({ img, title, address, price, rating }) => {
+const PopularHouseCard = ({ title, address, price, rating, images }) => {
    return (
       <StyleCard>
-         <StyleCardMedia image={img}>
+         <StyleCardMedia image={images[0]}>
             <StyleBox>
                <StyleTypography>
                   <FullStarIcon />
@@ -80,4 +80,5 @@ const StyleCardMedia = styled(CardMedia)(() => ({
    width: '100%',
    backgroundSize: '100% 100%',
    aspectRatio: '900/1200',
+   objectFit: 'contain',
 }))

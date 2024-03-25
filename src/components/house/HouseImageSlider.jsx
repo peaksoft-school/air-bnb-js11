@@ -4,18 +4,13 @@ import 'slick-carousel/slick/slick-theme.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 import { Box, styled } from '@mui/material'
-import {
-   ImgAsmanHotelGuestHouse,
-   ImgAsmanGuestHoues,
-   ImgAsmanGuestHotel,
-} from '../../assets/images'
 
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 
-const InnerApplication = () => {
+const HouseImageSlider = ({ images }) => {
    const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
    return (
@@ -33,21 +28,11 @@ const InnerApplication = () => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
          >
-            <SwiperSlide>
-               <img src={ImgAsmanGuestHotel} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanGuestHoues} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanHotelGuestHouse} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanHotelGuestHouse} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanHotelGuestHouse} alt="" />
-            </SwiperSlide>
+            {images?.map((img) => (
+               <SwiperSlide key={img}>
+                  <img src={img} alt="house img" />
+               </SwiperSlide>
+            ))}
          </Swiper>
          <Swiper
             onSwiper={setThumbsSwiper}
@@ -59,27 +44,17 @@ const InnerApplication = () => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
          >
-            <SwiperSlide>
-               <img src={ImgAsmanGuestHotel} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanGuestHoues} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanHotelGuestHouse} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanHotelGuestHouse} alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-               <img src={ImgAsmanHotelGuestHouse} alt="" />
-            </SwiperSlide>
+            {images?.map((img) => (
+               <SwiperSlide key={img}>
+                  <img src={img} alt="house img" />
+               </SwiperSlide>
+            ))}
          </Swiper>
       </StyledContainer>
    )
 }
 
-export default InnerApplication
+export default HouseImageSlider
 
 const StyledContainer = styled(Box)(() => ({
    margin: '0 0 45px 0',

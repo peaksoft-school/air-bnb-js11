@@ -1,4 +1,4 @@
-import { styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Button from '../Button'
@@ -6,6 +6,7 @@ import { FullStarIcon, HeartIcon, LocationIcon } from '../../../assets/icons'
 import CardSlider from './CardSlider'
 import Meatballs from '../Meatballs'
 import { NotFound } from '../../../assets/images'
+import { axiosInstance } from '../../../configs/axiosInstance'
 
 const Card = ({
    price,
@@ -16,19 +17,27 @@ const Card = ({
    maxGuests,
    description,
    isLike,
-   // houseStatus,
    status,
    newCard,
    province,
    option,
    id,
    onNavigate,
+   isMyBooking = false,
+   isMyAnnouncement = false,
 }) => {
    const { role } = useSelector((state) => state.auth)
    const navigate = useNavigate()
 
-   const changeIsLike = () => {
+   const changeIsLike = async (houseId) => {
       // Здесь функция для update'та сердечки
+      try {
+         await axiosInstance.post(`/api/favorites/${houseId}`)
+
+         return 'a'
+      } catch (error) {
+         return error
+      }
    }
 
    const clickHandler = (e) => {
@@ -41,12 +50,12 @@ const Card = ({
 
    return (
       <CardContainer
+         myannouncement={isMyAnnouncement}
          blocked={status}
          newCard={newCard}
          role={role}
-         onClick={clickHandler}
       >
-         {status === 'BLOCKED' ? (
+         {isMyAnnouncement && status === 'BLOCKED' ? (
             <StyledBlockText>
                Your application has been blocked, please contact the
                administrator
@@ -55,7 +64,7 @@ const Card = ({
 
          <CardSlider img={images.length > 0 ? images : [NotFound]} />
 
-         <CardInnerContainer>
+         <CardInnerContainer onClick={clickHandler}>
             <PriceRatingInfo>
                <Price>
                   ${price} / <span>day</span>
@@ -73,21 +82,41 @@ const Card = ({
             <HouseLocation>
                <LocationIcon /> {address}, {province}
             </HouseLocation>
-            <LastContainer>
+            <LastContainer onClick={(e) => e.stopPropagation()}>
                <Guests>{maxGuests} guests</Guests>
-               {role === 'USER' ? (
+               {isMyAnnouncement ? (
+                  <Meatballs options={option} id={id} />
+               ) : !isMyBooking && role === 'USER' ? (
                   status === 'BLOCKED' ? (
                      <Button disabled>Blocked</Button>
                   ) : (
                      <>
                         <Button>BOOK</Button>
-                        <StyledHeartIcon onClick={changeIsLike} like={isLike} />
+                        <StyledHeartIcon
+                           onClick={() => changeIsLike(id)}
+                           like={isLike}
+                        />
                      </>
                   )
-               ) : (
+               ) : !isMyBooking ? (
                   <Meatballs options={option} id={id} />
-               )}
+               ) : null}
             </LastContainer>
+            {isMyBooking ? (
+               <CheckContainer>
+                  <CheckInfo>
+                     <Box>
+                        <Typography className="check">Check in</Typography>
+                        <Typography>02.02.22</Typography>
+                     </Box>
+                     <Box>
+                        <Typography className="check">Check in</Typography>
+                        <Typography>02.02.22</Typography>
+                     </Box>
+                  </CheckInfo>
+                  <Button>Change</Button>
+               </CheckContainer>
+            ) : null}
          </CardInnerContainer>
       </CardContainer>
    )
@@ -95,24 +124,26 @@ const Card = ({
 
 export default Card
 
-const CardContainer = styled('div')(({ blocked, newCard, role }) => ({
-   position: 'relative',
-   maxWidth: '300px',
-   width: '100%',
-   minWidth: '200px',
-   backgroundColor: `${blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
-   opacity: blocked === 'BLOCKED' ? 0.6 : 1,
-   borderRadius: '4px',
-   transition: '200ms',
-   cursor: `${blocked === 'BLOCKED' ? 'default' : 'pointer'}`,
-   border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
-   padding: '2px',
+const CardContainer = styled('div')(
+   ({ myannouncement, blocked, newCard, role }) => ({
+      position: 'relative',
+      maxWidth: '300px',
+      width: '100%',
+      minWidth: '300px',
+      backgroundColor: `${myannouncement && blocked === 'BLOCKED' ? '#D4D4D466' : '#f7f7f7'}`,
+      opacity: blocked === 'BLOCKED' ? 0.6 : 1,
+      borderRadius: '4px',
+      transition: '200ms',
+      cursor: `${myannouncement && blocked === 'BLOCKED' ? 'default' : 'pointer'}`,
+      border: `${role === 'ADMIN' && newCard ? '3px solid red' : ''}`,
+      padding: '2px',
 
-   '&:hover': {
-      backgroundColor: `${!blocked === 'BLOCKED' ? '#fff' : ''}`,
-      boxShadow: `${!blocked === 'BLOCKED' ? '0px -1px 10px 0px #ecedf2' : ''}`,
-   },
-}))
+      '&:hover': {
+         backgroundColor: `${myannouncement && !blocked ? '#fff' : ''}`,
+         boxShadow: `${myannouncement && !blocked ? '0px -1px 10px 0px #ecedf2' : ''}`,
+      },
+   })
+)
 
 const StyledBlockText = styled('p')(() => ({
    backgroundColor: '#646464',
@@ -211,5 +242,17 @@ const StyledHeartIcon = styled(HeartIcon)(({ like }) => ({
       '&:last-child': {
          fill: `${like ? 'DD8A08' : 'none'}`,
       },
+   },
+}))
+
+const CheckContainer = styled(Box)(() => ({}))
+
+const CheckInfo = styled(Box)(() => ({
+   display: 'flex',
+   justifyContent: 'space-between',
+   margin: '0 0 10px 0',
+
+   '& .check': {
+      color: '#646464',
    },
 }))

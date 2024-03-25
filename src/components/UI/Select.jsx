@@ -4,16 +4,19 @@ import {
    InputLabel,
    MenuItem,
    Select as MuiSelect,
+   Rating,
    styled,
 } from '@mui/material'
 import { DownArrowIcon } from '../../assets/icons'
 
 const Select = forwardRef(
-   ({ label, onChange, defaultId, isValueAsId, options, ...rest }, ref) => {
+   (
+      { label, onChange, defaultId, isValueAsId, options, isRating, ...rest },
+      ref
+   ) => {
       const findedOption = options.find((option) => option.id === +defaultId)
-      const defaultOption = isValueAsId ? findedOption.value : findedOption.id
 
-      const [option, setOption] = useState(defaultOption)
+      const [option, setOption] = useState(findedOption)
 
       const handleSelectChange = (e) => {
          setOption(e.target.value)
@@ -29,7 +32,7 @@ const Select = forwardRef(
 
             <StyledSelect
                onChange={handleSelectChange}
-               value={option}
+               value={option.value}
                ref={ref}
                IconComponent={DownArrowIcon}
                {...rest}
@@ -39,7 +42,11 @@ const Select = forwardRef(
                      key={option.id}
                      value={isValueAsId ? option.value : option.id}
                   >
-                     {option.label}
+                     {isRating ? (
+                        <Rating value={option.value} readOnly />
+                     ) : (
+                        option.label
+                     )}
                   </MenuItem>
                ))}
             </StyledSelect>
@@ -74,6 +81,7 @@ const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
    transform: 'none',
    justifyContent: 'space-between',
    marginLeft: '0.75rem',
+   zIndex: 0,
 
    '&.MuiInputLabel-shrink': {
       color: theme.palette.tertiary.middleGray,

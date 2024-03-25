@@ -1,13 +1,19 @@
 import { useLocation, useParams } from 'react-router'
-import { Box, Skeleton, Typography, styled } from '@mui/material'
+import { Avatar, Box, Skeleton, Typography, styled } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { routes } from '../../../utils/constants/routes'
-import Tabs from '../../../components/UI/Tabs'
-import Bookings from '../../../components/admin/users/booking/Bookings'
-import BreadCrumbs from '../../../components/UI/Breadcrumbs'
-import Announcement from '../../../components/admin/users/booking/Announcement'
-import { getUser } from '../../../store/slice/admin/user/userThunk'
+import { routes } from '../../utils/constants/routes'
+import Tabs from '../UI/Tabs'
+import Bookings from '../admin/users/profile/Bookings'
+import BreadCrumbs from '../UI/Breadcrumbs'
+import Announcement from '../admin/users/profile/Announcement'
+import { getUser } from '../../store/slice/admin/user/userThunk'
+import MyBookings from '../user/profile/MyBookings'
+import MyAnnouncement from '../user/profile/MyAnnouncement'
+import OnModeration from '../user/profile/OnModeration'
+import Button from '../UI/Button'
+import { AUTH_ACTIONS } from '../../store/slice/auth/authSlice'
+import { showToast } from '../../utils/helpers/toast'
 
 const tabs = [
    {
@@ -20,17 +26,35 @@ const tabs = [
    },
 ]
 
-const UserPage = () => {
+const profileTabs = [
+   {
+      label: 'Bookings',
+      Component: <MyBookings />,
+   },
+   {
+      label: 'my announcement',
+      Component: <MyAnnouncement />,
+   },
+   {
+      label: 'on moderation',
+      Component: <OnModeration />,
+   },
+]
+
+const Profile = () => {
    const dispatch = useDispatch()
    const { pathname } = useLocation()
    const { userId } = useParams()
    const { user, isLoading } = useSelector((state) => state.userInfo)
+   const { role } = useSelector((state) => state.auth)
+   const { name, email, image } = useSelector((state) => state.user)
 
-   useEffect(() => {
-      dispatch(getUser(userId))
-   }, [])
-
-   const USER_BREADCRUMBS = [
+   if (role === 'ADMIN') {
+      useEffect(() => {
+         dispatch(getUser(userId))
+      }, [])
+   }
+   const ADMIN_BREADCRUMBS = [
       {
          label: 'Users',
          href: routes.ADMIN.users,
@@ -41,13 +65,32 @@ const UserPage = () => {
       },
    ]
 
+   const USER_BREADCRUMBS = [
+      {
+         label: 'Main',
+         href: routes.USER.index,
+      },
+      {
+         label: 'Profile',
+         href: routes.USER.index,
+      },
+   ]
+
+   const logOutHandler = () => {
+      dispatch(AUTH_ACTIONS.logOut({ showToast }))
+   }
+
    return (
       <StyledUserContainer>
-         <BreadCrumbs links={USER_BREADCRUMBS} />
+         <BreadCrumbs
+            links={role === 'ADMIN' ? ADMIN_BREADCRUMBS : USER_BREADCRUMBS}
+         />
 
          <Box className="user-container">
             <Box className="user-name">
-               <Typography>{user?.name}</Typography>
+               <Typography>
+                  {role === 'ADMIN' ? user?.name : 'Profile'}
+               </Typography>
                <Box className="user-card">
                   {isLoading ? (
                      <Box className="skeleton-container">
@@ -62,28 +105,40 @@ const UserPage = () => {
                      </Box>
                   ) : (
                      <Box className="user-card-info">
-                        <div className="user-avatar">
-                           {user.name && user.name[0]}
-                        </div>
+                        <Avatar
+                           className="user-avatar"
+                           src={role === 'ADMIN' ? user.image : image}
+                        />
                         <Typography>
-                           <span>Name:</span> {user?.name}
+                           <span>Name:</span>{' '}
+                           {role === 'ADMIN' ? user?.name : name}
                         </Typography>
                         <Typography>
-                           <span>Contact</span>: {user?.email}
+                           <span>Contact</span>:{' '}
+                           {role === 'ADMIN' ? user?.email : email}
                         </Typography>
+                        {role === 'ADMIN' ? null : (
+                           <Button
+                              variant="cancel"
+                              className="logOut"
+                              onClick={logOutHandler}
+                           >
+                              log out
+                           </Button>
+                        )}
                      </Box>
                   )}
                </Box>
             </Box>
             <Box className="card-container">
-               <Tabs tabs={tabs} />
+               <Tabs tabs={role === 'ADMIN' ? tabs : profileTabs} />
             </Box>
          </Box>
       </StyledUserContainer>
    )
 }
 
-export default UserPage
+export default Profile
 
 const StyledUserContainer = styled(Box)(() => ({
    padding: '46px 40px',
@@ -106,6 +161,13 @@ const StyledUserContainer = styled(Box)(() => ({
             display: 'flex',
             flexDirection: 'column',
             gap: '10px',
+
+            '& .logOut': {
+               color: '#f00',
+               textAlign: 'start',
+               margin: '0 0 0 40px',
+               width: 'fit-content',
+            },
          },
 
          '& .skeleton-container': {
@@ -121,16 +183,9 @@ const StyledUserContainer = styled(Box)(() => ({
          },
 
          '& .user-avatar': {
-            background: '#0298d9',
-            padding: '8px 12px',
-            borderRadius: '50%',
             color: '#fff',
             width: '90px',
             height: '90px',
-            fontSize: '50px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             margin: '0 auto 5px',
          },
 

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import AppRoutes from './routes/AppRoutes'
-import { USER_THUNKS } from './store/slice/user/userThunk'
-import { USER_ACTIONS } from './store/slice/user/userSlice'
+import { USER_THUNKS } from './store/slice/user/profile/userThunk'
+import { USER_ACTIONS } from './store/slice/user/profile/userSlice'
 import './App.css'
 
 const App = () => {

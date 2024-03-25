@@ -140,4 +140,5 @@ const StyleTypographyPeaksoft = styled(Typography)(() => ({
    color: '#859589',
    fontFamily: 'Inter',
    textAlign: 'center',
+   marginLeft: '2.2rem',
 }))

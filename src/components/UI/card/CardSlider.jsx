@@ -50,6 +50,15 @@ const CardImg = styled('img')(() => ({
 }))
 
 const StyledSwiper = styled(Swiper)(() => ({
+   '&:hover': {
+      '& .swiper-button-prev': {
+         display: 'block',
+      },
+      '& .swiper-button-next': {
+         display: 'block',
+      },
+   },
+
    '& .swiper-pagination-bullets': {
       '& .swiper-pagination-bullet': {
          background: '#fff',
@@ -77,6 +86,7 @@ const PrevButton = styled(Box)(() => ({
    height: '40px',
    padding: '10px 12px 10px 10px',
    borderRadius: '50%',
+   display: 'none',
 
    '& svg': {
       transform: 'rotate(90deg)',
@@ -97,6 +107,7 @@ const NextButton = styled(Box)(() => ({
    height: '40px',
    padding: '10px 10px 10px 12px',
    borderRadius: '50%',
+   display: 'none',
 
    '& svg': {
       transform: 'rotate(270deg)',

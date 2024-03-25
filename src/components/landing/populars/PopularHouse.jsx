@@ -1,46 +1,34 @@
 import { Grid, Stack } from '@mui/material'
 import styled from '@emotion/styled'
+import { useEffect, useState } from 'react'
 import PopularHouseCard from './PopularHouseCard'
 import PoppularHouseHeadline from './PoppularHouseHeadline'
-import {
-   ImgAsmanGuestHotel,
-   ImgAsmanGuestHoues,
-   ImgAsmanHotelGuestHouse,
-} from '../../../assets/images'
-
-const houses = [
-   {
-      id: 1,
-      img: ImgAsmanGuestHotel,
-      title: 'Asman guest house',
-      address: '723510 Osh Muzurbek Alimbekov 9/7',
-      price: '26',
-      rating: '3.4',
-   },
-   {
-      id: 2,
-      img: ImgAsmanGuestHoues,
-      title: 'Asman guest house',
-      address: '723510 Osh Muzurbek Alimbekov 9/7',
-      price: '26',
-      rating: '3.4',
-   },
-   {
-      id: 3,
-      img: ImgAsmanHotelGuestHouse,
-      title: 'Asman guest house',
-      address: '723510 Osh Muzurbek Alimbekov 9/7',
-      price: '26',
-      rating: '3.4',
-   },
-]
+import { axiosInstance } from '../../../configs/axiosInstance'
 
 const PopularHouse = () => {
+   const [popularHouse, setPopularHouse] = useState([])
+
+   const getPopularHouse = async () => {
+      try {
+         const { data } = await axiosInstance.get(
+            '/api/houses/getPopularHouses'
+         )
+
+         return setPopularHouse(data)
+      } catch (error) {
+         return error
+      }
+   }
+
+   useEffect(() => {
+      getPopularHouse()
+   }, [])
+
    return (
       <StyleContainerStack>
          <PoppularHouseHeadline />
          <HouseCardContainer container spacing={1.25}>
-            {houses.map(({ id, ...other }) => (
+            {popularHouse.map(({ id, ...other }) => (
                <StyleContainerGrid className="card" key={id} item>
                   <PopularHouseCard {...other} />
                </StyleContainerGrid>
