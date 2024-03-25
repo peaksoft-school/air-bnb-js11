@@ -14,6 +14,7 @@ const Input = forwardRef(
             onChange={onChange}
             placeholder={placeholder || 'Region, city, apartment, house...'}
             ref={ref}
+            autoComplete="off"
             InputProps={{
                startAdornment: icon && (
                   <InputAdornment position="start">{icon}</InputAdornment>

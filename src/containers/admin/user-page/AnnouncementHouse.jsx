@@ -41,7 +41,7 @@ const AnnouncementHouse = () => {
          href: `${routes.ADMIN.users}/${userId}`,
       },
       {
-         label: 'House name',
+         label: announcement.title,
          href: announcementId,
       },
    ]
@@ -54,6 +54,7 @@ const AnnouncementHouse = () => {
             houseInfo={announcement}
             feedbacks={feedbacks}
             rating={rating}
+            isMyAnnouncement={false}
          />
       </StyledContainer>
    )

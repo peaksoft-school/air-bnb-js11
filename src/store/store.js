@@ -3,11 +3,12 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from 'redux-persist'
 import { authSlice } from './slice/auth/authSlice'
 import { applicationSlice } from './slice/admin/application/applicationSlice'
-import { userSlice } from './slice/user/userSlice'
+import { userSlice } from './slice/user/profile/userSlice'
 import { pageSlice } from './slice/admin/inner-application/innerPageSlice'
 import { allHousingSlice } from './slice/admin/allHousing/allHousingSlice'
 import { addHouseSlice } from './slice/user/addHouse/addHouseSlice'
 import { userInfoSlice } from './slice/admin/user/userInfoSlice'
+import { houseSlice } from './slice/user/house/houseSlice'
 import { favoriteSlice } from './slice/user/favoriteSlice'
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
    [allHousingSlice.name]: allHousingSlice.reducer,
    [addHouseSlice.name]: addHouseSlice.reducer,
    [userInfoSlice.name]: userInfoSlice.reducer,
+   [houseSlice.name]: houseSlice.reducer,
    [favoriteSlice.name]: favoriteSlice.reducer,
 })
 

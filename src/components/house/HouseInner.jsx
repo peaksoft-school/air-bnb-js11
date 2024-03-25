@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, styled, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Feedback from '../UI/Feedback'
-import InnerApplication from './HouseImageSlider'
+import HouseImageSlider from './HouseImageSlider'
 import Button from '../UI/Button'
 import Rating from '../UI/rating/Rating'
 import {
@@ -11,47 +11,103 @@ import {
    deleteHouseAsync,
 } from '../../store/slice/admin/user/userThunk'
 import { showToast } from '../../utils/helpers/toast'
+import BookedCard from '../UI/BookedCard'
+import FavoriteCard from '../UI/FavoriteCard'
+import { axiosInstance } from '../../configs/axiosInstance'
 
-const HouseInner = ({ houseInfo, feedbacks, rating }) => {
+const HouseInner = ({
+   houseInfo,
+   feedbacks,
+   rating,
+   isMyAnnouncement = false,
+}) => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const { role } = useSelector((state) => state.auth)
+   const { houseId } = useParams()
+   const [bookings, setBookings] = useState([])
+   const [favorites, setFavorites] = useState([])
 
    const deleteHouse = () => {
       dispatch(deleteHouseAsync({ id: houseInfo.id, showToast, navigate }))
    }
 
+   const blocked = houseInfo.houseStatus === 'BLOCKED'
+
    const blockHouse = () => {
-      dispatch(blockedHouses({ id: houseInfo.id, showToast }))
+      dispatch(
+         blockedHouses({
+            id: houseInfo.id,
+            block: blocked,
+            showToast,
+         })
+      )
    }
 
-   const status = houseInfo.houseStatus
+   const editHouse = () => {
+      // edit house func
+   }
+
+   const getAllBookings = async () => {
+      try {
+         const { data } = await axiosInstance.get('/api/bookings', {
+            params: {
+               houseId,
+            },
+         })
+
+         setBookings(data)
+      } catch (error) {
+         console.error(error)
+      }
+   }
+   const getAllFavorites = async () => {
+      try {
+         const { data } = await axiosInstance.get('/api/favorites', {
+            params: {
+               houseId,
+            },
+         })
+
+         setFavorites(data)
+      } catch (error) {
+         console.error(error)
+      }
+   }
+
+   useEffect(() => {
+      getAllBookings()
+   }, [])
+
+   useEffect(() => {
+      getAllFavorites()
+   }, [])
 
    return (
       <StyledContainer>
-         <h1 className="title">{houseInfo.name}</h1>
+         <h1 className="title">{houseInfo?.title}</h1>
          <Box>
             <Box className="slider-house">
-               <InnerApplication />
+               <HouseImageSlider images={houseInfo.images} />
                <Box className="house-info">
                   <Typography className="house-type">
-                     {houseInfo.houseType}
+                     {houseInfo?.houseType}
                   </Typography>
                   <Typography className="house-guests">
-                     {houseInfo.maxGuests} Guests
+                     {houseInfo?.maxGuests} Guests
                   </Typography>
                   <Typography className="house-name">
-                     {houseInfo.name}
+                     {houseInfo?.title}
                   </Typography>
                   <Typography className="house-location">
-                     {houseInfo.address}
+                     {houseInfo?.address}
                   </Typography>
                   <Typography className="house-description">
-                     {houseInfo.description}
+                     {houseInfo?.description}
                   </Typography>
                   <Box className="user-info">
                      <img
-                        src={houseInfo.userResponse?.image}
+                        src={houseInfo?.userResponse?.image}
                         alt="asdaw"
                         width={40}
                         height={40}
@@ -59,10 +115,10 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                      />
                      <Box>
                         <Typography className="user-name">
-                           {houseInfo.userResponse?.fullName}
+                           {houseInfo?.userResponse?.fullName}
                         </Typography>
                         <Typography className="user-email">
-                           {houseInfo.userResponse?.email}
+                           {houseInfo?.userResponse?.email}
                         </Typography>
                      </Box>
                   </Box>
@@ -72,24 +128,54 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
                            <Button variant="outlined" onClick={deleteHouse}>
                               Delete
                            </Button>
-                           <Button
-                              onClick={blockHouse}
-                              disabled={status === 'BLOCKED'}
-                           >
-                              Block
+                           <Button onClick={blockHouse}>
+                              {houseInfo?.houseStatus === 'BLOCKED'
+                                 ? 'Unblock'
+                                 : 'Block'}
                            </Button>
                         </Box>
                         <Typography className="blocked-text">
-                           {status === 'BLOCKED'
+                           {houseInfo?.houseStatus === 'BLOCKED'
                               ? 'This house is already blocked'
                               : ''}
                         </Typography>
                      </>
+                  ) : isMyAnnouncement ? (
+                     <Box className="button-container">
+                        <Button variant="outlined" onClick={deleteHouse}>
+                           Delete
+                        </Button>
+                        <Button onClick={editHouse}>Edit</Button>
+                     </Box>
                   ) : (
                      <h1>Здесь будет компонент для оплаты</h1>
                   )}
                </Box>
             </Box>
+
+            {isMyAnnouncement ? (
+               bookings && bookings.length > 0 ? (
+                  <>
+                     <h1 className="title">Booked</h1>
+                     {bookings.map((booking) => (
+                        <BookedCard {...booking} />
+                     ))}
+                  </>
+               ) : (
+                  <h1 className="title">no bookings</h1>
+               )
+            ) : null}
+
+            {isMyAnnouncement ? (
+               favorites && favorites.length > 0 ? (
+                  <>
+                     <h1 className="title">In favorites</h1>
+                     <FavoriteCard {...favorites} />
+                  </>
+               ) : (
+                  <h1 className="title">no favorites</h1>
+               )
+            ) : null}
             <Box className="second-container">
                <Box className="feedback-container">
                   {feedbacks && feedbacks.length > 0 ? (
@@ -114,6 +200,8 @@ const HouseInner = ({ houseInfo, feedbacks, rating }) => {
 export default HouseInner
 
 const StyledContainer = styled(Box)(() => ({
+   padding: '40px 100px ',
+
    '& .title': {
       textTransform: 'uppercase',
       fontFamily: 'inherit',

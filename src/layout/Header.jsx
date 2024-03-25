@@ -1,4 +1,11 @@
-import { Typography, styled, Button, InputAdornment } from '@mui/material'
+import {
+   Typography,
+   styled,
+   Button,
+   InputAdornment,
+   Box,
+   Avatar,
+} from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
@@ -18,7 +25,7 @@ const Header = () => {
    const [isOpenGuestModal, setIsOpenGuestModal] = useState(false)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
    const { role, isAuth } = useSelector((state) => state.auth)
-   const { name } = useSelector((state) => state.user)
+   const { image } = useSelector((state) => state.user)
    const navigate = useNavigate()
 
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
@@ -39,10 +46,12 @@ const Header = () => {
       setOpenLogOutModal(false)
    }
 
+   const goToProfile = () => navigate('/user/profile')
+
    const options = [
       {
          title: 'Profile',
-         onClick: () => navigate('/user/profile'),
+         onClick: goToProfile,
       },
       {
          title: 'Log out',
@@ -64,10 +73,14 @@ const Header = () => {
                      onClose={handleToggleModal}
                   />
                   {isAuth ? (
-                     <div className="user-info">
-                        <div className="username">{name && name[0]}</div>
+                     <Box className="user-info">
+                        <Avatar
+                           src={image}
+                           className="username"
+                           onClick={() => navigate(routes.USER.profile)}
+                        />
                         <Meatballs variant="arrow" options={options} />
-                     </div>
+                     </Box>
                   ) : (
                      <StyledButton
                         variant="button"
@@ -121,7 +134,7 @@ const StyledHeader = styled('header')(() => ({
    marginLeft: '3rem',
 }))
 
-const StyledContainer = styled('div')(() => ({
+const StyledContainer = styled(Box)(() => ({
    position: 'relative',
    width: '100%',
    height: '46.1rem',
@@ -132,7 +145,7 @@ const StyledContainer = styled('div')(() => ({
    background: `url(${headerBackground}) center/cover no-repeat`,
 }))
 
-const StyledRegister = styled('div')(() => ({
+const StyledRegister = styled(Box)(() => ({
    display: 'flex',
    gap: '3.75rem',
    textAlign: 'center',
@@ -180,14 +193,14 @@ const StyledLogoIcon = styled(LogoIcon)({
    height: '4.06rem',
 })
 
-const StyledSearch = styled('div')({
+const StyledSearch = styled(Box)({
    alignItems: 'center',
    display: 'flex',
    marginLeft: '34rem',
    marginTop: '-2.20rem',
 })
 
-const StyledContentWrapper = styled('div')({
+const StyledContentWrapper = styled(Box)({
    display: 'flex',
    flexDirection: 'column',
    justifyContent: 'center',

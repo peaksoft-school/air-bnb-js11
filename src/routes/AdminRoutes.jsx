@@ -2,10 +2,10 @@ import { Navigate } from 'react-router'
 import AllHousing from '../containers/admin/AllHousing'
 import Application from '../containers/admin/Application'
 import UsersPage from '../containers/admin/user-page/UsersPage'
-import UserPage from '../containers/admin/user-page/UserPage'
 import { routes } from '../utils/constants/routes'
 import AnnouncementHouse from '../containers/admin/user-page/AnnouncementHouse'
 import InnerApplication from '../components/InnerApplication'
+import Profile from '../components/profile/Profile'
 
 export const adminRoutes = [
    {
@@ -26,7 +26,7 @@ export const adminRoutes = [
    },
    {
       path: routes.ADMIN.user,
-      element: <UserPage />,
+      element: <Profile />,
    },
    {
       path: routes.ADMIN.userAnnouncement,
