@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Box, ImageList, Typography, styled } from '@mui/material'
 import Chui from './allRegion/Chui'
 import Batken from './allRegion/Batken'
@@ -27,13 +28,21 @@ const Regions = () => (
 
          <StyledImagesList>
             <Box className="image-conteiner">
-               <Chui />
+               <Link to="/user/inner-region/chui" className="link">
+                  <Chui />
+               </Link>
                <Box className="image-box">
                   <Box className="image-conteiner">
-                     <Batken />
-                     <JalalAbad />
+                     <Link to="/user/inner-region/batken" className="link">
+                        <Batken />
+                     </Link>
+                     <Link to="/user/inner-region/jalal-abad" className="link">
+                        <JalalAbad />
+                     </Link>
                   </Box>
-                  <Naryn />
+                  <Link to="/user/inner-region/naryn" className="link">
+                     <Naryn />
+                  </Link>
                </Box>
             </Box>
          </StyledImagesList>
@@ -41,12 +50,18 @@ const Regions = () => (
             <Box className="image-conteiner">
                <Box className="image-box">
                   <Box className="image-conteiner">
-                     <IssykKul />
-                     <Talas />
+                     <Link to="/user/inner-region/issyk-kul" className="link">
+                        <IssykKul />
+                     </Link>
+                     <Link to="/user/inner-region/talas" className="link">
+                        <Talas />
+                     </Link>
                   </Box>
                   <Bishkek />
                </Box>
-               <Osh />
+               <Link to="/user/inner-region/osh" className="link">
+                  <Osh />
+               </Link>
             </Box>
          </StyledImagesList>
       </div>
@@ -75,6 +90,10 @@ const StyledImagesList = styled(ImageList)(({ theme }) => ({
    '& .image-conteiner': {
       display: 'flex',
       gap: '1.25rem',
+
+      '& .link': {
+         textDecoration: 'none',
+      },
    },
 
    '& .image-box': {

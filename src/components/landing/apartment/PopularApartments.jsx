@@ -142,6 +142,7 @@ export default PopularApartments
 const StyledContainer = styled('div')(({ background }) => ({
    background: background ? '#4F7755' : 'white',
    minHeight: '46.3rem',
+   display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
    maxWidth: '100%',
@@ -165,6 +166,7 @@ const StyledContainer = styled('div')(({ background }) => ({
       cursor: 'pointer',
       textDecoration: 'underline',
       lineHeight: '130%',
+      marginTop: '4.62rem',
    },
 
    '& .swiper': {
@@ -229,6 +231,8 @@ const StyledHotel = styled('div')(({ background }) => ({
       paddingTop: '3.75rem',
       maxWidth: '100%',
       height: 'auto',
+      minWidth: '32.813rem',
+      minHeight: '28.5rem',
    },
 
    '& .title': {

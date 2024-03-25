@@ -15,7 +15,7 @@ export const routes = {
       announcement: '/user/profile/:houseId',
       addHouse: '/user/add-house',
       favorite: '/user/favorite',
-      innerRegion: '/user/inner-region',
+      innerRegion: '/user/inner-region/:area',
    },
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Chip, styled, Typography } from '@mui/material'
+import { useParams } from 'react-router'
 import Select from '../../../components/UI/Select'
 import {
    acceptCardAllHousingRequest,
@@ -25,10 +26,10 @@ const UserInnerRegion = () => {
    const { regionsHouse, totalPages, loading } = useSelector(
       (state) => state.regionsHouses
    )
-
+   const { area } = useParams()
    const dispatch = useDispatch()
    const [sortOption, setSortOption] = useState(
-      REGION_SORT_OPTIONS[0]?.value || ''
+      REGION_SORT_OPTIONS[0]?.value || area.toUpperCase().replace(/-/g, '_')
    )
    const [sortByOption, setSortByOption] = useState(
       POPULAR_SORT_OPTIONS[0]?.value || ''
@@ -150,12 +151,17 @@ const UserInnerRegion = () => {
       <StyledContainer>
          <Box>
             <Typography className="box">
-               Main
-               <span className="path-naryn"> / Naryn </span>
+               Main{' '}
+               <span className="path-naryn">
+                  /{' '}
+                  {area.replace(/\b\w/g, (firstLetter) =>
+                     firstLetter.toUpperCase()
+                  )}
+               </span>
             </Typography>
 
             <Box className="select-box">
-               <h3 className="heading">NARYN</h3>
+               <h3 className="heading"> {area.toUpperCase()}</h3>
 
                <Select
                   className="select-style"
@@ -220,7 +226,11 @@ const UserInnerRegion = () => {
 
             {homeTypeOption !== '' && (
                <Chip
-                  label={homeTypeOption === 'APARTMENT' ? 'Apartment' : 'House'}
+                  label={homeTypeOption
+                     .toLowerCase()
+                     .replace(/\b\w/g, (firstLetter) =>
+                        firstLetter.toUpperCase()
+                     )}
                   onDelete={() => handleDelete(2)}
                   className="chip"
                />
@@ -228,11 +238,11 @@ const UserInnerRegion = () => {
 
             {priceFilterOption !== '' && (
                <Chip
-                  label={
-                     priceFilterOption === 'low to high'
-                        ? 'Low to high'
-                        : 'High to low'
-                  }
+                  label={priceFilterOption
+                     .toLowerCase()
+                     .replace(/\b\w/g, (firstLetter) =>
+                        firstLetter.toUpperCase()
+                     )}
                   onDelete={() => handleDelete(3)}
                   className="chip"
                />
@@ -318,6 +328,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
       display: 'flex',
       justifyContent: 'center',
       marginTop: '1rem',
+      paddingBottom: '7rem',
    },
 
    '& .chip-box': {
@@ -340,7 +351,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
          color: theme.palette.tertiary.middleGray,
       },
 
-      '& .chip:nth-child(2), .chip:nth-child(4)': {
+      '& .chip:nth-of-type(2), .chip:nth-of-type(4)': {
          backgroundColor: theme.palette.tertiary.lightGray,
          color: theme.palette.primary.white,
       },
