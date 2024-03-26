@@ -16,7 +16,7 @@ const Card = ({
    address,
    maxGuests,
    description,
-   isLike,
+   favorite,
    status,
    newCard,
    province,
@@ -92,7 +92,7 @@ const Card = ({
                         <Button>BOOK</Button>
                         <StyledHeartIcon
                            onClick={() => changeIsLike(id)}
-                           like={isLike}
+                           like={favorite}
                         />
                      </>
                   )

@@ -268,7 +268,11 @@ const UserInnerRegion = () => {
             {regionsHouse?.length !== 0 ? (
                regionsHouse?.map((item) => (
                   <Box key={item.id}>
-                     <Card {...item} option={allHouseCardMeatballsOptions} />
+                     <Card
+                        onNavigate
+                        {...item}
+                        option={allHouseCardMeatballsOptions}
+                     />
                   </Box>
                ))
             ) : (
@@ -282,7 +286,7 @@ const UserInnerRegion = () => {
             )}
          </Box>
 
-         {regionsHouse.length === '0' ? (
+         {regionsHouse.length === 0 ? (
             ''
          ) : (
             <Box className="pagination-box">

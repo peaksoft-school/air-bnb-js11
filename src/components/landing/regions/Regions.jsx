@@ -18,7 +18,7 @@ const Regions = () => {
       })
 
    return (
-      <StyledContainer id="region">
+      <StyledContainer>
          <div className="box">
             <h2
                style={{

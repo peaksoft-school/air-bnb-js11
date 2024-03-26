@@ -16,6 +16,7 @@ export const routes = {
       addHouse: '/user/add-house',
       favorite: '/user/favorite',
       innerRegion: '/user/inner-region/',
+      innerRegionsCard: '/user/inner-region/:id',
    },
 }
 

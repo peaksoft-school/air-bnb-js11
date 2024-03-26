@@ -30,9 +30,7 @@ const Footer = () => {
             <Box className="box" py={1.25}>
                <StyleStackContainer>
                   <StyleStackHover>
-                     <a href="#region" className="region">
-                        Regions
-                     </a>
+                     <Typography>Regions</Typography>
                      <StyleTypography onClick={handleToggleModal}>
                         leave an ad
                      </StyleTypography>
