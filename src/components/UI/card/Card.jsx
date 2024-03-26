@@ -16,7 +16,7 @@ const Card = ({
    address,
    maxGuests,
    description,
-   isLike,
+   favorite,
    status,
    newCard,
    province,
@@ -30,7 +30,6 @@ const Card = ({
    const navigate = useNavigate()
 
    const changeIsLike = async (houseId) => {
-      // Здесь функция для update'та сердечки
       try {
          await axiosInstance.post(`/api/favorites/${houseId}`)
 
@@ -71,7 +70,6 @@ const Card = ({
                </Price>
                <Rating>
                   <FullStarIcon />
-                  {/* {rating.toFixed(1)} */}
                   {rating}
                </Rating>
             </PriceRatingInfo>
@@ -94,7 +92,7 @@ const Card = ({
                         <Button>BOOK</Button>
                         <StyledHeartIcon
                            onClick={() => changeIsLike(id)}
-                           like={isLike}
+                           like={favorite}
                         />
                      </>
                   )

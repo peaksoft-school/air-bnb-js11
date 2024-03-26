@@ -32,7 +32,7 @@ const HouseInner = ({
       dispatch(deleteHouseAsync({ id: houseInfo.id, showToast, navigate }))
    }
 
-   const blocked = houseInfo.houseStatus === 'BLOCKED'
+   const blocked = houseInfo?.houseStatus === 'BLOCKED'
 
    const blockHouse = () => {
       dispatch(
@@ -88,7 +88,7 @@ const HouseInner = ({
          <h1 className="title">{houseInfo?.title}</h1>
          <Box>
             <Box className="slider-house">
-               <HouseImageSlider images={houseInfo.images} />
+               <HouseImageSlider images={houseInfo?.images} />
                <Box className="house-info">
                   <Typography className="house-type">
                      {houseInfo?.houseType}
@@ -108,7 +108,7 @@ const HouseInner = ({
                   <Box className="user-info">
                      <img
                         src={houseInfo?.userResponse?.image}
-                        alt="asdaw"
+                        alt="avatar"
                         width={40}
                         height={40}
                         className="user-avatar"

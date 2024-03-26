@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
 import { OshImage } from '../../../../assets/images'
 
-const Osh = () => {
+const Osh = ({ onClick }) => {
    return (
-      <StyledLongCard className="conteiner">
+      <StyledLongCard className="conteiner" onClick={onClick}>
          <div className="long-image">
             <div className="card-inner">
                <div className="card-front">

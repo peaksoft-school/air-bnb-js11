@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box, styled, Typography } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { A11y, FreeMode, Navigation, Pagination, Thumbs } from 'swiper/modules'
+import { useNavigate } from 'react-router'
 import { GreenLocationIcon, ArrowRightIcon } from '../../../assets/icons'
 
 import 'slick-carousel/slick/slick.css'
@@ -14,6 +15,7 @@ const PopularApartments = ({ background }) => {
    const [isLoading, setIsLoading] = useState(false)
    const [popularApartmentImage, setPopularApartmentImage] = useState(null)
    const [latestHouseImage, setLatestHouseImage] = useState(null)
+   const navigate = useNavigate()
 
    const getLatestAnnounement = async () => {
       setIsLoading(true)
@@ -50,6 +52,18 @@ const PopularApartments = ({ background }) => {
    useEffect(() => {
       getLatestAnnounement()
    }, [])
+
+   const handleClickViewAll = () => {
+      if (background) {
+         navigate(`/user/inner-region`, {
+            state: { popular: 'ASC', apartment: 'APARTMENT' },
+         })
+      } else {
+         navigate(`/user/inner-region`, {
+            state: { popular: 'DESK', apartment: '' },
+         })
+      }
+   }
 
    if (isLoading) {
       return <h1>Loading</h1>
@@ -90,7 +104,7 @@ const PopularApartments = ({ background }) => {
                </Typography>
             </StyledMainText>
             <StyledSliderContent>
-               <Typography variant="p" className="view">
+               <Typography onClick={handleClickViewAll} className="view">
                   View all
                </Typography>
                <StyledPictures>
@@ -142,6 +156,7 @@ export default PopularApartments
 const StyledContainer = styled('div')(({ background }) => ({
    background: background ? '#4F7755' : 'white',
    minHeight: '46.3rem',
+   display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
    maxWidth: '100%',
@@ -165,6 +180,7 @@ const StyledContainer = styled('div')(({ background }) => ({
       cursor: 'pointer',
       textDecoration: 'underline',
       lineHeight: '130%',
+      marginTop: '4.62rem',
    },
 
    '& .swiper': {
@@ -229,6 +245,8 @@ const StyledHotel = styled('div')(({ background }) => ({
       paddingTop: '3.75rem',
       maxWidth: '100%',
       height: 'auto',
+      minWidth: '32.813rem',
+      minHeight: '28.5rem',
    },
 
    '& .title': {

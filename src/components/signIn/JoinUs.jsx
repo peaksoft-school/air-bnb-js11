@@ -6,7 +6,7 @@ import Modal from '../UI/Modal'
 import Button from '../UI/Button'
 import { GoogleIcon } from '../../assets/icons'
 import SignIn from './SignIn'
-import { auth, provider } from '../../utils/constants/firebase'
+import { auth, provider } from '../../utils/constants/user/firebase'
 import { authWithGoogleRequest } from '../../store/slice/auth/authThunk'
 import { showToast } from '../../utils/helpers/toast'
 

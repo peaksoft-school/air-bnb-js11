@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
 import { JalalAbadImage } from '../../../../assets/images'
 
-const JalalAbad = () => {
+const JalalAbad = ({ onClick }) => {
    return (
-      <StyledCard className="conteiner">
+      <StyledCard className="conteiner" onClick={onClick}>
          <div className="card">
             <div className="card-inner">
                <div className="card-front">

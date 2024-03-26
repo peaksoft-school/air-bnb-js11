@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
 import { NarynImage } from '../../../../assets/images'
 
-const Naryn = () => {
+const Naryn = ({ onClick }) => {
    return (
-      <StyledBigCard className="conteiner">
+      <StyledBigCard className="conteiner" onClick={onClick}>
          <div className="wide-image">
             <div className="card-inner">
                <div className="card-front">

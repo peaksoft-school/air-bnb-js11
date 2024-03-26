@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, Typography, styled } from '@mui/material'
 import { BishkekImage } from '../../../../assets/images'
 
-const Bishkek = () => {
+const Bishkek = ({ onClick }) => {
    return (
-      <StyledBigCard className="conteiner">
+      <StyledBigCard className="conteiner" onClick={onClick}>
          <div className="wide-image">
             <div className="card-inner">
                <div className="card-front">

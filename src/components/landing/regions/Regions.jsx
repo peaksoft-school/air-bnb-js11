@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Box, ImageList, Typography, styled } from '@mui/material'
 import Chui from './allRegion/Chui'
 import Batken from './allRegion/Batken'
@@ -8,50 +9,65 @@ import Talas from './allRegion/Talas'
 import Bishkek from './allRegion/Bishkek'
 import Osh from './allRegion/Osh'
 
-const Regions = () => (
-   <StyledContainer>
-      <div className="box">
-         <h2
-            style={{
-               fontFamily: 'Arial, Helvetica, sans-serif',
-               textTransform: 'uppercase',
-            }}
-            className="heading"
-         >
-            Regions in kyrgystan{' '}
-         </h2>
-         <Typography className="description">
-            You can visit the site any day and be sure that you will find
-            everything for a great vacation.
-         </Typography>
+const Regions = () => {
+   const navigate = useNavigate()
 
-         <StyledImagesList>
-            <Box className="image-conteiner">
-               <Chui />
-               <Box className="image-box">
-                  <Box className="image-conteiner">
-                     <Batken />
-                     <JalalAbad />
+   const handleClickRegion = (region) =>
+      navigate(`/user/inner-region`, {
+         state: { region, apartment: '', popular: '' },
+      })
+
+   return (
+      <StyledContainer>
+         <div className="box">
+            <h2
+               style={{
+                  fontFamily: 'Arial, Helvetica, sans-serif',
+                  textTransform: 'uppercase',
+               }}
+               className="heading"
+            >
+               Regions in kyrgystan{' '}
+            </h2>
+            <Typography className="description">
+               You can visit the site any day and be sure that you will find
+               everything for a great vacation.
+            </Typography>
+
+            <StyledImagesList>
+               <Box className="image-conteiner">
+                  <Chui onClick={() => handleClickRegion('chui')} />
+                  <Box className="image-box">
+                     <Box className="image-conteiner">
+                        <Batken onClick={() => handleClickRegion('batken')} />
+
+                        <JalalAbad
+                           onClick={() => handleClickRegion('jalal-abad')}
+                        />
+                     </Box>
+                     <Naryn onClick={() => handleClickRegion('naryn')} />
                   </Box>
-                  <Naryn />
                </Box>
-            </Box>
-         </StyledImagesList>
-         <StyledImagesList>
-            <Box className="image-conteiner">
-               <Box className="image-box">
-                  <Box className="image-conteiner">
-                     <IssykKul />
-                     <Talas />
+            </StyledImagesList>
+            <StyledImagesList>
+               <Box className="image-conteiner">
+                  <Box className="image-box">
+                     <Box className="image-conteiner">
+                        <IssykKul
+                           onClick={() => handleClickRegion('issyk-kul')}
+                        />
+
+                        <Talas onClick={() => handleClickRegion('talas')} />
+                     </Box>
+                     <Bishkek onClick={() => handleClickRegion('bishkek')} />
                   </Box>
-                  <Bishkek />
+                  <Osh onClick={() => handleClickRegion('osh')} />
                </Box>
-               <Osh />
-            </Box>
-         </StyledImagesList>
-      </div>
-   </StyledContainer>
-)
+            </StyledImagesList>
+         </div>
+      </StyledContainer>
+   )
+}
 
 export default Regions
 
@@ -75,6 +91,10 @@ const StyledImagesList = styled(ImageList)(({ theme }) => ({
    '& .image-conteiner': {
       display: 'flex',
       gap: '1.25rem',
+
+      '& .link': {
+         textDecoration: 'none',
+      },
    },
 
    '& .image-box': {
