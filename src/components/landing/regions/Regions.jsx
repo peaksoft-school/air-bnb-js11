@@ -13,7 +13,9 @@ const Regions = () => {
    const navigate = useNavigate()
 
    const handleClickRegion = (region) =>
-      navigate(`/user/inner-region`, { state: { region } })
+      navigate(`/user/inner-region`, {
+         state: { region, apartment: '', popular: '' },
+      })
 
    return (
       <StyledContainer id="region">

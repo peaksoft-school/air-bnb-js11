@@ -53,14 +53,17 @@ const PopularApartments = ({ background }) => {
       getLatestAnnounement()
    }, [])
 
-   const handleClickViewAll = () =>
-      background
-         ? navigate(`/user/inner-region`, {
-              state: { popular: 'ASC', apartment: 'APARTMENT' },
-           })
-         : navigate(`/user/inner-region`, {
-              state: { popular: 'DESK', apartment: '' },
-           })
+   const handleClickViewAll = () => {
+      if (background) {
+         navigate(`/user/inner-region`, {
+            state: { popular: 'ASC', apartment: 'APARTMENT' },
+         })
+      } else {
+         navigate(`/user/inner-region`, {
+            state: { popular: 'DESK', apartment: '' },
+         })
+      }
+   }
 
    if (isLoading) {
       return <h1>Loading</h1>
