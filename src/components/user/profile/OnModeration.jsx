@@ -21,7 +21,14 @@ const OnModeration = () => {
    return (
       <StyledModeration>
          {moderation && moderation.length > 0 ? (
-            moderation.map((booking) => <Card key={booking.id} {...booking} />)
+            moderation.map((moderation) => (
+               <Card
+                  key={moderation.id}
+                  onModeration
+                  onNavigate
+                  {...moderation}
+               />
+            ))
          ) : (
             <img src={UserNoDataImage} alt="no house" />
          )}

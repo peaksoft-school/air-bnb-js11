@@ -199,10 +199,10 @@ const MyAnnouncement = () => {
                {announcement.map((booking) => (
                   <Card
                      key={booking.id}
-                     {...booking}
                      isMyAnnouncement
                      option={announcementOptions}
                      onNavigate
+                     {...booking}
                   />
                ))}
             </Box>

@@ -114,7 +114,7 @@ export const blockedHouses = createAsyncThunk(
          return dispatch(getHouseById(id))
       } catch (error) {
          showToast({
-            title: 'Delete',
+            title: 'Block',
             message: error.response?.message,
             type: 'error',
          })

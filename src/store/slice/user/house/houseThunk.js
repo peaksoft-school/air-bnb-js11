@@ -75,3 +75,20 @@ export const deleteAnnouncement = createAsyncThunk(
       }
    }
 )
+
+export const globalSearchAsync = createAsyncThunk(
+   'house/searchHouse',
+   async ({ searchInput, isNearby }, { rejectWithValue }) => {
+      try {
+         const { data } = await axiosInstance.get(`/api/houses/global-search`, {
+            params: {
+               word: searchInput,
+               isNearby,
+            },
+         })
+         return data.houseResponses
+      } catch (error) {
+         return rejectWithValue(error)
+      }
+   }
+)

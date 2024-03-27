@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, styled } from '@mui/material'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { LogoIcon, SearchIcon } from '../../assets/icons'
 import Checkbox from '../../components/UI/Checkbox'
@@ -9,11 +9,32 @@ import Button from '../../components/UI/Button'
 import Meatballs from '../../components/UI/Meatballs'
 import LogOutModal from '../../components/UI/LogOutModal'
 import { routes } from '../../utils/constants/routes'
+import useDebounce from '../../hooks/useDebounce'
+import { globalSearchAsync } from '../../store/slice/user/house/houseThunk'
+import { HOUSE_ACTIONS } from '../../store/slice/user/house/houseSlice'
 
 const UserHeader = () => {
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
    const { image } = useSelector((state) => state.user)
    const navigate = useNavigate()
+   const dispatch = useDispatch()
+
+   const [searchInput, setSearchInput] = useState('')
+   const debouncedInput = useDebounce(searchInput, 1000)
+   const [nearbyChecked, setNearbyChecked] = useState(false)
+
+   useEffect(() => {
+      if (searchInput.length > 0) {
+         dispatch(
+            globalSearchAsync({
+               searchInput: debouncedInput,
+               isNearby: nearbyChecked,
+            })
+         )
+      } else {
+         dispatch(HOUSE_ACTIONS.clearHouse())
+      }
+   }, [debouncedInput])
 
    const onLogout = () => {
       setOpenLogOutModal(true)
@@ -29,6 +50,10 @@ const UserHeader = () => {
 
    const navigateToFavorites = () => navigate(routes.USER.favorite)
 
+   const handleChangeSearch = (e) => {
+      setSearchInput(e.target.value)
+   }
+
    const options = [
       {
          title: 'Profile',
@@ -40,7 +65,6 @@ const UserHeader = () => {
       },
    ]
 
-   const [isChecked, setIsChecked] = useState()
    return (
       <StyledContainer>
          <LogoIcon className="logo-icon" onClick={() => navigate('/')} />
@@ -48,11 +72,17 @@ const UserHeader = () => {
          <Checkbox
             className="checkbox"
             label="Search nearby"
-            checked={isChecked}
-            changeChecked={setIsChecked}
+            checked={nearbyChecked}
+            changeChecked={setNearbyChecked}
          />
 
-         <Input className="input" placeholder="Search" icon={<SearchIcon />} />
+         <Input
+            className="input"
+            placeholder="Search"
+            icon={<SearchIcon />}
+            onChange={handleChangeSearch}
+            value={searchInput}
+         />
          <Button className="button" onClick={navigateToAddHouse}>
             SUBMIT AN AD
          </Button>

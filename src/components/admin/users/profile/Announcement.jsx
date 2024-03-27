@@ -69,7 +69,9 @@ const Announcement = () => {
       {
          title: 'Block',
          onClick: (id) => {
-            dispatch(blockedHouses({ id, showToast, getUserHouses }))
+            dispatch(
+               blockedHouses({ id, block: false, showToast, getUserHouses })
+            )
          },
       },
       {

@@ -16,21 +16,20 @@ const Card = ({
    address,
    maxGuests,
    description,
-   isLike,
+   favorite,
    status,
    newCard,
-   province,
    option,
    id,
    onNavigate,
    isMyBooking = false,
    isMyAnnouncement = false,
+   onModeration = false,
 }) => {
    const { role } = useSelector((state) => state.auth)
    const navigate = useNavigate()
 
    const changeIsLike = async (houseId) => {
-      // Здесь функция для update'та сердечки
       try {
          await axiosInstance.post(`/api/favorites/${houseId}`)
 
@@ -80,26 +79,28 @@ const Card = ({
                {title}, {description}
             </HouseInfo>
             <HouseLocation>
-               <LocationIcon /> {address}, {province}
+               <LocationIcon /> {address}
             </HouseLocation>
             <LastContainer onClick={(e) => e.stopPropagation()}>
                <Guests>{maxGuests} guests</Guests>
-               {isMyAnnouncement ? (
-                  <Meatballs options={option} id={id} />
-               ) : !isMyBooking && role === 'USER' ? (
-                  status === 'BLOCKED' ? (
-                     <Button disabled>Blocked</Button>
-                  ) : (
-                     <>
-                        <Button>BOOK</Button>
-                        <StyledHeartIcon
-                           onClick={() => changeIsLike(id)}
-                           like={isLike}
-                        />
-                     </>
-                  )
-               ) : !isMyBooking ? (
-                  <Meatballs options={option} id={id} />
+               {!onModeration ? (
+                  isMyAnnouncement ? (
+                     <Meatballs options={option} id={id} />
+                  ) : !isMyBooking && role === 'USER' ? (
+                     status === 'BLOCKED' ? (
+                        <Button disabled>Blocked</Button>
+                     ) : (
+                        <>
+                           <Button>BOOK</Button>
+                           <StyledHeartIcon
+                              onClick={() => changeIsLike(id)}
+                              like={favorite}
+                           />
+                        </>
+                     )
+                  ) : !isMyBooking ? (
+                     <Meatballs options={option} id={id} />
+                  ) : null
                ) : null}
             </LastContainer>
             {isMyBooking ? (

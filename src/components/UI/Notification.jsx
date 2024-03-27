@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Notification = () => (
-   <StyledToastContainer hideProgressBar={false} icon={false} limit={1} />
+   <StyledToastContainer hideProgressBar={false} icon={false} limit={3} />
 )
 
 export default Notification
