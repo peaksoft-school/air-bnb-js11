@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from '@mui/material'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -33,6 +33,10 @@ const AddHouse = () => {
          dispatch(postImageFile({ file }))
       }
    }
+
+   useEffect(() => {
+      window.scrollTo(0, 0)
+   }, [])
 
    const handleClick = () => imageRef.current.click()
    const handleChangeHomeType = (e) => setHouseType(e.target.value)

@@ -10,6 +10,7 @@ import { addHouseSlice } from './slice/user/addHouse/addHouseSlice'
 import { userInfoSlice } from './slice/admin/user/userInfoSlice'
 import { houseSlice } from './slice/user/house/houseSlice'
 import { favoriteSlice } from './slice/user/favoriteSlice'
+import { userInnerRegionSlice } from './slice/user/userInner/userInnerRegionSlice'
 
 const rootReducer = combineReducers({
    [authSlice.name]: authSlice.reducer,
@@ -21,6 +22,8 @@ const rootReducer = combineReducers({
    [userInfoSlice.name]: userInfoSlice.reducer,
    [houseSlice.name]: houseSlice.reducer,
    [favoriteSlice.name]: favoriteSlice.reducer,
+   [userSlice.name]: userSlice.reducer,
+   [userInnerRegionSlice.name]: userInnerRegionSlice.reducer,
 })
 
 const persistConfig = {

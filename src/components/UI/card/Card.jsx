@@ -70,7 +70,6 @@ const Card = ({
                </Price>
                <Rating>
                   <FullStarIcon />
-                  {/* {rating.toFixed(1)} */}
                   {rating}
                </Rating>
             </PriceRatingInfo>

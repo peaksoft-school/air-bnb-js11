@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Chip, Stack, styled } from '@mui/material'
+import { Box, Chip, styled } from '@mui/material'
 import LoadingSpinner from '../../UI/LoadingSpinner'
 import { UserNoDataImage } from '../../../assets/images'
 import {
@@ -181,15 +181,16 @@ const MyAnnouncement = () => {
          </Box>
 
          <Box>
-            <Stack direction="row" spacing={1}>
+            <Box className="chip-box">
                {filterChips.map((chip) => (
                   <Chip
                      key={chip.key}
                      label={chip.label}
                      onDelete={() => handleChipDelete(chip.key)}
+                     className="chip"
                   />
                ))}
-            </Stack>
+            </Box>
          </Box>
 
          {isLoading ? (
@@ -215,8 +216,33 @@ const MyAnnouncement = () => {
 
 export default MyAnnouncement
 
-const StyledAnnouncement = styled(Box)(() => ({
+const StyledAnnouncement = styled(Box)(({ theme }) => ({
    gap: '20px',
+
+   '& .chip-box': {
+      display: 'flex',
+      gap: '1rem',
+      height: '2.188rem',
+      alignItems: 'center',
+      marginTop: '1rem',
+      marginBottom: '-2rem',
+      fontSize: '1rem',
+      fontWeight: ' 400',
+      lineHeight: '1.21rem',
+
+      '& .chip': {
+         borderRadius: '0px',
+         padding: '0.5rem',
+         height: '2.188rem',
+         backgroundColor: theme.palette.tertiary.lightestGray,
+         color: theme.palette.tertiary.middleGray,
+      },
+
+      '& .chip:nth-of-type(2)': {
+         backgroundColor: theme.palette.tertiary.lightGray,
+         color: theme.palette.primary.white,
+      },
+   },
 
    '& .select-container': {
       display: 'flex',

@@ -1,29 +1,37 @@
-import {
-   Box,
-   Container,
-   Link,
-   Typography,
-   keyframes,
-   styled,
-} from '@mui/material'
+import { useNavigate } from 'react-router'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Box, Container, Typography, keyframes, styled } from '@mui/material'
 import {
    InstagramIcon,
    LogoIcon,
    TelegramIcon,
    WhatsAppIcon,
 } from '../../assets/icons'
+import GuestNotification from '../../components/UI/GuestNotification'
+import { ROLES, routes } from '../../utils/constants/routes'
 
 const Footer = () => {
+   const [isOpenGuestModal, setIsOpenGuestModal] = useState(false)
+   const { role } = useSelector((state) => state.auth)
+   const navigate = useNavigate()
+
+   const handleToggleModal = () => {
+      if (role === ROLES.GUEST) {
+         setIsOpenGuestModal((prev) => !prev)
+      } else if (role === ROLES.USER) {
+         navigate(routes.USER.addHouse)
+      }
+   }
+
    return (
       <StyleContainer>
          <Container>
             <Box className="box" py={1.25}>
                <StyleStackContainer>
                   <StyleStackHover>
-                     <Typography component={Link} href="#">
-                        Regions
-                     </Typography>
-                     <StyleTypography component={Link} href="#">
+                     <Typography>Regions</Typography>
+                     <StyleTypography onClick={handleToggleModal}>
                         leave an ad
                      </StyleTypography>
                   </StyleStackHover>
@@ -38,6 +46,10 @@ const Footer = () => {
                   © Copyright PeakSoft. All Rights Reserved
                </StyleTypographyPeaksoft>
             </Box>
+            <GuestNotification
+               open={isOpenGuestModal}
+               onClose={handleToggleModal}
+            />
          </Container>
       </StyleContainer>
    )
@@ -49,6 +61,15 @@ const StyleStackHover = styled(Box)(() => ({
    display: 'flex',
    cursor: 'pointer',
    gap: '2.4rem',
+
+   '& .region': {
+      fontFamily: 'Inter',
+      fontSize: '1.125rem',
+      fontWeight: '400',
+      lineHeight: '1.361rem',
+      color: '#ffffff',
+      textDecoration: 'none',
+   },
 }))
 
 const StyleStackContainer = styled(Box)(() => ({
