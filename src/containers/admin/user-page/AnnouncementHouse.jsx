@@ -9,7 +9,7 @@ import {
    getAnnouncementFeedback,
    getAnnouncementRating,
 } from '../../../store/slice/admin/user/userThunk'
-import BreadCrumbs from '../../../components/UI/Breadcrumbs'
+import BreadCrumbs from '../../../components/UI/BreadCrumbs'
 
 const AnnouncementHouse = () => {
    const dispatch = useDispatch()

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, styled, Typography } from '@mui/material'
+import { Avatar, Box, styled, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router'
 import Feedback from '../UI/Feedback'
@@ -14,6 +14,7 @@ import { showToast } from '../../utils/helpers/toast'
 import BookedCard from '../UI/BookedCard'
 import FavoriteCard from '../UI/FavoriteCard'
 import { axiosInstance } from '../../configs/axiosInstance'
+import FeedbackModal from '../user/FeedbackModal'
 
 const HouseInner = ({
    houseInfo,
@@ -27,6 +28,11 @@ const HouseInner = ({
    const { houseId } = useParams()
    const [bookings, setBookings] = useState([])
    const [favorites, setFavorites] = useState([])
+   const [openFeedback, setOpenFeedback] = useState(false)
+
+   const toggleFeedbackModal = () => {
+      setOpenFeedback((prev) => !prev)
+   }
 
    const deleteHouse = () => {
       dispatch(deleteHouseAsync({ id: houseInfo.id, showToast, navigate }))
@@ -84,123 +90,128 @@ const HouseInner = ({
    }, [])
 
    return (
-      <StyledContainer>
-         <h1 className="title">{houseInfo?.title}</h1>
-         <Box>
-            <Box className="slider-house">
-               <HouseImageSlider images={houseInfo?.images} />
-               <Box className="house-info">
-                  <Typography className="house-type">
-                     {houseInfo?.houseType}
-                  </Typography>
-                  <Typography className="house-guests">
-                     {houseInfo?.maxGuests} Guests
-                  </Typography>
-                  <Typography className="house-name">
-                     {houseInfo?.title}
-                  </Typography>
-                  <Typography className="house-location">
-                     {houseInfo?.address}
-                  </Typography>
-                  <Typography className="house-description">
-                     {houseInfo?.description}
-                  </Typography>
-                  <Box className="user-info">
-                     <img
-                        src={houseInfo?.userResponse?.image}
-                        alt="avatar"
-                        width={40}
-                        height={40}
-                        className="user-avatar"
-                     />
-                     <Box>
-                        <Typography className="user-name">
-                           {houseInfo?.userResponse?.fullName}
-                        </Typography>
-                        <Typography className="user-email">
-                           {houseInfo?.userResponse?.email}
-                        </Typography>
+      <>
+         <StyledContainer>
+            <h1 className="title">{houseInfo?.title}</h1>
+            <Box>
+               <Box className="slider-house">
+                  <HouseImageSlider images={houseInfo?.images} />
+                  <Box className="house-info">
+                     <Typography className="house-type">
+                        {houseInfo?.houseType}
+                     </Typography>
+                     <Typography className="house-guests">
+                        {houseInfo?.maxGuests} Guests
+                     </Typography>
+                     <Typography className="house-name">
+                        {houseInfo?.title}
+                     </Typography>
+                     <Typography className="house-location">
+                        {houseInfo?.address}
+                     </Typography>
+                     <Typography className="house-description">
+                        {houseInfo?.description}
+                     </Typography>
+                     <Box className="user-info">
+                        <Avatar
+                           src={houseInfo?.userResponse?.image}
+                           alt={houseInfo?.userResponse?.image}
+                           className="user-avatar"
+                        />
+                        <Box>
+                           <Typography className="user-name">
+                              {houseInfo?.userResponse?.fullName}
+                           </Typography>
+                           <Typography className="user-email">
+                              {houseInfo?.userResponse?.email}
+                           </Typography>
+                        </Box>
                      </Box>
-                  </Box>
-                  {role === 'ADMIN' ? (
-                     <>
+                     {role === 'ADMIN' ? (
+                        <>
+                           <Box className="button-container">
+                              <Button variant="outlined" onClick={deleteHouse}>
+                                 Delete
+                              </Button>
+                              <Button onClick={blockHouse}>
+                                 {houseInfo?.houseStatus === 'BLOCKED'
+                                    ? 'Unblock'
+                                    : 'Block'}
+                              </Button>
+                           </Box>
+                           <Typography className="blocked-text">
+                              {houseInfo?.houseStatus === 'BLOCKED'
+                                 ? 'This house is already blocked'
+                                 : ''}
+                           </Typography>
+                        </>
+                     ) : isMyAnnouncement ? (
                         <Box className="button-container">
                            <Button variant="outlined" onClick={deleteHouse}>
                               Delete
                            </Button>
-                           <Button onClick={blockHouse}>
-                              {houseInfo?.houseStatus === 'BLOCKED'
-                                 ? 'Unblock'
-                                 : 'Block'}
-                           </Button>
+                           <Button onClick={editHouse}>Edit</Button>
                         </Box>
-                        <Typography className="blocked-text">
-                           {houseInfo?.houseStatus === 'BLOCKED'
-                              ? 'This house is already blocked'
-                              : ''}
-                        </Typography>
+                     ) : (
+                        <h1>Здесь будет компонент для оплаты</h1>
+                     )}
+                  </Box>
+               </Box>
+
+               {isMyAnnouncement ? (
+                  bookings && bookings.length > 0 ? (
+                     <>
+                        <h1 className="title">Booked</h1>
+                        {bookings.map((booking) => (
+                           <BookedCard {...booking} />
+                        ))}
                      </>
-                  ) : isMyAnnouncement ? (
-                     <Box className="button-container">
-                        <Button variant="outlined" onClick={deleteHouse}>
-                           Delete
-                        </Button>
-                        <Button onClick={editHouse}>Edit</Button>
-                     </Box>
                   ) : (
-                     <h1>Здесь будет компонент для оплаты</h1>
-                  )}
+                     <h1 className="title">no bookings</h1>
+                  )
+               ) : null}
+
+               {isMyAnnouncement ? (
+                  favorites && favorites.length > 0 ? (
+                     <>
+                        <h1 className="title">In favorites</h1>
+                        <FavoriteCard {...favorites} />
+                     </>
+                  ) : (
+                     <h1 className="title">no favorites</h1>
+                  )
+               ) : null}
+               <Box className="second-container">
+                  <Box className="feedback-container">
+                     <h1 className="title">feedback</h1>
+
+                     {feedbacks && feedbacks.length > 0 ? (
+                        feedbacks.map((item) => <Feedback {...item} key={1} />)
+                     ) : (
+                        <h1 className="title">there are no feedbacks yet</h1>
+                     )}
+                  </Box>
+                  <Rating
+                     rating={rating}
+                     toggleFeedbackModal={toggleFeedbackModal}
+                  />
                </Box>
             </Box>
+         </StyledContainer>
 
-            {isMyAnnouncement ? (
-               bookings && bookings.length > 0 ? (
-                  <>
-                     <h1 className="title">Booked</h1>
-                     {bookings.map((booking) => (
-                        <BookedCard {...booking} />
-                     ))}
-                  </>
-               ) : (
-                  <h1 className="title">no bookings</h1>
-               )
-            ) : null}
-
-            {isMyAnnouncement ? (
-               favorites && favorites.length > 0 ? (
-                  <>
-                     <h1 className="title">In favorites</h1>
-                     <FavoriteCard {...favorites} />
-                  </>
-               ) : (
-                  <h1 className="title">no favorites</h1>
-               )
-            ) : null}
-            <Box className="second-container">
-               <Box className="feedback-container">
-                  {feedbacks && feedbacks.length > 0 ? (
-                     feedbacks.map((item) => (
-                        <>
-                           <h1 className="title">feedback</h1>
-
-                           <Feedback {...item} key={1} />
-                        </>
-                     ))
-                  ) : (
-                     <h1 className="title">there are no feedbacks yet</h1>
-                  )}
-               </Box>
-               <Rating rating={rating} />
-            </Box>
-         </Box>
-      </StyledContainer>
+         <FeedbackModal
+            open={openFeedback}
+            onClose={toggleFeedbackModal}
+            houseId={houseId}
+         />
+      </>
    )
 }
 
 export default HouseInner
 
 const StyledContainer = styled(Box)(() => ({
-   padding: '40px 100px ',
+   padding: '0 0 40px 0',
 
    '& .title': {
       textTransform: 'uppercase',

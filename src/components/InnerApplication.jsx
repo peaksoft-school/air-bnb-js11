@@ -76,11 +76,11 @@ const InnerApplication = () => {
          <Box>
             <StyledPath>
                Application
-               <span className="path-house-name"> / {house.name}</span>
+               <span className="path-house-name"> / {house.title}</span>
             </StyledPath>
-            <StyledName variant="h3">{house.name}</StyledName>
+            <StyledName>{house.title}</StyledName>
             <StyledSlider {...settings} className="slider-for" ref={sliderRef1}>
-               {house.images.length > 0 ? (
+               {house?.images?.length > 0 ? (
                   house.images.map((image, index) => (
                      <img key={image} src={image} alt={`House ${index}`} />
                   ))
@@ -108,6 +108,10 @@ const InnerApplication = () => {
          </Box>
          <StyledContainer>
             <StyledNameHotel variant="h5">{house.name}</StyledNameHotel>
+            <Typography className="house-type">{house?.houseType}</Typography>
+            <Typography className="house-guests">
+               {house?.maxGuests} Guests
+            </Typography>
             <StyledAddress variant="span">{house.address}</StyledAddress>
             <Box style={{ display: 'flex' }}>
                <StyledLongtext variant="p">{house.description}</StyledLongtext>
@@ -160,7 +164,7 @@ const StyledSlider = styled(Slider)({
 const StyledNavSlider = styled(Slider)({
    width: '39rem',
    height: '31rem',
-   marginLeft: '2.5rem',
+   marginLeft: '40px',
 
    '& .slick-prev, .slick-next': {
       color: 'blue',
@@ -185,10 +189,10 @@ const StyledPath = styled(Typography)({
    },
 })
 
-const StyledName = styled('div')({
-   fontSize: '1rem',
+const StyledName = styled(Typography)({
+   fontSize: '2rem',
    fontFamily: 'Inter',
-   fontWeight: '400',
+   fontWeight: '600',
    marginTop: '1.8rem',
    marginBottom: '-0.3rem',
    padding: '2.5rem',
@@ -200,6 +204,20 @@ const StyledContainer = styled('div')({
    justifyContent: 'center',
    alignItems: 'center',
    marginLeft: '3.30rem',
+
+   '& .house-type': {
+      display: 'inline-block',
+      margin: '0 15px 20px 0',
+      backgroundColor: '#fff0f6',
+      border: '1px solid #ffcbe0',
+      padding: '6px 8px',
+   },
+   '& .house-guests': {
+      display: 'inline-block',
+      backgroundColor: '#fff0f6',
+      border: '1px solid #ffcbe0',
+      padding: '6px 8px',
+   },
 
    '& .button-box': {
       width: '25rem',
@@ -237,10 +255,10 @@ const StyledNameHotel = styled(Typography)({
 })
 
 const StyledAddress = styled(Typography)({
+   display: 'block',
    fontFamily: 'Inter',
    fontSize: '1rem',
    color: 'gray',
-   textAlign: 'center',
 })
 
 const StyledLongtext = styled(Typography)({

@@ -5,7 +5,7 @@ export const schema = Yup.object().shape({
       .email('Invalid email address')
       .required('Email is required'),
 
-   password: Yup.string().required('Password is required'),
+   password: Yup.string().trim().required('Password is required'),
 })
 
 export const validationSchema = Yup.object().shape({

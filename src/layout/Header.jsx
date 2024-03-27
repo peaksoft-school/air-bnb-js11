@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
    Typography,
    styled,
@@ -5,9 +6,11 @@ import {
    InputAdornment,
    Box,
    Avatar,
+   Autocomplete,
+   Stack,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { LogoIcon, SearchIcon } from '../assets/icons'
 import headerBackground from '../assets/images/header.jpg'
@@ -18,15 +21,25 @@ import GuestNotification from '../components/UI/GuestNotification'
 import Meatballs from '../components/UI/Meatballs'
 import LogOutModal from '../components/UI/LogOutModal'
 import { ROLES, routes } from '../utils/constants/routes'
+import { axiosInstance } from '../configs/axiosInstance'
+import { TalasImage } from '../assets/images'
+import { globalSearchAsync } from '../store/slice/user/house/houseThunk'
+import { HOUSE_ACTIONS } from '../store/slice/user/house/houseSlice'
+import useDebounce from '../hooks/useDebounce'
 
 const Header = () => {
+   const { role, isAuth } = useSelector((state) => state.auth)
+   const { image } = useSelector((state) => state.user)
+   const { houses } = useSelector((state) => state.houses)
+   const navigate = useNavigate()
+   const dispatch = useDispatch()
+
    const [isOpenJoinUsModal, setIsOpenJoinUsModal] = useState(false)
    const [nearbyChecked, setNearbyChecked] = useState(false)
    const [isOpenGuestModal, setIsOpenGuestModal] = useState(false)
    const [openLogOutModal, setOpenLogOutModal] = useState(false)
-   const { role, isAuth } = useSelector((state) => state.auth)
-   const { image } = useSelector((state) => state.user)
-   const navigate = useNavigate()
+   const [searchInput, setSearchInput] = useState('')
+   const debouncedInput = useDebounce(searchInput, 500)
 
    const handleChangeJoinUsModal = () => setIsOpenJoinUsModal((prev) => !prev)
 
@@ -47,6 +60,23 @@ const Header = () => {
    }
 
    const goToProfile = () => navigate('/user/profile')
+
+   const handleChangeSearch = (e) => {
+      setSearchInput(e.target.value)
+   }
+
+   useEffect(() => {
+      if (searchInput.length > 0) {
+         dispatch(
+            globalSearchAsync({
+               searchInput: debouncedInput,
+               isNearby: nearbyChecked,
+            })
+         )
+      } else {
+         dispatch(HOUSE_ACTIONS.clearHouse())
+      }
+   }, [debouncedInput])
 
    const options = [
       {
@@ -100,6 +130,8 @@ const Header = () => {
                   Find a place you&apos;ll love to stay at
                </h1>
                <Input
+                  onChange={handleChangeSearch}
+                  value={searchInput}
                   InputProps={{
                      startAdornment: (
                         <InputAdornment position="start">
@@ -108,7 +140,29 @@ const Header = () => {
                      ),
                   }}
                />
-
+               {houses && houses.length > 0 ? (
+                  <Houses>
+                     {houses.map((house) => (
+                        <Box className="house-list" key={house.id}>
+                           <img
+                              src={house?.images?.map((img) => img)}
+                              alt="houseName"
+                           />
+                           <Box>
+                              <Typography className="title">
+                                 {house.title}
+                              </Typography>
+                              <Typography className="description">
+                                 {house.description}
+                              </Typography>
+                              <Typography>
+                                 {house.province}, {house.address}
+                              </Typography>
+                           </Box>
+                        </Box>
+                     ))}
+                  </Houses>
+               ) : null}
                <StyledSearch>
                   <Checkbox
                      label="Искать поблизости"
@@ -203,12 +257,12 @@ const StyledSearch = styled(Box)({
 const StyledContentWrapper = styled(Box)({
    display: 'flex',
    flexDirection: 'column',
-   justifyContent: 'center',
    alignItems: 'center',
    gap: '3.12rem',
    width: '100%',
    height: '36.8rem',
    color: 'white',
+   position: 'relative',
 
    '& .header': {
       fontFamily: 'Jenriv Titling',
@@ -217,3 +271,43 @@ const StyledContentWrapper = styled(Box)({
       textTransform: 'uppercase',
    },
 })
+
+const Houses = styled(Box)(() => ({
+   backgroundColor: '#fff',
+   position: 'absolute',
+   top: '25%',
+   width: '60%',
+   zIndex: 10,
+   color: '#222',
+   padding: '10px',
+   maxHeight: '400px',
+   overflow: 'hidden',
+   overflowY: 'auto',
+
+   '& .house-list': {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '20px',
+      cursor: 'pointer',
+
+      '& .title': {
+         fontWeight: 600,
+      },
+
+      ':hover': {
+         background: '#c1c1c1',
+      },
+      padding: '10px',
+
+      ':not(:last-child)': {
+         borderBottom: '1px solid #646464',
+      },
+
+      '& img': {
+         width: '100px',
+         objectFit: 'cover',
+         borderRadius: '10px',
+         height: '80px',
+      },
+   },
+}))

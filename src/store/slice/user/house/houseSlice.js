@@ -4,6 +4,7 @@ import {
    getAnnouncementById,
    getBookings,
    getModeration,
+   globalSearchAsync,
 } from './houseThunk'
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
    announcement: [],
    moderation: [],
    announcementById: null,
+   houses: [],
 }
 
 const addAsyncCases = (builder, asyncThunk, dataField) => {
@@ -33,10 +35,18 @@ const addAsyncCases = (builder, asyncThunk, dataField) => {
 export const houseSlice = createSlice({
    name: 'houses',
    initialState,
+   reducers: {
+      clearHouse: (state) => {
+         state.houses = []
+      },
+   },
    extraReducers: (builder) => {
       addAsyncCases(builder, getBookings, 'bookings')
       addAsyncCases(builder, getAnnouncement, 'announcement')
       addAsyncCases(builder, getModeration, 'moderation')
       addAsyncCases(builder, getAnnouncementById, 'announcementById')
+      addAsyncCases(builder, globalSearchAsync, 'houses')
    },
 })
+
+export const HOUSE_ACTIONS = houseSlice.actions

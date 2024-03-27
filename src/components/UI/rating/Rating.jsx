@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { FullStarIcon } from '../../../assets/icons'
 import Button from '../Button'
 
-const Rating = ({ rating }) => {
+const Rating = ({ rating, toggleFeedbackModal }) => {
    const { role } = useSelector((state) => state.auth)
 
    const RATINGS = [
@@ -34,7 +34,9 @@ const Rating = ({ rating }) => {
             </RatingChartBarContainer>
          </RatingChart>
          {role === 'ADMIN' ? null : (
-            <Button variant="outlined">Leave Feedback</Button>
+            <Button variant="outlined" onClick={toggleFeedbackModal}>
+               Leave Feedback
+            </Button>
          )}
       </StyledContainer>
    )

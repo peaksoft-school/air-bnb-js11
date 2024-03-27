@@ -19,12 +19,12 @@ const Card = ({
    favorite,
    status,
    newCard,
-   province,
    option,
    id,
    onNavigate,
    isMyBooking = false,
    isMyAnnouncement = false,
+   onModeration = false,
 }) => {
    const { role } = useSelector((state) => state.auth)
    const navigate = useNavigate()
@@ -78,26 +78,28 @@ const Card = ({
                {title}, {description}
             </HouseInfo>
             <HouseLocation>
-               <LocationIcon /> {address}, {province}
+               <LocationIcon /> {address}
             </HouseLocation>
             <LastContainer onClick={(e) => e.stopPropagation()}>
                <Guests>{maxGuests} guests</Guests>
-               {isMyAnnouncement ? (
-                  <Meatballs options={option} id={id} />
-               ) : !isMyBooking && role === 'USER' ? (
-                  status === 'BLOCKED' ? (
-                     <Button disabled>Blocked</Button>
-                  ) : (
-                     <>
-                        <Button>BOOK</Button>
-                        <StyledHeartIcon
-                           onClick={() => changeIsLike(id)}
-                           like={favorite}
-                        />
-                     </>
-                  )
-               ) : !isMyBooking ? (
-                  <Meatballs options={option} id={id} />
+               {!onModeration ? (
+                  isMyAnnouncement ? (
+                     <Meatballs options={option} id={id} />
+                  ) : !isMyBooking && role === 'USER' ? (
+                     status === 'BLOCKED' ? (
+                        <Button disabled>Blocked</Button>
+                     ) : (
+                        <>
+                           <Button>BOOK</Button>
+                           <StyledHeartIcon
+                              onClick={() => changeIsLike(id)}
+                              like={favorite}
+                           />
+                        </>
+                     )
+                  ) : !isMyBooking ? (
+                     <Meatballs options={option} id={id} />
+                  ) : null
                ) : null}
             </LastContainer>
             {isMyBooking ? (
