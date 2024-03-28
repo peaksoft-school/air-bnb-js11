@@ -25,7 +25,7 @@ const HouseInner = ({
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const { role } = useSelector((state) => state.auth)
-   const { houseId } = useParams()
+   const { houseId, id } = useParams()
    const [bookings, setBookings] = useState([])
    const [favorites, setFavorites] = useState([])
    const [openFeedback, setOpenFeedback] = useState(false)
@@ -202,7 +202,7 @@ const HouseInner = ({
          <FeedbackModal
             open={openFeedback}
             onClose={toggleFeedbackModal}
-            houseId={houseId}
+            houseId={houseId || id}
          />
       </>
    )
